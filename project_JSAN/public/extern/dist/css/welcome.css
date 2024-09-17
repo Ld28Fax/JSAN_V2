@@ -1,0 +1,68 @@
+body{
+    margin:0;
+    font-family: sans-serif;
+}
+.font{
+    background-image: url('hero_2.jpg');
+    background-size:cover;
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-position: top right;
+    text-align: center;
+
+}
+.menu{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 30px;
+}
+.craft{
+    padding-left: 20px;
+    margin-top: 10px;
+    font-size: 18px;
+    color: white;
+}
+.menu ul{
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: white;
+}
+.white{
+    color: white;
+}
+.menu ul li{
+    margin-right: 40px;
+    position: relative;
+    top: 10px;
+}
+.ombre{
+    background: linear-gradient(rgba(84, 139, 63, 0.5),rgb(56 56 56 / 50%));
+    height: inherit;
+}
+
+.font h1{
+    font-size: 70px;
+    color:white;
+    margin-top: 100px;
+}
+.icone{
+    padding-top: 50px;
+}
+.icone i{
+    background-color: white;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 50px;
+    margin: auto;
+}
+.icone span{
+    position: relative;
+    top: 20px;
+    color:white;
+}
