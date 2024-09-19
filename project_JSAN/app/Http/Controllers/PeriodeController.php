@@ -10,19 +10,6 @@ use Illuminate\Support\Facades\DB;
 
 class PeriodeController extends Controller
 {
-    public function store(Request $request){
-        $request->validate([
-            'debut' => 'required|date',
-            'fin' => 'required|date|after_or_equal:debut',
-        ]);
-
-        $periode = new Periode();
-        $periode->debut = $request->debut;
-        $periode->fin = $request->fin;
-        $periode->save();
-
-        return response()->json(['message' => 'Periode créer avec succès !']);
-    }
 
     public function getStatistic(Request $request){
        try{

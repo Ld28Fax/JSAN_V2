@@ -13,7 +13,9 @@
 <div class="font">
     <div class="ombre">
      <div class="menu">
-         <span class="craft">MINISTERE DE LA JUSTICE</span>
+         <span class="craft">
+            <img src="" alt="">
+            MINISTERE DE LA JUSTICE</span>
          <ul>
              <li>
                 @if (Route::has('login'))
@@ -45,7 +47,7 @@
          </div>
      </div>
      <div class="icone">
-         <h1>JUGEMENT SUPPLETIF <br>D'ACTE DE NAISSANCE</h1><br>
+         <h2>COLLECTE D'INFORMATIONS<br>JUGEMENT SUPPLETIF <br>D'ACTE DE NAISSANCE</h2><br>
      </div>
     </div>
  </div>

@@ -20,13 +20,5 @@ class CalendrierController extends Controller
             'debut_periode' => 'required|max:255',
             'fin_periode' => 'nullable|date|after_or_equal:start_date',
         ]);
-
-        // $periode = Periode::create([
-        //     'titre' => $request->titre,
-        //     'debut_periode' => $request->debut_periode,
-        //     'fin_periode' => $request->fin_periode,
-        // ]);
-
-        // return response()->json($periode, 201);
     }
 }
