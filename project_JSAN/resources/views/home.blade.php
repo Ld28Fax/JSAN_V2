@@ -7,7 +7,7 @@
     <title>home</title>
 </head>
 <body>
-    @extends('dashboard')
+@extends('dashboard')
 @section('content')
 
     <!-- Content Header (Page header) -->
@@ -34,13 +34,13 @@
             <div class="row">
             <div class="col-12 col-sm-6 col-md-3">
                 <div class="info-box">
-                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
+                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">Nbr demandeurs</span>
+                    <span class="info-box-text">Total demandeurs</span>
                     <span class="info-box-number">
                         {{ $nombreDemandeurs }}
-                    <small>Dmds</small>
+                    <small>Personnes</small>
                     </span>
                 </div>
                 <!-- /.info-box-content -->
@@ -50,11 +50,13 @@
             <!-- /.col -->
             <div class="col-12 col-sm-6 col-md-3">
                 <div class="info-box mb-3">
-                <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
+                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-thumbs-up"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">Likes</span>
-                    <span class="info-box-number">41,410</span>
+                    <span class="info-box-text">Verifier</span>
+                    <span class="info-box-number" >{{ $nombreDemandeursActif }}
+                        <small>Personnes</small>
+                    </span>
                 </div>
                 <!-- /.info-box-content -->
                 </div>
@@ -67,11 +69,13 @@
 
             <div class="col-12 col-sm-6 col-md-3">
                 <div class="info-box mb-3">
-                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
+                <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-times"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">Sales</span>
-                    <span class="info-box-number">760</span>
+                    <span class="info-box-text">Non Verifier</span>
+                    <span class="info-box-number">{{ $nombreDemandeursInactif }}
+                        <small>Personnes</small>
+                    </span>
                 </div>
                 <!-- /.info-box-content -->
                 </div>
@@ -192,52 +196,8 @@
                 </div>
                 <!-- /.info-box-content -->
                 </div>
-                <!-- /.info-box -->
-
-                <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Browser Usage</h3>
-
-                    <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                        <i class="fas fa-times"></i>
-                    </button>
-                    </div>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                    <div class="row">
-                    <div class="col-md-8">
-                        <div class="chart-responsive">
-                        <canvas id="pieChart" height="150"></canvas>
-                        </div>
-                        <!-- ./chart-responsive -->
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-md-4">
-                        <ul class="chart-legend clearfix">
-                        <li><i class="far fa-circle text-danger"></i> Chrome</li>
-                        <li><i class="far fa-circle text-success"></i> IE</li>
-                        <li><i class="far fa-circle text-warning"></i> FireFox</li>
-                        <li><i class="far fa-circle text-info"></i> Safari</li>
-                        <li><i class="far fa-circle text-primary"></i> Opera</li>
-                        <li><i class="far fa-circle text-secondary"></i> Navigator</li>
-                        </ul>
-                    </div>
-                    <!-- /.col -->
-                    </div>
-                    <!-- /.row -->
-                </div>
-                <!-- /.card-body -->
-                
-                <!-- /.footer -->
-                </div>
                 <!-- /.card -->
 
-                <!-- PRODUCT LIST -->
                 <!-- /.card -->
             </div>
             <!-- /.col -->
@@ -271,6 +231,7 @@
 <script src="{{ asset('extern/plugins/dropzone/min/dropzone.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('extern/dist/js/adminlte.min.js') }}"></script>
+
 </body>
 @endsection
 </html>

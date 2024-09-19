@@ -95,13 +95,13 @@ class DemandeurController extends Controller
         }
     }
 
-    public function non_actif($id){
-        try{
-            Demandeur::desactiver($id);
-            return redirect()->back();
-        }catch(Exception $e){
-            throw new Exception($e->getMessage());
-        }
-    }
+    // public function non_actif($id){
+    //     try{
+    //         Demandeur::desactiver($id);
+    //         return redirect()->back();
+    //     }catch(Exception $e){
+    //         throw new Exception($e->getMessage());
+    //     }
+    // }
 
 }

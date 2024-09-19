@@ -94,7 +94,7 @@
                               </div>
                             </td>
                             <td>
-                              <button type="button" class="btn btn-block btn-danger"><a href="{{ route('demandeurDesactiver',['id' => $demandeur->id])}}" class="text-white">Desactiver</a></button>
+                              {{-- <button type="button" class="btn btn-block btn-danger"><a href="{{ route('demandeurDesactiver',['id' => $demandeur->id])}}" class="text-white">Desactiver</a></button> --}}
                               
                             </td>
                             @endif

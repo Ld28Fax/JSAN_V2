@@ -77,11 +77,6 @@
     <i class="fas fa-expand-arrows-alt"></i>
         </a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-        <i class="fas fa-th-large"></i>
-        </a>
-    </li>
     </ul>
   </nav>
   <!-- /.navbar -->
@@ -172,7 +167,6 @@
               </p>
             </a>
           </li>
-          <li class="nav-header">TEST</li>
           <li class="nav-item">
             <a href="{{ route('calendrier') }}" class="nav-link">
               <i class="nav-icon fas fa-calendar-alt"></i>
@@ -181,15 +175,6 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon far fa-envelope"></i>
-              <p>
-                Mailbox
-              </p>
-            </a>
-          </li>
-          <li class="nav-header">TEST 2</li>
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-file"></i>
