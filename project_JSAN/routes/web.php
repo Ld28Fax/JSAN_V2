@@ -59,4 +59,8 @@ Route::post('/periode', [PeriodeController::class,'store']);
 
 Route::get('statistic', [PeriodeController::class, 'getStatistic'])->name('Periode');
 
+Route::get('\Erreur',function(){
+    return view('erreur');
+});
+
 require __DIR__.'/auth.php';
