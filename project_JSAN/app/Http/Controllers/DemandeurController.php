@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Demandeur;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class DemandeurController extends Controller
@@ -24,6 +25,7 @@ class DemandeurController extends Controller
                 "Mere"=> "required|string|max:255",
                 "Adresse"=> "required|string|max:255",
                 'Telephone' => ['required', 'numeric', 'digits:10', 'regex:/^(032|033|034|038)[0-9]{7}$/'],
+                'usertpi'=>'required',
 
             ]);
 
@@ -68,7 +70,7 @@ class DemandeurController extends Controller
     }
     public function liste(){
         try{
-            $demandeurs = DB::table('demandeur')->get();
+            $demandeurs = DB::table('demandeur')->get()->where('usertpi', '=', Auth::id());
             return view('demandeurs.liste')->with('demandeurs', $demandeurs);
         } 
         catch (Exception $e){

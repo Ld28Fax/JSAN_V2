@@ -91,6 +91,7 @@
                                 <input type="text" name="Nom" class="form-control" placeholder="nom du demandeur" data-mask>
                               </div>
                             </div>
+                            <input type="hidden" name="usertpi" value="{{\Illuminate\Support\Facades\Auth::user()->id }}">
                                 {{-- Père --}}
                                 <div class="form-group">
                                     <label>Nom du Père:</label>

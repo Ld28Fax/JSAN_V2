@@ -13,18 +13,16 @@
 <div class="font">
     <div class="ombre">
      <div class="menu">
-         <span class="craft">
-            <img src="" alt="">
-            MINISTERE DE LA JUSTICE</span>
+         <span class="craft">MINISTERE DE LA JUSTICE</span>
          <ul>
              <li>
                 @if (Route::has('login'))
-                <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
+                    <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
                 @auth
                     <a href="{{ url('/dashboard') }}" class="white">Dashboard</a></li>
                 @else
                     <span>Acceuil</span>
-                    @endauth
+                @endauth
                 @endif
              <li><a href="{{ route('About') }}" class="white">Documentation</a></li>
              <li>Services</li>

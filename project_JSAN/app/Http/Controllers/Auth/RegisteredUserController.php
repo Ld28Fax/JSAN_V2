@@ -36,6 +36,7 @@ class RegisteredUserController extends Controller
             'Cour_appel' => ['required', 'string','max:255'],
             'TPI' => ['required', 'string','max:255'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'usertype' => ['required']
         ]);
 
         $user = User::create([
@@ -44,6 +45,7 @@ class RegisteredUserController extends Controller
             'Cour_appel' => $request->Cour_appel,
             'TPI' => $request->TPI,
             'password' => Hash::make($request->password),
+            'usertype' => 0,
         ]);
 
         event(new Registered($user));

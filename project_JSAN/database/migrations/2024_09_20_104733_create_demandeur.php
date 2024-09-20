@@ -22,8 +22,9 @@ return new class extends Migration
             $table->string('Mere');
             $table->string('Adresse');
             $table->string('Telephone');
-            $table->integer('userTpi')->default(Auth::id());
+            $table->integer('usertpi');
             $table->timestamps();
+            $table->foreign('usertpi')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
