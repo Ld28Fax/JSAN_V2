@@ -79,7 +79,7 @@ class DemandeurController extends Controller
     }
     public function exportation(){
         try{
-            $demandeurs = DB::table('demandeur')->get();
+            $demandeurs = DB::table('demandeur')->get()->where('usertpi', '=', Auth::id());
 
             return view('demandeurs.exportation')->with('demandeurs', $demandeurs);
         } 

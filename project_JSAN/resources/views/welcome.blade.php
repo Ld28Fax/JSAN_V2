@@ -37,7 +37,7 @@
                     <a href="{{ route('login') }}" class="btn btn-outline-light">Log in</a>
         
                     @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="btn btn-light">Register</a>
+                        {{-- <a href="{{ route('register') }}" class="btn btn-light">Register</a> --}}
                     @endif
                 @endauth
             </div>

@@ -1,4 +1,4 @@
-<x-guest-layout>
+{{-- <x-guest-layout>
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
@@ -38,13 +38,6 @@
                 <option value="TPI AMBATOLAMPY">TPI AMBATOLAMPY</option>
                 <option value="TPI ANKAZOBE">TPI ANKAZOBE</option>
                 <option value="TPI ANTANANARIVO">TPI ANTANANARIVO</option>
-            {{-- TPI ANKAZOBE
-            TPI ANTANANARIVO
-            TPI ANTSIRABE
-            TPI ARIVONIMAMO
-            TPI AVARADRANO
-            TPI MIARINARIVO
-            TPI TSIROANOMANDIDY --}}
 
             </select>
             <x-input-error :messages="$errors->get('TPI')" class="mt-2" />
@@ -83,4 +76,4 @@
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+</x-guest-layout> --}}
