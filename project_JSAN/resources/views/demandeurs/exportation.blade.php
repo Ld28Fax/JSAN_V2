@@ -30,7 +30,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Acceuil</a></li>
-              <li class="breadcrumb-item active"><a href="{{ route('demandeurs.liste')}}">Liste des demandeurs</a></li>
+              <li class="breadcrumb-item active"><a href="{{ route('demandeurs.liste')}}">Exportation des demandeurs</a></li>
             </ol>
           </div>
         </div>
@@ -51,7 +51,6 @@
                 <table id="example1" class="table table-bordered table-striped ">
                   <thead>
                   <tr>
-                    <th>Id</th>
                     <th>Nom</th>
                     <th>Date de Naissance</th>
                     <th>Lieu de Naissance</th>
@@ -63,7 +62,6 @@
                   <tbody>
                     @forelse ($demandeurs as $demandeur )
                           <tr>
-                            <td>{{$demandeur->id}}</td>
                             <td>{{$demandeur->Nom}}</td>
                             <td>{{$demandeur->Date_de_Naissance}}</td>
                             <td>{{$demandeur->Lieu_de_Naissance}}</td>

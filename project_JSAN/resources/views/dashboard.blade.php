@@ -85,9 +85,9 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4 fixed">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
-     <div style="margin-left: 25%">
+     <div style="margin-left: 20%">
       <img src="Justice_logo.png" alt=" Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">JSAN</span>
+      <span class="brand-text font-weight-light">CO.JSAN</span>
      </div>
       
     </a>
@@ -101,9 +101,7 @@
           <div>
             <div class="card-body">
               <div class="text-center">
-                <a href="{{ route('profile.edit')}}"><img class="profile-user-img img-fluid img-circle"
-                  src="extern/dist/img/user4-128x128.jpg"
-                  alt="User profile picture"></a>
+                <a href="{{ route('profile.edit') }}"><i class="fas fa-user profile-user-img img-fluid img-circle" style='width:20%;height:50%  ' ></i></a>
               </div>
 
               <a href="{{ route('profile.edit') }}"><h3 class="profile-username text-center">{{ Auth::user()->name }}</h3></a>
@@ -171,7 +169,7 @@
             <a href="{{ route('calendrier') }}" class="nav-link">
               <i class="nav-icon fas fa-calendar-alt"></i>
               <p>
-                Calendrier
+                Etat
               </p>
             </a>
           </li>

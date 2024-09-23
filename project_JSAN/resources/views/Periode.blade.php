@@ -43,19 +43,23 @@
                   <table id="example1" class="table table-bordered table-striped ">
                     <thead>
                     <tr>
-                      <th>Id</th>
-                      <th>Nom</th>
-                      <th>Date de Naissance</th>
-                      <th>Lieu de Naissance</th>
+                    <th>Nom</th>
+                    <th>Date de Naissance</th>
+                    <th>Lieu de Naissance</th>
+                    <th>Père</th>
+                    <th>Mère</th>
+                    <th>Télephone</th>
                     </tr>
                     </thead>
                     <tbody>
                       @foreach($statistic as $stat )
                         <tr id="row-{{ $loop->index }}">
-                                <td>{{$stat->id}}</td>
-                                <td>{{$stat->Nom}}</td>
-                                <td>{{$stat->Date_de_Naissance}}</td>
-                                <td>{{$stat->Lieu_de_Naissance}}</td>
+                          <td>{{$stat->Nom}}</td>
+                          <td>{{$stat->Date_de_Naissance}}</td>
+                          <td>{{$stat->Lieu_de_Naissance}}</td>
+                          <td>{{$stat->Pere}}</td>
+                          <td>{{$stat->Mere}}</td>
+                          <td>{{$stat->Telephone}}</td>
                         </tr>
                       @endforeach
                     </tbody>
@@ -72,5 +76,10 @@
         <!-- /.container-fluid -->
       </section>
     @endsection
+    <script src="extern/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="extern/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="extern/plugins/jszip/jszip.min.js"></script>
+    <script src="extern/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="extern/plugins/pdfmake/vfs_fonts.js"></script>
 </body>
 </html>

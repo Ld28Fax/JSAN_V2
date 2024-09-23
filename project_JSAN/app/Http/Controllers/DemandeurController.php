@@ -27,6 +27,14 @@ class DemandeurController extends Controller
                 'Telephone' => ['required', 'numeric', 'digits:10', 'regex:/^(032|033|034|038)[0-9]{7}$/'],
                 'usertpi'=>'required',
 
+            ], [
+            'Telephone' => 'Le champ Téléphone est requis, doit être un nombre, contenir exactement 10 chiffres et commencer par 032, 033, 034 ou 038.',
+            'Nom' => 'Le champ Nom est requis, doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
+            'Date_de_Naissance' => 'Le champ Date de Naissance est requis et doit être au format DD-MM-YYYY.',
+            'Lieu_de_Naissance' => 'Le champ Lieu de Naissance est requis, doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
+            'Pere' => 'Le champ Père est requis, doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
+            'Mere' => 'Le champ Mère est requis, doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
+            'Adresse' => 'Le champ Adresse est requis, doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.'
             ]);
 
             Demandeur::create($request->all());
@@ -34,7 +42,8 @@ class DemandeurController extends Controller
 
         } 
         catch (Exception $e){
-            throw new Exception($e->getMessage());
+            // throw new Exception($e->getMessage());
+            return redirect()->back()->withErrors(['error' => 'Une erreur s\'est produite : ' . $e->getMessage()]);
         }
     }
 
@@ -53,18 +62,27 @@ class DemandeurController extends Controller
     try{
         $request->validate([
             "Nom"=> "required|string|max:255",
-            "Date_de_Naissance"=> "required|date_format:Y-m-d",
+            "Date_de_Naissance"=> "required|date_format:d-m-Y",
             "Lieu_de_Naissance"=> "required|string|max:255",
             "Pere"=> "required|string|max:255",
             "Mere"=> "required|string|max:255",
             "Adresse"=> "required|string|max:255",
             'Telephone' => [ 'required','numeric', 'digits:10', 'regex:/^(032|033|034|038)[0-9]{7}$/'],
             'id' => "required"
+        ],[
+            'Telephone' => 'Le champ Téléphone est requis, doit être un nombre, contenir exactement 10 chiffres et commencer par 032, 033, 034 ou 038.',
+            'Nom' => 'Le champ Nom est requis, doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
+            'Date_de_Naissance' => 'Le champ Date de Naissance est requis et doit être au format DD-MM-YYYY.',
+            'Lieu_de_Naissance' => 'Le champ Lieu de Naissance est requis, doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
+            'Pere' => 'Le champ Père est requis, doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
+            'Mere' => 'Le champ Mère est requis, doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
+            'Adresse' => 'Le champ Adresse est requis, doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.'
         ]);
         Demandeur::modifier( $request->id, $request->Nom, $request->Date_de_Naissance, $request->Lieu_de_Naissance, $request->Pere, $request->Mere, $request->Adresse, $request->Telephone );
         return redirect()->route('demandeurs.liste')->with('success','Demandeur mis à jour avec succès.');
     } catch (Exception $e){
-        throw new Exception($e->getMessage());
+        // throw new Exception($e->getMessage());
+        return redirect()->back()->withErrors(['error' => 'Une erreur s\'est produite : ' . $e->getMessage()]);
     }
 
     }

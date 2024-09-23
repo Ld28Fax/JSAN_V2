@@ -86,7 +86,7 @@
                             <td>{{$demandeur->Nom}}</td>
                             <td>{{$demandeur->Date_de_Naissance}}</td>
                             <td>{{$demandeur->Lieu_de_Naissance}}</td>
-                            <td><a class="btn btn-primary" href="{{ route("demandeurs.edit" , ['id'=>$demandeur->id]) }}">Modifier</a></td>
+                            <td></td>
                             <td id="status-{{ $loop->index }}">
                               <div>
                                 <span class="p-2 status-text">Traiter</span>
