@@ -15,11 +15,13 @@ class DemandeurController extends Controller
         return view('demandeurs.index');
     }
 
+
+    // creation demandeurs
     public function create(Request $request){
         try{
             $request->validate([
                 "Nom"=> "required|string|max:255",
-                "Date_de_Naissance"=> "required|date_format:Y-m-d",
+                "Date_de_Naissance"=> "required|date_format:d-m-Y",
                 "Lieu_de_Naissance"=> "required|string|max:255",
                 "Pere"=> "required|string|max:255",
                 "Mere"=> "required|string|max:255",
@@ -53,7 +55,7 @@ class DemandeurController extends Controller
         $demandeur = Demandeur::findOrFail($id);
         return view('demandeurs.edit')->with('demandeur', $demandeur);
     } catch (Exception $e){
-        throw new Exception($e->getMessage());
+        return redirect()->back()->withErrors(['error' => 'Une erreur s\'est produite.']);
     }
     }
 
@@ -86,6 +88,8 @@ class DemandeurController extends Controller
     }
 
     }
+
+    // Liste des demandeurs
     public function liste(){
         try{
             $demandeurs = DB::table('demandeur')->get()->where('usertpi', '=', Auth::id());
@@ -95,6 +99,8 @@ class DemandeurController extends Controller
             return redirect()->back()->withErrors("error", $e->getMessage());
         }
     }
+
+    // exportation des demandeurs
     public function exportation(){
         try{
             $demandeurs = DB::table('demandeur')->get()->where('usertpi', '=', Auth::id());
@@ -106,12 +112,14 @@ class DemandeurController extends Controller
         }
     }
 
+    // Activation d'une ligne 
     public function actif($id){
         try{
             Demandeur::Activer($id);
             return redirect()->back();
         }catch(Exception $e){
-            throw new Exception($e->getMessage());
+            // throw new Exception($e->getMessage());
+            return redirect()->back()->withErrors(['error' => 'Une erreur s\'est produite.']);
         }
     }
 

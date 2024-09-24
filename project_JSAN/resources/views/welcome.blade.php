@@ -26,7 +26,7 @@
                 @endif
              <li><a href="{{ route('About') }}" class="white">Documentation</a></li>
              <li>Services</li>
-             <li><a href="#" class="white">Contact</a></li>
+             <li><a href="{{ route('contact') }}" class="white">Contact</a></li>
          </ul>
          <div class="search">
             @if (Route::has('login'))

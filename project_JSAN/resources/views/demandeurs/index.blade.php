@@ -134,7 +134,6 @@
                                   <label>Date de Naissance</label>
       
                                     <div class="input-group-prepend">
-                                      {{-- <span class="input-group-text"> <i class="fas fa-date"></i></span> --}}
                                     </div>
                                       <input type="date" id="date" name="Date_de_Naissance" class="form-control" placeholder="Date de Naissance" data-mask>
                                     </div>

@@ -16,6 +16,9 @@ class PeriodeController extends Controller
         $request->validate([
             'debut' => 'required|date',
             'fin' => 'required|date|after_or_equal:debut',
+        ],[
+            'debut' => 'Le champ Debut est requis et doit être au format DD-MM-YYYY.',
+            'fin' => 'Le champ Fin est requis et doit être au format DD-MM-YYYY.'
         ]);
 
         $statistic = DB::table('demandeur')->whereBetween('created_at', [$request->debut, $request->fin])->get();
@@ -24,7 +27,8 @@ class PeriodeController extends Controller
 
         return view('Periode')->with('statistic', $statistic)->with('statisticCount', $statisticCount);
        }catch(Exception $e){
-        throw new Exception($e->getMessage());
+        // throw new Exception($e->getMessage());
+        return redirect()->back()->withErrors(['error' => 'Une erreur s\'est produite : ' . $e->getMessage()]);
        }
     }
 }

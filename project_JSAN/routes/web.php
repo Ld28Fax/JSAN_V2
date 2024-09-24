@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\CalendrierController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DemandeurController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PeriodeController;
@@ -62,5 +63,7 @@ Route::get('statistic', [PeriodeController::class, 'getStatistic'])->name('Perio
 Route::get('\Erreur',function(){
     return view('erreur');
 });
+
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 
 require __DIR__.'/auth.php';

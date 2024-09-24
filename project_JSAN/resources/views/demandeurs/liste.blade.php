@@ -49,9 +49,8 @@
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped ">
-                  <thead>
+                  <thead style="background: grey">
                   <tr>
-                    <th>Id</th>
                     <th>Nom</th>
                     <th>Date de Naissance</th>
                     <th>Lieu de Naissance</th>
@@ -64,7 +63,6 @@
                     @forelse ($demandeurs as $demandeur )
                             @if ($demandeur->etat == 0)
                             <tr id="row-{{ $loop->index }}">
-                              <td>{{$demandeur->id}}</td>
                               <td>{{$demandeur->Nom}}</td>
                               <td>{{$demandeur->Date_de_Naissance}}</td>
                               <td>{{$demandeur->Lieu_de_Naissance}}</td>
@@ -82,7 +80,6 @@
                             </td>
                           @else
                           <tr id="row-{{ $loop->index }}" class="table-primary">
-                            <td>{{$demandeur->id}}</td>
                             <td>{{$demandeur->Nom}}</td>
                             <td>{{$demandeur->Date_de_Naissance}}</td>
                             <td>{{$demandeur->Lieu_de_Naissance}}</td>

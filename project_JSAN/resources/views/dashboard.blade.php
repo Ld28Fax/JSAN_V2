@@ -29,7 +29,7 @@
         <a href="{{'dashboard'}}" class="nav-link">Acceuil</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
+        <a href="{{ route('contact') }}" class="nav-link">Contact</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <span class="nav-link  btn-default text-blue">{{ Auth::user()->Cour_appel }}</span>
@@ -87,7 +87,7 @@
     <a href="#" class="brand-link">
      <div style="margin-left: 20%">
       <img src="Justice_logo.png" alt=" Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">CO.JSAN</span>
+      <span class="brand-text font-weight-light">CO-JSAN</span>
      </div>
       
     </a>
