@@ -26,6 +26,7 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1>Listes des demandeurs</h1>
+
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -33,6 +34,11 @@
               <li class="breadcrumb-item active"><a href="{{ route('demandeurs.liste')}}">Liste des demandeurs</a></li>
             </ol>
           </div>
+          @if (session('success'))
+            <div class="col-sm-6 alert-success rounded-md">
+              {{ session('success') }}
+            </div>
+          @endif
         </div>
       </div><!-- /.container-fluid -->
     </section>
@@ -48,68 +54,60 @@
                
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped ">
-                  <thead style="background: grey">
-                  <tr>
-                    <th>Nom</th>
-                    <th>Date de Naissance</th>
-                    <th>Lieu de Naissance</th>
-                    <th>Modifier</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                    @forelse ($demandeurs as $demandeur )
-                            @if ($demandeur->etat == 0)
-                            <tr id="row-{{ $loop->index }}">
-                              <td>{{$demandeur->Nom}}</td>
-                              <td>{{$demandeur->Date_de_Naissance}}</td>
-                              <td>{{$demandeur->Lieu_de_Naissance}}</td>
-                              <td><a class="btn btn-primary" href="{{ route("demandeurs.edit" , ['id'=>$demandeur->id]) }}">Modifier</a></td>
-                            <td>
-                              <div>
-                                <span class="p-2 status-text">Non traiter</span>
-                                <span class="badge status-badge bg-danger"><i class="fas fa-times"></i></span>
-                              </div>
-                            </td>
-                            <td>
-                              <button type="button" class="btn btn-block btn-success">
-                                <a href="{{ route('demandeurActiver',['id' => $demandeur->id])}}" class="text-white">Activer</a>
-                              </button>
-                            </td>
-                          @else
-                          <tr id="row-{{ $loop->index }}" class="table-primary">
-                            <td>{{$demandeur->Nom}}</td>
-                            <td>{{$demandeur->Date_de_Naissance}}</td>
-                            <td>{{$demandeur->Lieu_de_Naissance}}</td>
-                            <td></td>
-                            <td id="status-{{ $loop->index }}">
-                              <div>
-                                <span class="p-2 status-text">Traiter</span>
-                                <span class="badge status-badge bg-success"><i class="fas fa-check"></i></span>
-                              </div>
-                            </td>
-                            <td>
-                              {{-- <button type="button" class="btn btn-block btn-danger"><a href="{{ route('demandeurDesactiver',['id' => $demandeur->id])}}" class="text-white">Desactiver</a></button> --}}
-                              
-                            </td>
-                            @endif
+                <div>
+                    <button class="btn btn-default" onclick="filterByPeriod('day')">Jour</button>
+                    <button class="btn btn-default" onclick="filterByPeriod('week')">Semaine</button>
+                    <button class="btn btn-default" onclick="filterByPeriod('month')">Mois</button>
+                </div>
+            
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead style="background: grey">
+                        <tr>
+                            <th>Nom</th>
+                            <th>Date de Naissance</th>
+                            <th>Lieu de Naissance</th>
+                            <th>Modifier</th>
+                            <th>Status</th>
+                            <th>Action</th>
                         </tr>
-                        @empty
-                            <tr class="w-full">
-                                <td class="flex-1 w-full justify-center items-center" colspan="4">
-                                    <p class="flex justify-center content-center p-4">
-                                    <img src="{{ asset('undraw empty.svg')}}" alt="" class="h-15 w-15">
-                                    <div>Aucun élément</div>
-                                    </p>
+                    </thead>
+                    <tbody id="demandeurs-list">
+                        @forelse ($demandeurs as $demandeur )
+                            <tr id="row-{{ $loop->index }}" class="{{ $demandeur->etat == 0 ? '' : 'table-primary' }}">
+                                <td>{{ $demandeur->Nom }}</td>
+                                <td>{{ \Carbon\Carbon::parse($demandeur->Date_de_Naissance)->format('d-m-Y')}}</td>
+                                <td>{{ $demandeur->Lieu_de_Naissance }}</td>
+                                <td>
+                                    @if ($demandeur->etat == 0)
+                                        <a class="btn btn-primary" href="{{ route('demandeurs.edit', ['id' => $demandeur->id]) }}">Modifier</a>
+                                    @endif
+                                </td>
+                                <td>
+                                    <div>
+                                        <span class="p-2 status-text">{{ $demandeur->etat == 0 ? 'Non traiter' : 'Traiter' }}</span>
+                                        <span class="badge status-badge {{ $demandeur->etat == 0 ? 'bg-danger' : 'bg-success' }}">
+                                            <i class="fas {{ $demandeur->etat == 0 ? 'fa-times' : 'fa-check' }}"></i>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    @if ($demandeur->etat == 0)
+                                        <button type="button" class="btn btn-block btn-success">
+                                            <a href="{{ route('demandeurActiver', ['id' => $demandeur->id]) }}" class="text-white">Activer</a>
+                                        </button>
+                                    @endif
                                 </td>
                             </tr>
-                    @endforelse
-                  </tbody>
+                        @empty
+                            <tr class="w-full">
+                                <td colspan="6" class="text-center">Aucun élément</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
                 </table>
-              </div>
-              <!-- /.card-body -->
+            </div>
+            
+            
             </div>
             <!-- /.card -->
           </div>
@@ -143,6 +141,35 @@
 <script src="extern/dist/js/adminlte.min.js"></script>
 <!-- Page specific script -->
 <script>
+  function filterByPeriod(period) {
+      // Requête AJAX pour récupérer les demandeurs filtrés
+      fetch(`/demandeurs/filter?period=${period}`)
+          .then(response => response.json())
+          .then(data => {
+              const tbody = document.getElementById('demandeurs-list');
+              tbody.innerHTML = '';
+
+              if (data.demandeurs.length > 0) {
+                  data.demandeurs.forEach((demandeur, index) => {
+                      const row = document.createElement('tr');
+                      if(demandeur.etat == 1){
+                        row.classList.add('table-primary');
+                      }
+                      row.innerHTML = `
+                          <td>${demandeur.Nom}</td>
+                          <td>${demandeur.Date_de_Naissance}</td>
+                          <td>${demandeur.Lieu_de_Naissance}</td>
+                          <td>${demandeur.etat == 0 ? `<a class="btn btn-primary" href="/demandeurs/edit/${demandeur.id}">Modifier</a>` : ''}</td>
+                          <td><span class="p-2 status-text">${demandeur.etat == 0 ? 'Non traiter' : 'Traiter'}</span></td>
+                          <td>${demandeur.etat == 0 ? `<button type="button" class="btn btn-block btn-success"><a href="/Actif/${demandeur.id}" class="text-white">Activer</a></button>` : ''}</td>
+                      `;
+                      tbody.appendChild(row);
+                  });
+              } else {
+                  tbody.innerHTML = `<tr><td colspan="6" class="text-center">Aucun élément</td></tr>`;
+              }
+          });
+  }
   $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,

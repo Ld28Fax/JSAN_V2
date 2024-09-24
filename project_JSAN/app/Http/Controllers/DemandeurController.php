@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Demandeur;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,7 @@ class DemandeurController extends Controller
         try{
             $request->validate([
                 "Nom"=> "required|string|max:255",
-                "Date_de_Naissance"=> "required|date_format:d-m-Y",
+                "Date_de_Naissance"=> "required",
                 "Lieu_de_Naissance"=> "required|string|max:255",
                 "Pere"=> "required|string|max:255",
                 "Mere"=> "required|string|max:255",
@@ -32,7 +33,7 @@ class DemandeurController extends Controller
             ], [
             'Telephone' => 'Le champ Téléphone est requis, doit être un nombre, contenir exactement 10 chiffres et commencer par 032, 033, 034 ou 038.',
             'Nom' => 'Le champ Nom est requis, doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
-            'Date_de_Naissance' => 'Le champ Date de Naissance est requis et doit être au format DD-MM-YYYY.',
+            'Date_de_Naissance' => 'Le champ Date de Naissance est requis.',
             'Lieu_de_Naissance' => 'Le champ Lieu de Naissance est requis, doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
             'Pere' => 'Le champ Père est requis, doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
             'Mere' => 'Le champ Mère est requis, doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
@@ -64,7 +65,7 @@ class DemandeurController extends Controller
     try{
         $request->validate([
             "Nom"=> "required|string|max:255",
-            "Date_de_Naissance"=> "required|date_format:d-m-Y",
+            "Date_de_Naissance"=> "required",
             "Lieu_de_Naissance"=> "required|string|max:255",
             "Pere"=> "required|string|max:255",
             "Mere"=> "required|string|max:255",
@@ -74,7 +75,7 @@ class DemandeurController extends Controller
         ],[
             'Telephone' => 'Le champ Téléphone est requis, doit être un nombre, contenir exactement 10 chiffres et commencer par 032, 033, 034 ou 038.',
             'Nom' => 'Le champ Nom est requis, doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
-            'Date_de_Naissance' => 'Le champ Date de Naissance est requis et doit être au format DD-MM-YYYY.',
+            'Date_de_Naissance' => 'Le champ Date de Naissance est requis.',
             'Lieu_de_Naissance' => 'Le champ Lieu de Naissance est requis, doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
             'Pere' => 'Le champ Père est requis, doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
             'Mere' => 'Le champ Mère est requis, doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
@@ -93,7 +94,12 @@ class DemandeurController extends Controller
     public function liste(){
         try{
             $demandeurs = DB::table('demandeur')->get()->where('usertpi', '=', Auth::id());
-            return view('demandeurs.liste')->with('demandeurs', $demandeurs);
+
+            $jour = DB::table('demandeur')->get()->where('created_at', '=', Carbon::now());
+
+            return view('demandeurs.liste')->with('demandeurs', $demandeurs)->with('jour', $jour);
+
+
         } 
         catch (Exception $e){
             return redirect()->back()->withErrors("error", $e->getMessage());
@@ -123,13 +129,23 @@ class DemandeurController extends Controller
         }
     }
 
-    // public function non_actif($id){
-    //     try{
-    //         Demandeur::desactiver($id);
-    //         return redirect()->back();
-    //     }catch(Exception $e){
-    //         throw new Exception($e->getMessage());
-    //     }
-    // }
+    public function filter(Request $request)
+    {
+    $period = $request->get('period');
+    $query = Demandeur::query();
+
+    if ($period === 'day') {
+        $query->whereDate('created_at', Carbon::today());
+    } elseif ($period === 'week') {
+        $query->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]);
+    } elseif ($period === 'month') {
+        $query->whereMonth('created_at', Carbon::now()->month);
+    }
+
+    $demandeurPeriode = $query->get();
+
+    return response()->json(['demandeurs' => $demandeurPeriode]);
+    }
+
 
 }

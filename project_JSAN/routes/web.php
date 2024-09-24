@@ -46,6 +46,7 @@ Route::get('/demandeur_exportation', [DemandeurController::class,'exportation'])
 
 Route::get('/calendrier', [CalendrierController::class,'index'])->middleware(['auth','verified'])->name('calendrier');
 
+
 Route::get('/Actif/{id?}', [DemandeurController::class,'actif'])->middleware(['auth','verified'])->name('demandeurActiver');
 
 Route::get('/Non_actif/{id?}', [DemandeurController::class,'non_actif'])->middleware(['auth','verified'])->name('demandeurDesactiver');
@@ -65,5 +66,8 @@ Route::get('\Erreur',function(){
 });
 
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+
+Route::get('/demandeurs/filter', [DemandeurController::class, 'filter'])->name('demandeurs.filter');
+
 
 require __DIR__.'/auth.php';

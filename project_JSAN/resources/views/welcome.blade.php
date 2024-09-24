@@ -25,16 +25,15 @@
                 @endauth
                 @endif
              <li><a href="{{ route('About') }}" class="white">Documentation</a></li>
-             <li>Services</li>
              <li><a href="{{ route('contact') }}" class="white">Contact</a></li>
          </ul>
          <div class="search">
             @if (Route::has('login'))
             <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
                 @auth
-                    <a href="{{ url('/dashboard') }}" class="btn btn-outline-light">Dashboard</a>
+                    <a href="{{ url('/dashboard') }}" class="btn btn-outline-light">Acceuil</a>
                 @else
-                    <a href="{{ route('login') }}" class="btn btn-outline-light">Log in</a>
+                    <a href="{{ route('login') }}" class="btn btn-outline-light">Connexion</a>
         
                     @if (Route::has('register'))
                         {{-- <a href="{{ route('register') }}" class="btn btn-light">Register</a> --}}

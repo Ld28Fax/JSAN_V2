@@ -55,7 +55,7 @@
                       @foreach($statistic as $stat )
                         <tr id="row-{{ $loop->index }}">
                           <td>{{$stat->Nom}}</td>
-                          <td>{{$stat->Date_de_Naissance}}</td>
+                          <td>{{\Carbon\Carbon::parse($stat->Date_de_Naissance)->format('d-m-Y')}}</td>
                           <td>{{$stat->Lieu_de_Naissance}}</td>
                           <td>{{$stat->Pere}}</td>
                           <td>{{$stat->Mere}}</td>

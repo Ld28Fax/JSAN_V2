@@ -63,7 +63,7 @@
                     @forelse ($demandeurs as $demandeur )
                           <tr>
                             <td>{{$demandeur->Nom}}</td>
-                            <td>{{$demandeur->Date_de_Naissance}}</td>
+                            <td>{{\Carbon\Carbon::parse($demandeur->Date_de_Naissance)->format('d-m-Y')}}</td>
                             <td>{{$demandeur->Lieu_de_Naissance}}</td>
                             <td>{{$demandeur->Pere}}</td>
                             <td>{{$demandeur->Mere}}</td>
