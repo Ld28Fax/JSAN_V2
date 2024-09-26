@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CalendrierController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DemandeurController;
@@ -34,6 +35,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+route::get('/user', [RegisteredUserController::class, 'store'])->middleware('auth.register');
 
 Route::get('/demandeur', [DemandeurController::class,'index'])->middleware(['auth', 'verified'])->name('demandeurs.index');
 
@@ -69,5 +72,9 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 
 Route::get('/demandeurs/filter', [DemandeurController::class, 'filter'])->name('demandeurs.filter');
 
+
+Route::get('/unauthorized', function () {
+    return view('unauthorized'); // Crée la vue correspondante
+});
 
 require __DIR__.'/auth.php';
