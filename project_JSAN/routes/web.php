@@ -53,8 +53,8 @@ Route::get('/Non_actif/{id?}', [DemandeurController::class,'non_actif'])->middle
 
 Route::get('/About', [AboutController::class,'index'])->name('About');
 
-
 Route::get('/demandeurs/edit/{id}', [DemandeurController::class, 'edit'])->name('demandeurs.edit');
+
 Route::post('/demandeurs', [DemandeurController::class, 'update'])->name('demandeurs.update');
 
 Route::post('/periode', [PeriodeController::class,'store']);
