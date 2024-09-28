@@ -56,7 +56,7 @@ class RegisteredUserController extends Controller
                 'Cour_appel' => $request->Cour_appel,
                 'TPI' => $request->TPI,
                 'password' => Hash::make($request->password),
-                'usertype' => 0,
+                'usertype' => 2,
             ]);
     
             event(new Registered($user));
