@@ -29,7 +29,6 @@ class DemandeurController extends Controller
                 "Adresse"=> "required|string|max:255",
                 'Telephone' => ['required', 'numeric', 'digits:10', 'regex:/^(032|033|034|038)[0-9]{7}$/'],
                 'usertpi'=>'required',
-
             ], [
             'Telephone' => 'Le champ Téléphone est requis, doit être un nombre, contenir exactement 10 chiffres et commencer par 032, 033, 034 ou 038.',
             'Nom' => 'Le champ Nom est requis, doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
