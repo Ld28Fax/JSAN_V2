@@ -154,7 +154,7 @@
                   data.demandeurs.forEach((demandeur, index) => {
                       const row = document.createElement('tr');
                       if(demandeur.etat == 1){
-                        row.classList.add('table-primary');
+                        row.classList.add('grey');
                       }
                       row.innerHTML = `
                           <td>${demandeur.Nom}</td>

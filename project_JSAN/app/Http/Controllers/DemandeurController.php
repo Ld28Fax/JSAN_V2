@@ -27,16 +27,16 @@ class DemandeurController extends Controller
                 "Pere"=> "required|string|max:255",
                 "Mere"=> "required|string|max:255",
                 "Adresse"=> "required|string|max:255",
-                'Telephone' => ['required', 'numeric', 'digits:10', 'regex:/^(032|033|034|038)[0-9]{7}$/'],
+                'Telephone' => ['required', 'numeric', 'digits:10', 'regex:/^(032|033|034|037|038)[0-9]{7}$/'],
                 'usertpi'=>'required',
             ], [
-            'Telephone' => 'Le champ Téléphone est requis, doit être un nombre, contenir exactement 10 chiffres et commencer par 032, 033, 034 ou 038.',
-            'Nom' => 'Le champ Nom est requis, doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
+            'Telephone' => 'Le champ Téléphon doit être un nombre, contenir exactement 10 chiffres et commencer par 032, 033, 034, 037 ou 038.',
+            'Nom' => 'Le champ Nom doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
             'Date_de_Naissance' => 'Le champ Date de Naissance est requis.',
-            'Lieu_de_Naissance' => 'Le champ Lieu de Naissance est requis, doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
-            'Pere' => 'Le champ Père est requis, doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
-            'Mere' => 'Le champ Mère est requis, doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
-            'Adresse' => 'Le champ Adresse est requis, doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.'
+            'Lieu_de_Naissance' => 'Le champ Lieu de Naissance doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
+            'Pere' => 'Le champ Père doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
+            'Mere' => 'Le champ Mère doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
+            'Adresse' => 'Le champ Adresse doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.'
             ]);
 
             Demandeur::create($request->all());
@@ -45,7 +45,7 @@ class DemandeurController extends Controller
         } 
         catch (Exception $e){
             // throw new Exception($e->getMessage());
-            return redirect()->back()->withErrors(['error' => 'Une erreur s\'est produite : ' . $e->getMessage()]);
+            return redirect()->back()->withErrors(['error' =>$e->getMessage()]);
         }
     }
 
