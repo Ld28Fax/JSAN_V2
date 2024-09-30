@@ -12,8 +12,10 @@
     
 <div class="font">
     <div class="ombre">
-     <div class="menu">
-         <span class="craft">MINISTERE DE LA JUSTICE</span>
+     <div class="menu" >
+        <span class="craft">
+            <img src="Justice_logo.png" alt=" Logo" class="brand-image img-circle elevation-3" style="opacity: .8; width:10% ">
+            MINISTERE DE LA JUSTICE</span>
          <ul>
              <li>
                 @if (Route::has('login'))
@@ -35,9 +37,9 @@
                 @else
                     <a href="{{ route('login') }}" class="btn btn-outline-light">Connexion</a>
         
-                    @if (Route::has('register'))
+                    {{-- @if (Route::has('register'))
                         <a href="{{ route('register') }}" class="btn btn-light">Inscription</a>
-                    @endif
+                    @endif --}}
                 @endauth
             </div>
         @endif

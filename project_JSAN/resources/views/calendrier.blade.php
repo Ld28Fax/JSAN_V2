@@ -50,65 +50,20 @@
               <input type="date" name="debut" class="form-control col-md-3 " placeholder="debut periode" data-mask>
             {{-- <span><i class="fas fa-times bg-blue"></i></span> --}}
               <input type="date" name="fin" class="form-control col-md-3" style="margin-left: 3%" placeholder="fin periode" data-mask> 
-              <button class="btn btn-primary" style="margin-left: 2%" type="submit">Rechercher</button>
+              <button class="btn btn-success" style="margin-left: 2%" type="submit">Rechercher</button>
             </form>
         </div>
         <div class="row">
-          <div class="col-md-3">
-            <div class="sticky-top mb-3">
-              <div class="card">
-                <div class="card-header">
-                  <h4 class="card-title">Périodes récent</h4>
-                </div>
-                <div class="card-body">
-                  <!-- the events -->
-                  <div id="external-events">
-                    <div class="external-event bg-success">Période</div>
-                    <div class="external-event bg-warning">Exemple</div>
-                    <div class="external-event bg-info">Do homework</div>
-                    <div class="external-event bg-primary">Work on UI design</div>
-                    <div class="external-event bg-danger">Sleep tight</div>
-                    <div class="checkbox">
-                      <label for="drop-remove">
-                        <input type="checkbox" id="drop-remove">
-                        Effacer après ajout
-                      </label>
-                    </div>
+          <div class="col-md-12">
+          <div class="mb-3">
+              <div id="external-events">
                   </div>
-                </div>
-                <!-- /.card-body -->
-              </div>
-              <!-- /.card -->
-              <div class="card">
-                <div class="card-header">
-                  <h3 class="card-title">Créer une période</h3>
-                </div>
-                <div class="card-body">
-                  <div class="btn-group" style="width: 100%; margin-bottom: 10px;">
-                    <ul class="fc-color-picker" id="color-chooser">
-                      <li><a class="text-primary" href="#"><i class="fas fa-square"></i></a></li>
-                      <li><a class="text-warning" href="#"><i class="fas fa-square"></i></a></li>
-                      <li><a class="text-success" href="#"><i class="fas fa-square"></i></a></li>
-                      <li><a class="text-danger" href="#"><i class="fas fa-square"></i></a></li>
-                      <li><a class="text-muted" href="#"><i class="fas fa-square"></i></a></li>
-                    </ul>
                   </div>
-                  <!-- /btn-group -->
-                  <div class="input-group">
-                    <input id="new-event" type="text" class="form-control" placeholder="Titre du période">
-
-                    <div class="input-group-append">
-                      <button id="add-new-event" type="button" class="btn btn-primary">Ajouter</button>
-                    </div>
-                    <!-- /btn-group -->
-                  </div>
-                  <!-- /input-group -->
-                </div>
               </div>
             </div>
           </div>
           <!-- /.col -->
-          <div class="col-md-9">
+          <div class="col-md-12">
             <div class="card card-primary">
               <div class="card-body p-0">
                 <!-- THE CALENDAR -->

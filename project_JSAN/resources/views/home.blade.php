@@ -122,7 +122,7 @@
                 <div class="card-body p-0">
                     <div class="table-responsive">
                     <table class="table m-0">
-                        <thead>
+                        <thead style="background: green; opacity:0.5">
                             <tr>
                                 <th>Id</th>
                                 <th>Nom</th>
@@ -131,7 +131,7 @@
                                 <th>Lieu de Naissance</th>
                               </tr>
                         </thead>
-                        <tbody>
+                        <tbody style='background:grey'>
                             @foreach ( $demandeurs as $demandeur )
                                 
                             <tr>

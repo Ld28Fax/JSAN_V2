@@ -49,7 +49,7 @@
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped ">
-                  <thead style="background: grey">
+                  <thead style="background: green; opacity:0.5 ">
                   <tr>
                     <th>Nom</th>
                     <th>Date de Naissance</th>

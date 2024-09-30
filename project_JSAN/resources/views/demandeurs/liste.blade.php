@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="extern/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="extern/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="extern/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <link rel="stylesheet" href="extern/dist/css/welcome.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="extern/dist/css/adminlte.min.css">
 </head>
@@ -61,7 +62,7 @@
                 </div>
             
                 <table id="example1" class="table table-bordered table-striped">
-                    <thead style="background: grey">
+                    <thead style="background: green; opacity:0.5">
                         <tr>
                             <th>Nom</th>
                             <th>Date de Naissance</th>
@@ -73,7 +74,7 @@
                     </thead>
                     <tbody id="demandeurs-list">
                         @forelse ($demandeurs as $demandeur )
-                            <tr id="row-{{ $loop->index }}" class="{{ $demandeur->etat == 0 ? '' : 'table-primary' }}">
+                            <tr id="row-{{ $loop->index }}" class="{{ $demandeur->etat == 0 ? '' : 'grey' }}">
                                 <td>{{ $demandeur->Nom }}</td>
                                 <td>{{ \Carbon\Carbon::parse($demandeur->Date_de_Naissance)->format('d-m-Y')}}</td>
                                 <td>{{ $demandeur->Lieu_de_Naissance }}</td>

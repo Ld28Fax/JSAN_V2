@@ -32,7 +32,7 @@
         <a href="{{ route('contact') }}" class="nav-link">Contact</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <span class="nav-link  btn-default text-blue">{{ Auth::user()->Cour_appel }}</span>
+        {{-- <span class="nav-link  btn-default text-blue">{{ Auth::user()->Cour_appel }}</span> --}}
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <span class="nav-link btn-default text-blue">{{ Auth::user()->TPI }}</span>
@@ -110,14 +110,14 @@
 
               <ul class="list-group mb-3">
                 <li class="list-group-item">
-                  <b>{{ Auth::user()->Cour_appel }}</b>
+                  {{-- <b>{{ Auth::user()->Cour_appel }}</b> --}}
                 </li>
               </ul> 
             <form method="POST" action="{{ route('logout') }}">
               @csrf
               <x-dropdown-link :href="route('logout')"
                 onclick="event.preventDefault();
-                this.closest('form').submit();" class="btn btn-primary btn-block text-white">
+                this.closest('form').submit();" class="btn btn-success btn-block text-white">
                 <i class="zmdi zmdi-power"></i>
                 {{ __('Déconnecter') }}
               </x-dropdown-link>
@@ -202,7 +202,7 @@
 
   <!-- Main Footer -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2021 <a href="{{ route('dashboard')}}">Acceuil</a>.</strong>
+    <strong>Copyright &copy; 2024 <a href="{{ route('dashboard')}}">CO-JSAN</a>.</strong>
     All rights reserved.
   </footer>
 </div>

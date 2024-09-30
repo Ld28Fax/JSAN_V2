@@ -41,10 +41,10 @@
                         <h2 class="nav-link  btn-default text-blue">{{ $statisticCount }}</h2>
                       </li>
                   <table id="example1" class="table table-bordered table-striped ">
-                    <thead style="background: grey">
+                    <thead style="background: green; opacity:0.5">
                     <tr>
                     <th>Nom</th>
-                    <th>Date de Naissance</th>
+                    <th>Date de Naissance</th>  
                     <th>Lieu de Naissance</th>
                     <th>Père</th>
                     <th>Mère</th>
