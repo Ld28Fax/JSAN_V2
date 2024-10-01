@@ -36,10 +36,9 @@
                     <a href="{{ url('/dashboard') }}" class="btn btn-outline-light">Acceuil</a>
                 @else
                     <a href="{{ route('login') }}" class="btn btn-outline-light">Connexion</a>
-        
-                    {{-- @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="btn btn-light">Inscription</a>
-                    @endif --}}
+                 @if (Route::has('register'))
+                        {{-- <a href="{{ route('register') }}" class="btn btn-light">Inscription</a> --}}
+                    @endif
                 @endauth
             </div>
         @endif

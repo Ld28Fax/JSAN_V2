@@ -24,6 +24,18 @@
         </div>
 
         <div>
+            <x-input-label for="Cour_appel" :value="__('Cour d\'appel')" />
+            <x-text-input id="Cour_appel" name="Cour_appel" type="text" class="mt-1 block w-full" :value="old('Cour_appel', $user->Cour_appel)" required autofocus autocomplete="Cour_appel" />
+            <x-input-error class="mt-2" :messages="$errors->get('Cour_appel')" />
+        </div>
+
+        <div>
+            <x-input-label for="TPI" :value="__('Tribunal')" />
+            <x-text-input id="TPI" name="TPI" type="text" class="mt-1 block w-full" :value="old('TPI', $user->TPI)" required autofocus autocomplete="TPI" />
+            <x-input-error class="mt-2" :messages="$errors->get('TPI')" />
+        </div>
+        
+        <div>
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
             <x-input-error class="mt-2" :messages="$errors->get('email')" />

@@ -68,11 +68,18 @@ Route::get('\Erreur',function(){
 
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 
+Route::get('/contactUser', [ContactController::class, 'contact'])->name('contact');
+
+
 Route::get('/demandeurs/filter', [DemandeurController::class, 'filter'])->name('demandeurs.filter');
 
 
 Route::get('/unauthorized', function () {
     return view('unauthorized'); // Crée la vue correspondante
 });
+
+Route::get('/exportationVerifier', [DemandeurController::class, 'DemandeursVerifier'])->name('demandeurs.exportationVerifier');
+
+Route::get('/exportationNonVerifier', [DemandeurController::class, 'DemandeurNonVerifier'])->name('demandeurs.exportationNonVerifier');
 
 require __DIR__.'/auth.php';

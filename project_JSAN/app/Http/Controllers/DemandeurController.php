@@ -98,7 +98,6 @@ class DemandeurController extends Controller
 
             return view('demandeurs.liste')->with('demandeurs', $demandeurs)->with('jour', $jour);
 
-
         } 
         catch (Exception $e){
             return redirect()->back()->withErrors("error", $e->getMessage());
@@ -110,7 +109,11 @@ class DemandeurController extends Controller
         try{
             $demandeurs = DB::table('demandeur')->get()->where('usertpi', '=', Auth::id());
 
-            return view('demandeurs.exportation')->with('demandeurs', $demandeurs);
+            $nombreDemandeurs = DB::table('demandeur')->count();
+            $nombreDemandeursActif = DB::table(table: 'demandeur')->where('etat','=',1)->count();
+            $nombreDemandeursInactif = DB::table(table: 'demandeur')->where('etat','=',0)->count();
+
+            return view('demandeurs.exportation')->with('demandeurs', $demandeurs)->with('nombreDemandeurs', $nombreDemandeurs)->with('nombreDemandeursActif', $nombreDemandeursActif)->with('nombreDemandeursInactif', $nombreDemandeursInactif);
         } 
         catch (Exception $e){
             return redirect()->back()->withErrors("error", $e->getMessage());
@@ -144,6 +147,19 @@ class DemandeurController extends Controller
     $demandeurPeriode = $query->get();
 
     return response()->json(['demandeurs' => $demandeurPeriode]);
+    }
+
+    public function DemandeursVerifier() {
+        $DemandeursActifs = DB::table('demandeur')->where('etat', '=', 1)->get();
+        
+        return view('demandeurs.exportationVerifier')->with('DemandeursActifs', $DemandeursActifs);
+    }
+    
+    public function DemandeurNonVerifier(){
+        $DemandeursInactif = DB::table('demandeur')->where('etat', '=', 0)->get();
+        // dd($DemandeursInactif);
+
+        return view('demandeurs.exportationNonVerifier')->with('DemandeursInactif', $DemandeursInactif);
     }
 
 

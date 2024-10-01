@@ -37,36 +37,6 @@
       </div><!-- /.container-fluid -->
     </section>
 
- <div class="row">
-  <a class="col-12 col-sm-6 col-md-3 btn" href="{{ route('demandeurs.exportationVerifier') }}">
-    <div class="info-box mb-3">
-    <span class="info-box-icon bg-success elevation-1"><i class="fas fa-thumbs-up"></i></span>
-
-    <div class="info-box-content">
-        <span class="info-box-text">Verifier</span>
-        <span class="info-box-number text-purple " >{{ $nombreDemandeursActif }}
-            <small>Personnes</small>
-        </span>
-    </div>
-    <!-- /.info-box-content -->
-    </div>
-    <!-- /.info-box -->
-</a>
-<a class="col-12 col-sm-6 col-md-3 btn" href="{{ route('demandeurs.exportationNonVerifier') }}">
-  <div class="info-box mb-3">
-  <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-times"></i></span>
-
-  <div class="info-box-content">
-      <span class="info-box-text">Non Verifier</span>
-      <span class="info-box-number text-purple " >{{ $nombreDemandeursInactif }}
-          <small>Personnes</small>
-      </span>
-  </div>
-  <!-- /.info-box-content -->
-  </div>
-  <!-- /.info-box -->
-</a>
- </div>
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
@@ -81,6 +51,7 @@
                 <table id="example1" class="table table-bordered table-striped ">
                   <thead style="background: green; opacity:0.5 ">
                   <tr>
+                    <th>etat</th>
                     <th>Nom</th>
                     <th>Date de Naissance</th>
                     <th>Lieu de Naissance</th>
@@ -90,8 +61,9 @@
                   </tr>
                   </thead>
                   <tbody>
-                    @forelse ($demandeurs as $demandeur )
+                    @forelse ($DemandeursInactif as $demandeur )
                           <tr>
+                            <td>{{ $demandeur->etat }}</td>
                             <td>{{$demandeur->Nom}}</td>
                             <td>{{\Carbon\Carbon::parse($demandeur->Date_de_Naissance)->format('d-m-Y')}}</td>
                             <td>{{$demandeur->Lieu_de_Naissance}}</td>

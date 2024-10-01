@@ -39,7 +39,6 @@ class RegisteredUserController extends Controller
                 'Cour_appel' => ['required', 'string','max:255'],
                 'TPI' => ['required', 'string','max:255'],
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
-                'usertype' => ['required']
             ], [
                 'immatricule' => 'Le champ Immatriculation est requis',
                 'name' => 'Le champ Nom est requis, doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
