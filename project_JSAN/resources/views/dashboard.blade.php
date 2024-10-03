@@ -28,15 +28,15 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="{{'dashboard'}}" class="nav-link">Acceuil</a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
+      {{-- <li class="nav-item d-none d-sm-inline-block">
         <a href="{{ route('contact') }}" class="nav-link">Contact</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
+      </li> --}}
+      {{-- <li class="nav-item d-none d-sm-inline-block">
         <span class="nav-link  btn-default text-blue">{{ Auth::user()->Cour_appel }}</span>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <span class="nav-link btn-default text-blue">{{ Auth::user()->TPI }}</span>
-      </li>
+      </li> --}}
     </ul>
 
     <!-- Right navbar links -->
@@ -177,6 +177,12 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-file"></i>
               <p>Documentation</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('contact') }}" class="nav-link">
+              <i class="nav-icon fas fa-phone"></i>
+              <p>Contact</p>
             </a>
           </li>
         </ul>

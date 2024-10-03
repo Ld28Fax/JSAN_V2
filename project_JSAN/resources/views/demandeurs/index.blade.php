@@ -65,6 +65,10 @@
                 <div class="row">
                     <div class="col-md-12">
 
+                      <div class="row">
+                        <button class="col-md-6 btn-default text-blue" type="button" id="btn-majeur">Majeur</button>
+                        <button class="col-md-6 btn-default text-blue" type="button" id="btn-mineur">Mineur</button>
+                      </div>
                         @if ($errors->any())
                           <div class="alert alert-danger">
                             <ul>
@@ -82,7 +86,7 @@
 
                             {{-- nom --}}
                             <div class="form-group">
-                              <label>Nom et prénom:</label>
+                              <label>Nom du demandeur:</label>
           
                               <div class="input-group">
                                 <div class="input-group-prepend">
@@ -92,32 +96,28 @@
                               </div>
                             </div>
                             <input type="hidden" name="usertpi" value="{{\Illuminate\Support\Facades\Auth::user()->id }}">
-                                {{-- Père --}}
-                                <div class="form-group">
-                                    <label>Nom du Père:</label>
-                
-                                    <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                    </div>
-                                    <input type="text" name="Pere" class="form-control" placeholder="nom du Père" data-mask>
-                                    </div>
+                            
+                             {{-- Date de Naissance --}}
+                             <div class="form-group">
+                              <label>Date de Naissance</label>
+  
+                                <div class="input-group-prepend">
                                 </div>
-
-                                {{-- Mère --}}
-                                    <div class="form-group ">
-                                        <label>Nom de la Mère:</label>
-                    
-                                        <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                        </div>
-                                        <input type="text" name="Mere" class="form-control" placeholder="nom du Mère" data-mask>
-                                        </div>
-                                    </div>
-
+                                  <input type="date" id="date" name="Date_de_Naissance" class="form-control" placeholder="Date de Naissance" data-mask>
+                            </div>
+                                
+                            {{-- Lieu de naissance --}}
+                            <div class="form-group">
+                              <label>Lieu de Naissance</label>
+                              
+                              <div class="input-group-prepend">
+                              </div>
+                              <input type="text" id="lieu" name="Lieu_de_Naissance" class="form-control" placeholder="Lieu de Naissance" data-mask>
+                            </div>
                           </div>
-                          <div class="col-md-6" id="Adresse etNaissance">
+                        
+                        
+                        <div class="col-md-6" id="Adresse etNaissance">
                                 {{-- Adresse --}}
                             <div class="form-group">
                               <label>Adresse:</label>
@@ -129,27 +129,38 @@
                               <input type="text" name="Adresse" class="form-control" placeholder="Adresse du demandeur" data-mask>
                               </div>
                             </div>
-                                {{-- Date de Naissance --}}
-                                <div class="form-group">
-                                  <label>Date de Naissance</label>
-      
-                                    <div class="input-group-prepend">
-                                    </div>
-                                      <input type="date" id="date" name="Date_de_Naissance" class="form-control" placeholder="Date de Naissance" data-mask>
-                                    </div>
-                                    
-                                    
-                                    {{-- Lieu de naissance --}}
-                                    <div class="form-group">
-                                      <label>Lieu de Naissance</label>
-                                      
+                               {{-- Père --}}
+                               <div class="form-group">
+                                <label>Nom du Père:</label>
+            
+                              <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                  <input type="text" name="Pere" class="form-control" placeholder="nom du Père" data-mask>
+                                </div>
+                            </div>
+                                    {{-- Mère --}}
+                                    <div class="form-group ">
+                                      <label>Nom de la Mère:</label>
+                  
+                                      <div class="input-group">
                                       <div class="input-group-prepend">
+                                          <span class="input-group-text"><i class="fas fa-user"></i></span>
                                       </div>
-                                      <input type="text" id="lieu" name="Lieu_de_Naissance" class="form-control" placeholder="Lieu de Naissance" data-mask>
-                                    </div>
+                                      <input type="text" name="Mere" class="form-control" placeholder="nom du Mère" data-mask>
+                                      </div>
                                   </div>
+                                    
+                                    
+                                </div>
                                   
                                   
+                                  {{-- Input caché pour "Intéressé" --}}
+                                    <div class="form-group col-md-12"  id="interesse-field" style="display:none;">
+                                      <label>Nom de l'Intéressé:</label>
+                                      <input type="text" name="interesse" class="form-control" placeholder="nom de l'intéressé">
+                                    </div>
                                   
                                   {{-- telephone --}}
                                   <div class="col-md-12"> 
@@ -175,7 +186,7 @@
                                 
                               </div>
                             </div>
-                          </form>
+                        </form>
                         </div>
                       </div>
                     </section>
@@ -212,6 +223,16 @@
 {{-- <script src="extern/dist/js/demo.js"></script> --}}
 <!-- Page specific script -->
 <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('btn-mineur').addEventListener('click', function() {
+        document.getElementById('interesse-field').style.display = 'block';
+    });
+
+    document.getElementById('btn-majeur').addEventListener('click', function() {
+        document.getElementById('interesse-field').style.display = 'none';
+    });
+});
+  
   $(function () {
     //Initialize Select2 Elements
     $('.select2').select2()

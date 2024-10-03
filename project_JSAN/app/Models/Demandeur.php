@@ -11,7 +11,11 @@ class Demandeur extends Model
 {
     use HasFactory;
 
+
     protected $table= 'demandeur';
+
+    public $timestamps = true;
+    protected $dates = ['created_at', 'updated_at'];
     protected $fillable = [ 'Nom','Date_de_Naissance', 'Lieu_de_Naissance','Pere', 'Mere', 'Adresse', 'Telephone','etat', 'usertpi'];
 
     public static function modifier($id ,$Nom,$Date_de_Naissance, $Lieu_de_Naissance,$Pere, $Mere, $Adresse, $Telephone)
@@ -45,7 +49,7 @@ class Demandeur extends Model
     }
     public static function desactiver ($id) {
         try{
-            $desactive = DB::table('demandeur')->where('id','=',$id)->update(['etat' => 0]);
+            $desactive = DB::table('demandeur')->where('id','=',$id)->update(['etat' => 2]);
             return $desactive;
         }catch(Exception $e){
             throw new Exception($e->getMessage());

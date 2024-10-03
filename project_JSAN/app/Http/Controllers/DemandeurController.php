@@ -92,7 +92,7 @@ class DemandeurController extends Controller
     // Liste des demandeurs
     public function liste(){
         try{
-            $demandeurs = DB::table('demandeur')->get()->where('usertpi', '=', Auth::id());
+            $demandeurs = DB::table('demandeur')->orderBy('created_at', 'desc')->where('usertpi', '=', Auth::id())->get();
 
             $jour = DB::table('demandeur')->get()->where('created_at', '=', Carbon::now());
 
@@ -107,7 +107,7 @@ class DemandeurController extends Controller
     // exportation des demandeurs
     public function exportation(){
         try{
-            $demandeurs = DB::table('demandeur')->get()->where('usertpi', '=', Auth::id());
+            $demandeurs = DB::table('demandeur')->orderBy('created_at', 'desc')->where('usertpi', '=', Auth::id())->get();
 
             $nombreDemandeurs = DB::table('demandeur')->count();
             $nombreDemandeursActif = DB::table(table: 'demandeur')->where('etat','=',1)->count();
@@ -126,8 +126,16 @@ class DemandeurController extends Controller
             Demandeur::Activer($id);
             return redirect()->back();
         }catch(Exception $e){
-            // throw new Exception($e->getMessage());
             return redirect()->back()->withErrors(['error' => 'Une erreur s\'est produite.']);
+        }
+    }
+
+    public function Inactif($id){
+        try{
+            Demandeur::Activer($id);
+            return view('demandeurs.nonactif', ['demandeur' => Demandeur::find($id)]);
+        }catch(Exception $e){
+            throw new Exception($e->getMessage());
         }
     }
 
@@ -142,9 +150,11 @@ class DemandeurController extends Controller
         $query->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]);
     } elseif ($period === 'month') {
         $query->whereMonth('created_at', Carbon::now()->month);
+    }elseif($period == 'tous'){
+        
     }
 
-    $demandeurPeriode = $query->get();
+    $demandeurPeriode = $query->orderBy('created_at', 'desc')->get();
 
     return response()->json(['demandeurs' => $demandeurPeriode]);
     }
@@ -157,9 +167,22 @@ class DemandeurController extends Controller
     
     public function DemandeurNonVerifier(){
         $DemandeursInactif = DB::table('demandeur')->where('etat', '=', 0)->get();
-        // dd($DemandeursInactif);
+        
 
         return view('demandeurs.exportationNonVerifier')->with('DemandeursInactif', $DemandeursInactif);
+    }
+
+    public function Motif(Request $request, $id){
+        try{
+
+            $demandeur = Demandeur::find($id);
+            $demandeur->motif = $request->input('motif');
+            $demandeur->etat = 2;
+            $demandeur->save();
+            return redirect()->route('nonactif', ['id'=> $demandeur->id])->with('success', 'Motif mis à jour avec succès.');
+        }catch(Exception $e){
+            throw new Exception($e->getMessage());
+        }
     }
 
 

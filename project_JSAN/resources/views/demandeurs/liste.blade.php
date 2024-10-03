@@ -56,6 +56,7 @@
               <!-- /.card-header -->
               <div class="card-body">
                 <div>
+                    <button class="btn btn-default" onclick="filterByPeriod('tous')">Tous</button>
                     <button class="btn btn-default" onclick="filterByPeriod('day')">Jour</button>
                     <button class="btn btn-default" onclick="filterByPeriod('week')">Semaine</button>
                     <button class="btn btn-default" onclick="filterByPeriod('month')">Mois</button>
@@ -69,39 +70,78 @@
                             <th>Lieu de Naissance</th>
                             <th>Modifier</th>
                             <th>Status</th>
-                            <th>Action</th>
+                            <th></th>
+                            <th>Date d'ajout</th>
                         </tr>
                     </thead>
                     <tbody id="demandeurs-list">
                         @forelse ($demandeurs as $demandeur )
-                            <tr id="row-{{ $loop->index }}" class="{{ $demandeur->etat == 0 ? '' : 'grey' }}">
-                                <td>{{ $demandeur->Nom }}</td>
-                                <td>{{ \Carbon\Carbon::parse($demandeur->Date_de_Naissance)->format('d-m-Y')}}</td>
-                                <td>{{ $demandeur->Lieu_de_Naissance }}</td>
-                                <td>
-                                    @if ($demandeur->etat == 0)
-                                        <a class="btn btn-primary" href="{{ route('demandeurs.edit', ['id' => $demandeur->id]) }}">Modifier</a>
-                                    @endif
-                                </td>
-                                <td>
-                                    <div>
-                                        <span class="p-2 status-text">{{ $demandeur->etat == 0 ? 'Non traiter' : 'Traiter' }}</span>
-                                        <span class="badge status-badge {{ $demandeur->etat == 0 ? 'bg-danger' : 'bg-success' }}">
-                                            <i class="fas {{ $demandeur->etat == 0 ? 'fa-times' : 'fa-check' }}"></i>
-                                        </span>
-                                    </div>
-                                </td>
-                                <td>
-                                    @if ($demandeur->etat == 0)
-                                        <button type="button" class="btn btn-block btn-success">
-                                            <a href="{{ route('demandeurActiver', ['id' => $demandeur->id]) }}" class="text-white">Activer</a>
-                                        </button>
-                                    @endif
-                                </td>
-                            </tr>
+                            @if ($demandeur->etat == 0)
+                            <tr id="row-{{ $loop->index }}">
+                              <td>{{ $demandeur->Nom }}</td>
+                              <td>{{ \Carbon\Carbon::parse($demandeur->Date_de_Naissance)->format('d-m-Y')}}</td>
+                              <td>{{ $demandeur->Lieu_de_Naissance }}</td>
+                              <td>
+                                      <a class="btn btn-primary" href="{{ route('demandeurs.edit', ['id' => $demandeur->id]) }}">Modifier</a>
+                              </td>
+                              <td>
+                                  <div>
+                                    <span class="badge status-badge bg-warning">
+                                      Dossier non traiter 
+                                        <i class="fas fa-hourglass-start"></i>
+                                    </span>
+                                  </div>
+                              </td>
+                              <td>
+                                      <a class="btn btn-block btn-success" href="{{ route('demandeurActiver', ['id' => $demandeur->id]) }}" class="text-white">Activer</a>
+                                      <a href="{{ route('nonactif', ['id' => $demandeur->id]) }}" class="btn btn-block btn-danger">Non Activer</a>
+                              </td>
+                              <td>{{ \Carbon\Carbon::parse($demandeur->created_at)->translatedFormat('d F Y') }}</td>
+
+                          </tr>
+                          @elseif ($demandeur->etat == 1)
+                          <tr id="row-{{ $loop->index }}" class='grey'>
+                            <td>{{ $demandeur->Nom }}</td>
+                            <td>{{ \Carbon\Carbon::parse($demandeur->Date_de_Naissance)->format('d-m-Y')}}</td>
+                            <td>{{ $demandeur->Lieu_de_Naissance }}</td>
+                            <td></td>
+                            <td>
+                                <div>
+                                  <span class="badge status-badge bg-success">
+                                    Dossier traiter
+                                      <i class="fas fa-check"></i>
+                                  </span>
+                                </div>
+                            </td>
+                            <td></td>
+                            <td>{{ \Carbon\Carbon::parse($demandeur->created_at)->translatedFormat('d F Y') }}</td>
+
+                        </tr>
+                          @elseif ($demandeur->etat == 2)
+                          <tr id="row-{{ $loop->index }}" class="table-danger">
+                            <td>{{ $demandeur->Nom }}</td>
+                            <td>{{ \Carbon\Carbon::parse($demandeur->Date_de_Naissance)->format('d-m-Y')}}</td>
+                            <td>{{ $demandeur->Lieu_de_Naissance }}</td>
+                            <td>
+                            </td>
+                            <td>
+                                <div>
+                                    <span class="badge status-badge bg-danger">
+                                      Dossier refuser
+                                        <i class="fas fa-times"></i>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                    <p>{{ $demandeur->motif }}</p>
+                            </td>
+                            <td>{{ \Carbon\Carbon::parse($demandeur->created_at)->translatedFormat('d F Y') }}</td>
+
+                        </tr>
+                            @endif
                         @empty
                             <tr class="w-full">
-                                <td colspan="6" class="text-center">Aucun élément</td>
+                                <td colspan="7" class="text-center">Aucun élément</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -143,34 +183,112 @@
 <!-- Page specific script -->
 <script>
   function filterByPeriod(period) {
-      // Requête AJAX pour récupérer les demandeurs filtrés
-      fetch(`/demandeurs/filter?period=${period}`)
-          .then(response => response.json())
-          .then(data => {
-              const tbody = document.getElementById('demandeurs-list');
-              tbody.innerHTML = '';
+    function formatDate(createdAt) {
+        const date = new Date(createdAt);
+        return new Intl.DateTimeFormat('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' }).format(date);
+    }
 
-              if (data.demandeurs.length > 0) {
-                  data.demandeurs.forEach((demandeur, index) => {
-                      const row = document.createElement('tr');
-                      if(demandeur.etat == 1){
-                        row.classList.add('grey');
-                      }
-                      row.innerHTML = `
-                          <td>${demandeur.Nom}</td>
-                          <td>${demandeur.Date_de_Naissance}</td>
-                          <td>${demandeur.Lieu_de_Naissance}</td>
-                          <td>${demandeur.etat == 0 ? `<a class="btn btn-primary" href="/demandeurs/edit/${demandeur.id}">Modifier</a>` : ''}</td>
-                          <td><span class="p-2 status-text">${demandeur.etat == 0 ? 'Non traiter' : 'Traiter'}</span></td>
-                          <td>${demandeur.etat == 0 ? `<button type="button" class="btn btn-block btn-success"><a href="/Actif/${demandeur.id}" class="text-white">Activer</a></button>` : ''}</td>
-                      `;
-                      tbody.appendChild(row);
-                  });
-              } else {
-                  tbody.innerHTML = `<tr><td colspan="6" class="text-center">Aucun élément</td></tr>`;
-              }
-          });
-  }
+    // Requête AJAX pour récupérer les demandeurs filtrés
+    fetch(`/demandeurs/filter?period=${period}`)
+        .then(response => {
+            // Vérifie si la réponse est correcte (status 200)
+            if (!response.ok) {
+                throw new Error('Erreur de réseau');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const tbody = document.getElementById('demandeurs-list');
+            tbody.innerHTML = '';
+
+            if (data.demandeurs.length > 0) {
+                data.demandeurs.forEach((demandeur) => {
+                    const row = document.createElement('tr');
+                   // Ajoutez une condition pour changer la couleur de la ligne
+                   if (demandeur.etat == 2) {
+                        row.classList.add('table-danger');
+                    } else if (demandeur.etat == 1) {
+                        row.classList.add('grey'); 
+                    }
+                    row.innerHTML = `
+                        <td>${demandeur.Nom}</td>
+                        <td>${demandeur.Date_de_Naissance}</td>
+                        <td>${demandeur.Lieu_de_Naissance}</td>
+                        <td>${demandeur.etat == 0 ? `<a class="btn btn-primary" href="/demandeurs/edit/${demandeur.id}">Modifier</a>` : ''}</td>
+                        <td>
+                            <span class="badge status-badge ${getBadgeClass(demandeur.etat)}">
+                                ${getBadgeText(demandeur.etat)}
+                                <i class="fas ${getIconClass(demandeur.etat)}"></i>
+                            </span>
+                        </td>
+                       <td>
+                            ${demandeur.etat == 0 ? 
+                                `<a href="/Actif/${demandeur.id}" class="text-white btn btn-block btn-success">Activer</a> 
+                                <a href="nonactif/${demandeur.id}" class="btn btn-block btn-danger">Non Activer</a>` 
+                                : 
+                                (demandeur.etat == 2 ? `<span>${demandeur.motif}</span>` : '')}
+                        </td>
+
+
+                        <td>${formatDate(demandeur.created_at)}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            } else {
+                tbody.innerHTML = `<tr><td colspan="7" class="text-center">Aucun élément</td></tr>`;
+            }
+        })
+        .catch(error => {
+            console.error('Erreur:', error);
+            const tbody = document.getElementById('demandeurs-list');
+            tbody.innerHTML = `<tr><td colspan="7" class="text-center">Erreur lors du chargement des données</td></tr>`;
+        });
+}
+
+// Fonction pour déterminer la classe de badge selon l'état
+function getBadgeClass(etat) {
+    switch (etat) {
+        case 0:
+            return 'bg-warning'; // Non traité
+        case 1:
+            return 'bg-success'; // Traité
+        case 2:
+            return 'bg-danger'; // Refusé
+        default:
+            return '';
+    }
+}
+
+// Fonction pour déterminer le texte du badge selon l'état
+function getBadgeText(etat) {
+    switch (etat) {
+        case 0:
+            return 'Dossier non traité';
+        case 1:
+            return 'Dossier traité';
+        case 2:
+            return 'Dossier refusé';
+        default:
+            return '';
+    }
+}
+
+// Fonction pour déterminer l'icône selon l'état
+function getIconClass(etat) {
+    switch (etat) {
+        case 0:
+            return 'fa-hourglass-start'; // Non traité
+        case 1:
+            return 'fa-check'; // Traité
+        case 2:
+            return 'fa-times'; // Refusé
+        default:
+            return '';
+    }
+}
+
+
+
   $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,

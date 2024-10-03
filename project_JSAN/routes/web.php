@@ -42,6 +42,8 @@ Route::post('/demandeur', [DemandeurController::class,'create'])->middleware(['a
 
 Route::get('/demandeur_liste', [DemandeurController::class,'liste'])->middleware(['auth', 'verified'])->name('demandeurs.liste');
 
+Route::get('/demandeurs/filter', [DemandeurController::class, 'filter'])->name('demandeurs.filter');
+
 Route::get('/demandeur_exportation', [DemandeurController::class,'exportation'])->middleware(['auth', 'verified'])->name('demandeurs.exportation');
 
 
@@ -50,7 +52,10 @@ Route::get('/calendrier', [CalendrierController::class,'index'])->middleware(['a
 
 Route::get('/Actif/{id?}', [DemandeurController::class,'actif'])->middleware(['auth','verified'])->name('demandeurActiver');
 
-Route::get('/Non_actif/{id?}', [DemandeurController::class,'non_actif'])->middleware(['auth','verified'])->name('demandeurDesactiver');
+Route::get('/Non_actif/{id?}', [DemandeurController::class,'Inactif'])->middleware(['auth','verified'])->name('nonactif');
+
+Route::post('/ajoutMotif/{id}', [DemandeurController::class, 'Motif'])->middleware(['auth', 'verified'])->name('ajoutMotif');
+
 
 Route::get('/About', [AboutController::class,'index'])->name('About');
 
@@ -71,7 +76,6 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('/contactUser', [ContactController::class, 'contact'])->name('contact');
 
 
-Route::get('/demandeurs/filter', [DemandeurController::class, 'filter'])->name('demandeurs.filter');
 
 
 Route::get('/unauthorized', function () {
