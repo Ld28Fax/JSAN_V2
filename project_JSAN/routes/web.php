@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CalendrierController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DemandeurController;
+use App\Http\Controllers\ExportController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\ProfileController;
@@ -29,6 +30,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [HomeController::class, 'home_liste'])->middleware(['auth', 'verified'])->name('dashboard');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -85,5 +87,7 @@ Route::get('/unauthorized', function () {
 Route::get('/exportationVerifier', [DemandeurController::class, 'DemandeursVerifier'])->name('demandeurs.exportationVerifier');
 
 Route::get('/exportationNonVerifier', [DemandeurController::class, 'DemandeurNonVerifier'])->name('demandeurs.exportationNonVerifier');
+
+Route::get('/export', [ExportController::class, 'index'])->name('export');
 
 require __DIR__.'/auth.php';

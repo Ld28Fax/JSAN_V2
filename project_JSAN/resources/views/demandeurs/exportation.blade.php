@@ -101,11 +101,9 @@
                         </tr>
                         @empty
                             <tr class="w-full">
-                                <td class="flex-1 w-full justify-center items-center" colspan="4">
-                                    <p class="flex justify-center content-center p-4">
-                                    <img src="{{ asset('undraw empty.svg')}}" alt="" class="h-15 w-15">
+                                <td style="text-align: center" colspan="6">
+                                    <img src="{{ asset('undraw empty.svg')}}" alt="" style="width: 10%">
                                     <div>Aucun élément</div>
-                                    </p>
                                 </td>
                             </tr>
                     @endforelse
