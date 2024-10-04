@@ -19,6 +19,11 @@ body {
     padding: 20px;
 }
 
+
+.logo{
+    display: 
+}
+
 .document-container {
     width: 70%;
     margin: 0 auto;
@@ -29,8 +34,9 @@ body {
 }
 
 .header {
-    text-align: center;
-    margin-bottom: 20px;
+    margin: 0 auto; 
+    text-align: center; 
+    width: fit-content;
 }
 .header-info{
     display: flex;
@@ -39,10 +45,6 @@ body {
     margin-bottom: 20px;
 }
 
-.header h1, .header h2 {
-    font-size: 1.2em;
-    font-weight: bold;
-}
 
 .header p {
     font-size: 0.9em;
@@ -69,8 +71,15 @@ body {
     text-align: justify;
 }
 
+.top-footer{
+    margin-top: 2.5%;
+}
+
 .footer {
-    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    padding-top: 10%;
+    /* padding-bottom: 10%; */
 }
 
 .footer p {
@@ -78,23 +87,86 @@ body {
     font-size: 0.9em;
 }
 
+.hr{
+    width: 50%;
+    margin: 0 auto;
+}
+.logo {
+    margin-left: 120px;
+    margin-top: 5%;
+    padding-bottom: 2%;
+}
+
+@page {
+    size: auto; /* Ajuste automatiquement la taille à celle de la page */
+    margin: 5mm; /* Ajuste les marges de la page (valeurs en mm ou px) */
+}
+@media print {
+    body {
+        font-size: 12pt; /* Ajuste la taille de la police pour l'impression */
+    }
+    .no-print {
+        display: none;
+    }
+    .imprimer{
+        display: none;
+    }
+    .document-container {
+        width: 100%; /* Utilise toute la largeur de la page imprimée */
+        margin: 0 auto; /* Centre le contenu horizontalement */
+        /* padding: 10mm; Ajoute un espace intérieur (facultatif) */
+        visibility: hidden;
+        position: relative; 
+        padding: 15mm; /* Ajuste le remplissage pour que tout soit bien placé dans la page */
+        width: 100%; /* Prend toute la largeur */
+        padding: 0; /* Retirer le padding si nécessaire */
+    }
+    .document-container h4, .document-container center {
+        width: 100%; /* Assure que tous les éléments textuels prennent toute la largeur */
+        text-align: center;
+        margin:0;
+    }
+    .document-container img {
+        max-width: 100;
+        height: auto;
+    }
+    .document-container * {
+        visibility: visible;
+    }
+    .header, .header-info, .case-info, .case-decision, .case-details, .footer {
+        page-break-inside: avoid;
+    }
+    .document-container {
+        width: 100%;
+    }
+
+    .case-decision, .case-info, .case-details {
+        page-break-inside: avoid; /* Évite les coupures au milieu de ces sections */
+    }
+    .header-info p {
+        font-size: 10pt; /* Ajuste la taille de la police selon tes besoins */
+    }
+}
+
+
 </style>
 <body>
+    <button onclick="window.print()" class="imprimer">Imprimer</button>
+
     <div class="document-container">
-       <div class="">
-        <img src="Justice_logo.png" alt=" Logo" class="brand-image img-circle elevation-3" style="opacity: .8; width:10% ">
-        <p>FITSARANA AMBARATONGA VOALOHANY</p>
-       </div>
-        <div class="header">
-            <h1>REPOBLIKAN'I MADAGASIKARA</h1>
-            <h2>AMIN'NY ANARAN'NY VAHOAKA MALAGASY</h2>
+        <div class="header center">
+            <h4>REPOBLIKAN'I MADAGASIKARA <br> AMIN'NY ANARAN'NY VAHOAKA MALAGASY</h4>
         </div>
-      <div class="header-info">
-            <div>
+            <div class="logo">
+                <img src="Justice_logo.png" alt="Logo" class="brand-image img-circle elevation-3" style=" width:10%;">
+            </div>
+        <div class="header-info">
+            <div class="center">
+                <p>FITSARANA AMBARATONGA VOALOHANY</p>
                 <p>ANTANANARIVO</p>
-                <hr >
+                <hr class="hr">
                 <p>FIRAKETAN-DRAHARAHA</p>
-                <hr>
+                <hr class="hr">
                 <p>BIRAON'NY FIAKONOHANA</p>
            </div>
     
@@ -108,34 +180,47 @@ body {
         
         <div class="case-info">
             <p>Fitsarana notarihin'i ......................................................</p>
-            <p>Mpitara eto amin'ny Fitsarana Ambaratonga Voalohany Antananarivo</p>
-            <p>Notorin'i Me ................................................................................</p>
-            <p>Fitsarana ady madio ampahibemaso natao ny ................................</p>
+            <p>Mpitsara eto amin'ny Fitsarana Ambaratonga Voalohany /Antananarivo/-FILOHA-</p>
+            <p>Notrorin'i Me ................................................................................-MPIRAKI-DRAHARAHA-</p>
+            <p>Fitsarana ady madio ampahibemaso natao ny /date/</p>
         </div>
         
-        <div class="case-decision">
-            <p>Ny Fitsarana Ambaratonga Voalohany Antananarivo teto amin’ny fitsarana an-danon’andro ;</p>
+        {{-- <div class="case-decision"> --}}
+            <p>Ny Fitsarana Ambaratonga Voalohany Antananarivo teto amin’ny fitsarana an-davan’andro;</p>
             <p>Mamoaka izao didim-pitsarana manaraka izao :</p>
             <p><strong>NY FITSARANA</strong></p>
-            <p>Hita ny antontan-taratasin’ady. Hita ny fehin-tenin’ny fampanoavana ; Heno ny mpangataka ;</p>
-            <p>Heno ny fanambaran’ny vavolombelona.</p>
-            <p>Rehefa nandinika araka ny lalàna :</p>
-            <p>Araka ny fangatahana tamin’ny ............................................. <u>momna let</u> </p>
-            <p>dia nangataka ny Fitsarana didim-pitsarana misolo sora-pahaterahana ho an’i (anarana) .................</p>
+            <p>Hita ny antontan-taratasin’ady. Hita ny fehintenin’ny Fampanoavana ; Heno ny mpangataka;</p>
+            <p>Heno ny fanambaran’ny vavolombelona</p>
+            <p>Rehefa nandinika araka ny lalàna;</p>
+            <p>Araka ny fangatahana tamin’ny ............................................. <u>/date/</u> dia nangataka ny Fitsarana</p>
+            <p>etoana i <u>nom du demandeur</u> mba amoaka</p>
+            <p>didim-pitsarana misolo sora-pahaterahana ho an'i <u>nom interessé</u></p>
+            <p><u>Lahy na vavy</u></p>
+            <p>Daty sy toerana nahafatesana: .................... <u>date de deces</u></p>
+            <p>Kaominina: ......................... Distrika..................</p>
+            <p>Anaran'ny Ray aman-dReny:...................................................</p>
         </div>
         
-        <div class="case-details">
-            <p><strong>Anaran'ny Ray aman-dreny :</strong> .........................................................</p>
-            <p><strong>Dia teraka ny :</strong> .........................................................</p>
-            <p><strong>Tao :</strong> .......................... <strong>Kaominina :</strong> ....................... <strong>Distrika :</strong> ..................</p>
-            <p><strong>Zanak’i :</strong> .........................................................</p>
-            <p><strong>Sy :</strong> .........................................................</p>
+        {{-- <div class="case-details"> --}}
+           <p>Araka ny antontan-taratasin'ady sy ny fanambaran'ny vavolombelona dia hita fa mitombona ny fangatahana ary omena rariny;</p>
+           <p><strong>NOHO IREO ANTONY IREO</strong></p>
+           <p>Mitsara ampahibemaso, amin'ny ady madio, ary azo anaovana fampakarana</p>
+           <p>Lazaina fa i ..............................<u>nom interesse</u></p>
+           <p><u>Lahy na vavy</u></p>
+           <p>Dia teraka ny:................ <u>date de Naissance</u></p>
+           <p>Tao....... <u>Lieu de naissance</u> Kaominina.................. Distrika.............</p>
+           <p>Zanak'i............................ <u>Nom du Pere</u></p>
+           <p>Sy................................ <u>nom de la Mere</u></p>
+           <p>Vadin'ny............................ <u>nom du conjoint</u></p>
+           <p>Didiana sy fandikana ny matoan'izao didy izao ao amin'ny rejisitry ny sora-piankohonana;</p>
+           <p>Notsaraina sy nambara araka izany nandritra ny fotoan-pitsarana ampahibemaso tamin'ny andro, volana, taona voalaza</p>
+           <p>ery ambony ary nosoniavin'ny FILOHA sy ny MPIRAKI-DRAHARAHA.</p>
         </div>
 
+        <p class="top-footer">Natao androany <u>date aujourd'hui</u></p>
         <div class="footer">
-            <p>Natao androany ................................................</p>
-            <p><strong>Ny Mpitsara Filoha</strong> ....................................</p>
-            <p><strong>Ny Mpiraki-draharaha</strong> ....................................</p>
+            <p><strong>Ny Mpitsara Filoha</strong></p>
+            <p><strong>Ny Mpiraki-draharaha</strong></p>
         </div>
     </div>
 </body>
