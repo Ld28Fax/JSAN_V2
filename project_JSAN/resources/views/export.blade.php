@@ -45,7 +45,6 @@ body {
     margin-bottom: 20px;
 }
 
-
 .header p {
     font-size: 0.9em;
     margin: 5px 0;
