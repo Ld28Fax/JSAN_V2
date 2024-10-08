@@ -92,7 +92,7 @@ class DemandeurController extends Controller
     // Liste des demandeurs
     public function liste(){
         try{
-            $demandeurs = DB::table('demandeur')->orderBy('created_at', 'desc')->where('usertpi', '=', Auth::id())->get();
+            $demandeurs = DB::table('demandeur')->orderBy('created_at', 'desc')->where('usertpi', '=', Auth::id())->orderBy('etat', 'asc')->get();
 
             $jour = DB::table('demandeur')->get()->where('created_at', '=', Carbon::now());
 
@@ -177,8 +177,11 @@ class DemandeurController extends Controller
 
             $demandeur = Demandeur::find($id);
             $demandeur->motif = $request->input('motif');
-            $demandeur->etat = 2;
-            $demandeur->save();
+            $demandeur->fill([
+                'motif' => $request->input('motif'),
+                'etat' => 2
+            ])->save();
+            // $demandeur->save();
             return redirect()->route('nonactif', ['id'=> $demandeur->id])->with('success', 'Motif mis à jour avec succès.');
         }catch(Exception $e){
             throw new Exception($e->getMessage());

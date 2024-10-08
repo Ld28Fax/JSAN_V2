@@ -158,6 +158,14 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="{{ route('Audience') }}" class="nav-link">
+              <i class="nav-icon fas fa-balance-scale"></i>
+              <p>
+                Audience
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="{{ route('demandeurs.exportation')}}" class="nav-link">
               <i class="nav-icon fas fa-table"></i>
               <p>

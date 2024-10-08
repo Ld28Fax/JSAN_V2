@@ -14,21 +14,21 @@
             <h1>Motif de Non activer</h1>
         
             <div class="card card-default">
-                <form class="card-body" action="{{ route('nonactif', ['id' => $demandeur->id]) }}" method="POST">
+                <form class="card-body" action="{{ route('ajoutMotif', ['id' => $demandeur->id]) }}" method="POST">
                     @csrf
             
                     <div class="row">
                         <div class="col-md-12">
             
                             
+                          @if(session('success'))
+                              <div class="alert alert-success">
+                                  {{ session('success') }}
+                              </div>
+                          @endif
                             <div class="row">
-                                <h2>Le demandeur {{ $demandeur->Nom }} est maintenant inactif
+                                <h2>Le demandeur <u>{{ $demandeur->Nom }}</u> est maintenant inactif
                                 </h2>
-                                @if(session('success'))
-                                    <div class="alert alert-success">
-                                        {{ session('success') }}
-                                    </div>
-                                @endif
                                 @if ($errors->any())
                                   <div class="alert alert-danger">
                                     <ul>

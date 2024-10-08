@@ -34,42 +34,20 @@
   @extends('dashboard')
   @section('content')
 
-  <!-- Content Wrapper. Contains page content -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Ajout Demandeur</h1>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{ route('dashboard')}}" class="text-white">Home</a></li>
-              <li class="breadcrumb-item active"><a href="{{ route('demandeurs.index')}}">Ajout Demandeur</a></li>
-            </ol>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
-
     <!-- Main content -->
-    <section class="content">
+    <section class="content" style="margin-top: 10%">
       <div class="container-fluid">
         
         <!-- /.card -->
         
         <div class="card card-default">
           
-            <form class="card-body" method="POST" action="{{ route('demandeurs.index')}}">
+            <form class="card-body" method="POST" action="{{ route('Audience')}}">
               @csrf
               
                 <div class="row">
                     <div class="col-md-12">
-
-                      <div class="row">
-                        <button class="col-md-6 btn-default text-blue" type="button" id="btn-majeur">Majeur</button>
-                        <button class="col-md-6 btn-default text-blue" type="button" id="btn-mineur">Mineur</button>
-                      </div>
-                        @if ($errors->any())
+                        {{-- @if ($errors->any())
                           <div class="alert alert-danger">
                             <ul>
                               @foreach ($errors->all() as $error)
@@ -77,111 +55,48 @@
                               @endforeach
                             </ul>
                           </div>
-                        @endif
+                        @endif --}}
                         
                       
                         <div class="row">
-                          <div class="col-md-6" id="Pere et mere">
-
-
-                            {{-- nom --}}
-                            <div class="form-group">
-                              <label>Nom du demandeur:</label>
-          
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                </div>
-                                <input type="text" name="Nom" class="form-control" placeholder="nom du demandeur" data-mask>
-                              </div>
-                            </div>
-                            <input type="hidden" name="usertpi" value="{{\Illuminate\Support\Facades\Auth::user()->id }}">
-                            
-                             {{-- Date de Naissance --}}
-                             <div class="form-group">
-                              <label>Date de Naissance</label>
-  
-                                <div class="input-group-prepend">
-                                </div>
-                                  <input type="date" id="date" name="Date_de_Naissance" class="form-control" placeholder="Date de Naissance" data-mask>
-                            </div>
-                                
-                            {{-- Lieu de naissance --}}
-                            <div class="form-group">
-                              <label>Lieu de Naissance</label>
-                              
-                              <div class="input-group-prepend">
-                              </div>
-                              <input type="text" id="lieu" name="Lieu_de_Naissance" class="form-control" placeholder="Lieu de Naissance" data-mask>
-                            </div>
-                          </div>
-                        
-                        
-                        <div class="col-md-6" id="Adresse etNaissance">
+                        <div class="col-md-12">
                                 {{-- Adresse --}}
                             <div class="form-group">
-                              <label>Adresse:</label>
+                              <label>Date de l'Audience:</label>
           
                               <div class="input-group">
-                              <div class="input-group-prepend">
-                                  <span class="input-group-text"><i class="fas fa-home"></i></span>
-                              </div>
-                              <input type="text" name="Adresse" class="form-control" placeholder="Adresse du demandeur" data-mask>
+                             
+                              <input type="date" name="date_audience" class="form-control" placeholder="Date de l'Audience" data-mask>
                               </div>
                             </div>
                                {{-- Père --}}
                                <div class="form-group">
-                                <label>Nom du Père:</label>
+                                <label>Nom du Magistrat:</label>
             
                               <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                  <input type="text" name="Pere" class="form-control" placeholder="nom du Père" data-mask>
+                                  <input type="text" name="magistrat" class="form-control" placeholder="nom du Magistrat" data-mask>
                                 </div>
                             </div>
                                     {{-- Mère --}}
                                     <div class="form-group ">
-                                      <label>Nom de la Mère:</label>
+                                      <label>Nom du Greffier:</label>
                   
                                       <div class="input-group">
                                       <div class="input-group-prepend">
                                           <span class="input-group-text"><i class="fas fa-user"></i></span>
                                       </div>
-                                      <input type="text" name="Mere" class="form-control" placeholder="nom du Mère" data-mask>
+                                      <input type="text" name="greffier" class="form-control" placeholder="nom du greffier" data-mask>
                                       </div>
                                   </div>
                                     
                                     
                                 </div>
                                   
-                                  
-                                  {{-- Input caché pour "Intéressé" --}}
-                                  <div class="form-group col-md-12" id="interesse-field" style="display:none">
-                                    <label>Nom de l'intéressé:</label>
-                
-                                    <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                    </div>
-                                    <input type="text" name="interesse" class="form-control" placeholder="nom de l'intéressé">
-                                    </div>
                                 </div>
                                   
-                                  {{-- telephone --}}
-                                  <div class="col-md-12"> 
-                                    <div class="form-group">
-                                      <label>Télephone:</label>
-                                      
-                                      <div class="input-group">
-                                        <div class="input-group-prepend">
-                                          <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                                        </div>
-                                        <input type="number" name="Telephone" class="form-control" placeholder="000 00 000 00" data-mask>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
                                 
                                 
                                 

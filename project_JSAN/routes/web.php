@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AudienceController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CalendrierController;
 use App\Http\Controllers\ContactController;
@@ -54,7 +55,7 @@ Route::get('/calendrier', [CalendrierController::class,'index'])->middleware(['a
 
 Route::get('/Actif/{id?}', [DemandeurController::class,'actif'])->middleware(['auth','verified'])->name('demandeurActiver');
 
-Route::get('/Non_actif/{id?}', [DemandeurController::class,'Inactif'])->middleware(['auth','verified'])->name('nonactif');
+Route::get('/nonactif/{id?}', [DemandeurController::class,'Inactif'])->middleware(['auth','verified'])->name('nonactif');
 
 Route::post('/ajoutMotif/{id}', [DemandeurController::class, 'Motif'])->middleware(['auth', 'verified'])->name('ajoutMotif');
 
@@ -81,7 +82,7 @@ Route::get('/contactUser', [ContactController::class, 'contact'])->name('contact
 
 
 Route::get('/unauthorized', function () {
-    return view('unauthorized'); // Crée la vue correspondante
+    return view('unauthorized'); 
 });
 
 Route::get('/exportationVerifier', [DemandeurController::class, 'DemandeursVerifier'])->name('demandeurs.exportationVerifier');
@@ -89,5 +90,7 @@ Route::get('/exportationVerifier', [DemandeurController::class, 'DemandeursVerif
 Route::get('/exportationNonVerifier', [DemandeurController::class, 'DemandeurNonVerifier'])->name('demandeurs.exportationNonVerifier');
 
 Route::get('/export', [ExportController::class, 'index'])->name('export');
+
+Route::get('/audience', [AudienceController::class, 'index'])->name('Audience');
 
 require __DIR__.'/auth.php';
