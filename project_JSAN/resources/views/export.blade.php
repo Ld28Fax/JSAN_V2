@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document officiel</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="">
 </head>
 <style>
-    * {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -19,10 +19,6 @@ body {
     padding: 20px;
 }
 
-
-.logo{
-    display: 
-}
 
 .document-container {
     width: 70%;
@@ -78,7 +74,6 @@ body {
     display: flex;
     justify-content: space-around;
     padding-top: 10%;
-    /* padding-bottom: 10%; */
 }
 
 .footer p {
@@ -97,12 +92,12 @@ body {
 }
 
 @page {
-    size: auto; /* Ajuste automatiquement la taille à celle de la page */
-    margin: 5mm; /* Ajuste les marges de la page (valeurs en mm ou px) */
+    size: auto; 
+    margin: 5mm;
 }
 @media print {
     body {
-        font-size: 12pt; /* Ajuste la taille de la police pour l'impression */
+        font-size: 12pt;
     }
     .no-print {
         display: none;
@@ -111,17 +106,16 @@ body {
         display: none;
     }
     .document-container {
-        width: 100%; /* Utilise toute la largeur de la page imprimée */
-        margin: 0 auto; /* Centre le contenu horizontalement */
-        /* padding: 10mm; Ajoute un espace intérieur (facultatif) */
+        width: 100%; 
+        margin: 0 auto;
         visibility: hidden;
         position: relative; 
-        padding: 15mm; /* Ajuste le remplissage pour que tout soit bien placé dans la page */
-        width: 100%; /* Prend toute la largeur */
-        padding: 0; /* Retirer le padding si nécessaire */
+        padding: 15mm;
+        width: 100%;
+        padding: 0;
     }
     .document-container h4, .document-container center {
-        width: 100%; /* Assure que tous les éléments textuels prennent toute la largeur */
+        width: 100%;
         text-align: center;
         margin:0;
     }
@@ -140,17 +134,15 @@ body {
     }
 
     .case-decision, .case-info, .case-details {
-        page-break-inside: avoid; /* Évite les coupures au milieu de ces sections */
+        page-break-inside: avoid;
     }
     .header-info p {
-        font-size: 10pt; /* Ajuste la taille de la police selon tes besoins */
+        font-size: 10pt;
     }
 }
 
-
 </style>
 <body>
-    {{-- <button onclick="window.print()" class="imprimer">Imprimer</button> --}}
 
     <div class="document-container">
         <div class="header center">
