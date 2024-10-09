@@ -87,6 +87,7 @@
                     <th>Père</th>
                     <th>Mère</th>
                     <th>Télephone</th>
+                    <th>Imprimer</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -98,6 +99,11 @@
                             <td>{{$demandeur->Pere}}</td>
                             <td>{{$demandeur->Mere}}</td>
                             <td>{{$demandeur->Telephone}}</td>
+                            <td>
+                              <a href="{{ route('export', $demandeur->id) }}">
+                                <i class="fas fa-print"></i>
+                            </a>
+                            </td>
                         </tr>
                         @empty
                             <tr class="w-full">
@@ -165,6 +171,74 @@
       "responsive": true,
     });
   });
+
+//   document.addEventListener('DOMContentLoaded', function () {
+//     // Sélectionner toutes les icônes d'impression
+//     const printButtons = document.querySelectorAll('.print-row');
+
+//     // Boucle sur chaque bouton et ajouter un gestionnaire d'événement de clic
+//     printButtons.forEach(function(button) {
+//         button.addEventListener('click', function () {
+//             const row = button.closest('tr'); // Trouve la ligne de la table
+//             const demandeurData = {
+//                 Nom: row.cells[0].innerText,
+//                 DateNaissance: row.cells[1].innerText,
+//                 LieuNaissance: row.cells[2].innerText,
+//                 Pere: row.cells[3].innerText,
+//                 Mere: row.cells[4].innerText,
+//                 Telephone: row.cells[5].innerText
+//             };
+
+//             // Crée une nouvelle fenêtre pour l'impression
+//             const printWindow = window.open('', '_blank');
+//             printWindow.document.write(`
+//                 <html>
+//                 <head>
+//                     <title>Imprimer Demandeur</title>
+//                     <style>
+//                         .document-container { font-family: Arial, sans-serif; }
+//                         .header { text-align: center; font-weight: bold; }
+//                         .hr { margin: 10px 0; border: 1px solid black; }
+//                         .footer { margin-top: 20px; text-align: center; }
+//                     </style>
+//                 </head>
+//                 <body>
+//                     <div class="document-container">
+//                         <div class="header">
+//                             <h4>REPOBLIKAN'I MADAGASIKARA <br> AMIN'NY ANARAN'NY VAHOAKA MALAGASY</h4>
+//                         </div>
+//                         <div class="logo">
+//                             <img src="Justice_logo.png" alt="Logo" style="width:10%;">
+//                         </div>
+//                         <div class="header-info">
+//                             <p>FITSARANA AMBARATONGA VOALOHANY</p>
+//                             <p>ANTANANARIVO</p>
+//                             <hr class="hr">
+//                             <p>FIRAKETAN-DRAHARAHA</p>
+//                             <hr class="hr">
+//                             <p>BIRAON'NY FIAKONOHANA</p>
+//                         </div>
+//                         <div class="case-info">
+//                             <p>Demandeur : ${demandeurData.Nom}</p>
+//                             <p>Date de Naissance : ${demandeurData.DateNaissance}</p>
+//                             <p>Lieu de Naissance : ${demandeurData.LieuNaissance}</p>
+//                             <p>Père : ${demandeurData.Pere}</p>
+//                             <p>Mère : ${demandeurData.Mere}</p>
+//                             <p>Téléphone : ${demandeurData.Telephone}</p>
+//                         </div>
+//                         <div class="footer">
+//                             <p>Imprimé le ${new Date().toLocaleDateString()}</p>
+//                         </div>
+//                     </div>
+//                 </body>
+//                 </html>
+//             `);
+//             printWindow.document.close();
+//             printWindow.focus();
+//             printWindow.print(); // Lance l'impression
+//         });
+//     });
+// });
 
 
 </script> 

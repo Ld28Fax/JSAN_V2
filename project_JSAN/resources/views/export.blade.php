@@ -150,7 +150,7 @@ body {
 
 </style>
 <body>
-    <button onclick="window.print()" class="imprimer">Imprimer</button>
+    {{-- <button onclick="window.print()" class="imprimer">Imprimer</button> --}}
 
     <div class="document-container">
         <div class="header center">
@@ -162,7 +162,7 @@ body {
         <div class="header-info">
             <div class="center">
                 <p>FITSARANA AMBARATONGA VOALOHANY</p>
-                <p>ANTANANARIVO</p>
+                <p>{{ $user->Cour_appel }}</p>
                 <hr class="hr">
                 <p>FIRAKETAN-DRAHARAHA</p>
                 <hr class="hr">
@@ -183,44 +183,43 @@ body {
             <p>Notrorin'i Me ................................................................................-MPIRAKI-DRAHARAHA-</p>
             <p>Fitsarana ady madio ampahibemaso natao ny /date/</p>
         </div>
-        
-        {{-- <div class="case-decision"> --}}
             <p>Ny Fitsarana Ambaratonga Voalohany Antananarivo teto amin’ny fitsarana an-davan’andro;</p>
             <p>Mamoaka izao didim-pitsarana manaraka izao :</p>
             <p><strong>NY FITSARANA</strong></p>
             <p>Hita ny antontan-taratasin’ady. Hita ny fehintenin’ny Fampanoavana ; Heno ny mpangataka;</p>
             <p>Heno ny fanambaran’ny vavolombelona</p>
             <p>Rehefa nandinika araka ny lalàna;</p>
-            <p>Araka ny fangatahana tamin’ny ............................................. <u>/date/</u> dia nangataka ny Fitsarana</p>
-            <p>etoana i <u>nom du demandeur</u> mba amoaka</p>
+            <p>Araka ny fangatahana tamin’ny <u>{{ $demandeur->created_at }}</u> dia nangataka ny Fitsarana</p>
+            <p>etoana i <u>{{ $demandeur->Nom }}</u> mba amoaka</p>
             <p>didim-pitsarana misolo sora-pahaterahana ho an'i <u>nom interessé</u></p>
             <p><u>Lahy na vavy</u></p>
-            <p>Daty sy toerana nahafatesana: .................... <u>date de deces</u></p>
+            <p>Daty sy toerana nahaterahana: <u>{{ $demandeur->Date_de_Naissance }} {{ $demandeur->Lieu_de_Naissance }}</u></p>
             <p>Kaominina: ......................... Distrika..................</p>
-            <p>Anaran'ny Ray aman-dReny:...................................................</p>
-        </div>
-        
-        {{-- <div class="case-details"> --}}
+            <p>Anaran'ny Ray aman-dReny: {{ $demandeur->Pere }}, {{ $demandeur->Mere }}</p>
+
            <p>Araka ny antontan-taratasin'ady sy ny fanambaran'ny vavolombelona dia hita fa mitombona ny fangatahana ary omena rariny;</p>
            <p><strong>NOHO IREO ANTONY IREO</strong></p>
            <p>Mitsara ampahibemaso, amin'ny ady madio, ary azo anaovana fampakarana</p>
            <p>Lazaina fa i ..............................<u>nom interesse</u></p>
            <p><u>Lahy na vavy</u></p>
-           <p>Dia teraka ny:................ <u>date de Naissance</u></p>
-           <p>Tao....... <u>Lieu de naissance</u> Kaominina.................. Distrika.............</p>
-           <p>Zanak'i............................ <u>Nom du Pere</u></p>
-           <p>Sy................................ <u>nom de la Mere</u></p>
-           <p>Vadin'ny............................ <u>nom du conjoint</u></p>
+           <p>Dia teraka ny:<u>{{ $demandeur->Date_de_Naissance }}</u></p>
+           <p>Tao <u>{{ $demandeur->Lieu_de_Naissance }}</u> Kaominina.................. Distrika.............</p>
+           <p>Zanak'i <u> {{ $demandeur->Pere }}</u></p>
+           <p>Sy <u> {{ $demandeur->Mere }}</u></p>
            <p>Didiana sy fandikana ny matoan'izao didy izao ao amin'ny rejisitry ny sora-piankohonana;</p>
            <p>Notsaraina sy nambara araka izany nandritra ny fotoan-pitsarana ampahibemaso tamin'ny andro, volana, taona voalaza</p>
            <p>ery ambony ary nosoniavin'ny FILOHA sy ny MPIRAKI-DRAHARAHA.</p>
-        </div>
 
-        <p class="top-footer">Natao androany <u>date aujourd'hui</u></p>
+        <p class="top-footer">Natao androany <u>{{ \Carbon\Carbon::now()->format('d-m-Y') }}</u></p>
         <div class="footer">
             <p><strong>Ny Mpitsara Filoha</strong></p>
             <p><strong>Ny Mpiraki-draharaha</strong></p>
         </div>
     </div>
+    <script>
+        window.onload = function() {
+            window.print(); // Lancement de l'impression quand la page est chargée
+        };
+    </script>
 </body>
 </html>
