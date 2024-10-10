@@ -25,23 +25,13 @@
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Listes des demandeurs</h1>
-
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Acceuil</a></li>
-              <li class="breadcrumb-item active"><a href="{{ route('demandeurs.liste')}}">Liste des demandeurs</a></li>
-            </ol>
-          </div>
           @if (session('success'))
             <div class="col-sm-6 alert-success rounded-md">
               {{ session('success') }}
             </div>
           @endif
         </div>
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
 
     <!-- Main content -->
