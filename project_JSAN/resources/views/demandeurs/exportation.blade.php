@@ -17,26 +17,10 @@
   <link rel="stylesheet" href="extern/dist/css/adminlte.min.css">
 </head>
 {{-- <body class="hold-transition sidebar-mini"> --}}
-  @extends('dashboard')
+@extends('dashboard')
 @section('content')
 
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Exportation des demandeurs</h1>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Acceuil</a></li>
-              <li class="breadcrumb-item active"><a href="{{ route('demandeurs.liste')}}">Exportation des demandeurs</a></li>
-            </ol>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
-
+<section class="content-header">
  <div class="row">
   <a class="col-12 col-sm-6 col-md-3 btn" href="{{ route('demandeurs.exportationVerifier') }}">
     <div class="info-box mb-3">
@@ -171,76 +155,6 @@
       "responsive": true,
     });
   });
-
-//   document.addEventListener('DOMContentLoaded', function () {
-//     // Sélectionner toutes les icônes d'impression
-//     const printButtons = document.querySelectorAll('.print-row');
-
-//     // Boucle sur chaque bouton et ajouter un gestionnaire d'événement de clic
-//     printButtons.forEach(function(button) {
-//         button.addEventListener('click', function () {
-//             const row = button.closest('tr'); // Trouve la ligne de la table
-//             const demandeurData = {
-//                 Nom: row.cells[0].innerText,
-//                 DateNaissance: row.cells[1].innerText,
-//                 LieuNaissance: row.cells[2].innerText,
-//                 Pere: row.cells[3].innerText,
-//                 Mere: row.cells[4].innerText,
-//                 Telephone: row.cells[5].innerText
-//             };
-
-//             // Crée une nouvelle fenêtre pour l'impression
-//             const printWindow = window.open('', '_blank');
-//             printWindow.document.write(`
-//                 <html>
-//                 <head>
-//                     <title>Imprimer Demandeur</title>
-//                     <style>
-//                         .document-container { font-family: Arial, sans-serif; }
-//                         .header { text-align: center; font-weight: bold; }
-//                         .hr { margin: 10px 0; border: 1px solid black; }
-//                         .footer { margin-top: 20px; text-align: center; }
-//                     </style>
-//                 </head>
-//                 <body>
-//                     <div class="document-container">
-//                         <div class="header">
-//                             <h4>REPOBLIKAN'I MADAGASIKARA <br> AMIN'NY ANARAN'NY VAHOAKA MALAGASY</h4>
-//                         </div>
-//                         <div class="logo">
-//                             <img src="Justice_logo.png" alt="Logo" style="width:10%;">
-//                         </div>
-//                         <div class="header-info">
-//                             <p>FITSARANA AMBARATONGA VOALOHANY</p>
-//                             <p>ANTANANARIVO</p>
-//                             <hr class="hr">
-//                             <p>FIRAKETAN-DRAHARAHA</p>
-//                             <hr class="hr">
-//                             <p>BIRAON'NY FIAKONOHANA</p>
-//                         </div>
-//                         <div class="case-info">
-//                             <p>Demandeur : ${demandeurData.Nom}</p>
-//                             <p>Date de Naissance : ${demandeurData.DateNaissance}</p>
-//                             <p>Lieu de Naissance : ${demandeurData.LieuNaissance}</p>
-//                             <p>Père : ${demandeurData.Pere}</p>
-//                             <p>Mère : ${demandeurData.Mere}</p>
-//                             <p>Téléphone : ${demandeurData.Telephone}</p>
-//                         </div>
-//                         <div class="footer">
-//                             <p>Imprimé le ${new Date().toLocaleDateString()}</p>
-//                         </div>
-//                     </div>
-//                 </body>
-//                 </html>
-//             `);
-//             printWindow.document.close();
-//             printWindow.focus();
-//             printWindow.print(); // Lance l'impression
-//         });
-//     });
-// });
-
-
 </script> 
 @endsection
 </body>

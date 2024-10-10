@@ -42,12 +42,17 @@
         
         <div class="card card-default">
           
-            <form class="card-body" method="POST" action="{{ route('Audience')}}">
+            <form class="card-body" action="{{ route('create_audience') }}" method="POST">
               @csrf
               
                 <div class="row">
                     <div class="col-md-12">
-                        {{-- @if ($errors->any())
+                      @if(session('success'))
+                          <div class="alert alert-success">
+                              {{ session('success') }}
+                          </div>
+                      @endif
+                        @if ($errors->any())
                           <div class="alert alert-danger">
                             <ul>
                               @foreach ($errors->all() as $error)
@@ -55,20 +60,42 @@
                               @endforeach
                             </ul>
                           </div>
-                        @endif --}}
+                        @endif
                         
                       
                         <div class="row">
                         <div class="col-md-12">
-                                {{-- Adresse --}}
+                                {{-- date de l'audience --}}
                             <div class="form-group">
                               <label>Date de l'Audience:</label>
           
                               <div class="input-group">
                              
-                              <input type="date" name="date_audience" class="form-control" placeholder="Date de l'Audience" data-mask>
+                              <input type="date" name="date" class="form-control" placeholder="Date de l'Audience" data-mask>
                               </div>
                             </div>
+
+                            {{-- heure de l'audience --}}
+                            <div class="form-group">
+                              <label>Heure de l'Audience:</label>
+          
+                              <div class="input-group">
+                             
+                              <input type="time" name="heure" class="form-control" placeholder="Heure de l'Audience" data-mask>
+                              </div>
+                            </div>
+
+                            {{-- salle de l'audience --}}
+                            <div class="form-group">
+                              <label>Salle de l'Audience:</label>
+          
+                              <div class="input-group">
+                             
+                              <input type="text" name="salle" class="form-control" placeholder="Salle de l'Audience" data-mask>
+                              </div>
+                            </div>
+
+
                                {{-- Père --}}
                                <div class="form-group">
                                 <label>Nom du Magistrat:</label>
@@ -101,8 +128,8 @@
                                 
                                 
                                 <button class="btn btn-success col fileinput-button" type='submit'>
-                                  <i class="fas fa-plus"></i>
-                                  <span>Ajouter</span>
+                                  <i class="fas fa-balance-scale"></i>
+                                  <span>Enregistrer</span>
                                 </button>
                                 
                               </div>

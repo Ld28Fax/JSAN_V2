@@ -63,21 +63,21 @@
               @csrf
               
                 <div class="row">
-                    <div class="col-md-12">
+                  <div class="col-md-12">
+                      @if ($errors->any())
+                        <div class="alert alert-danger">
+                          <ul>
+                            @foreach ($errors->all() as $error)
+                              <li>{{ $error }}</li>
+                            @endforeach
+                          </ul>
+                        </div>
+                      @endif
 
                       <div class="row">
                         <button class="col-md-6 btn-default text-blue" type="button" id="btn-majeur">Majeur</button>
                         <button class="col-md-6 btn-default text-blue" type="button" id="btn-mineur">Mineur</button>
                       </div>
-                        @if ($errors->any())
-                          <div class="alert alert-danger">
-                            <ul>
-                              @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                              @endforeach
-                            </ul>
-                          </div>
-                        @endif
                         
                       
                         <div class="row">

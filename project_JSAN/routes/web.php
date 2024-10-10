@@ -93,4 +93,6 @@ Route::get('/print/{id}', [ExportController::class, 'showPrintPage'])->name('exp
 
 Route::get('/audience', [AudienceController::class, 'index'])->name('Audience');
 
+Route::post('/create_audience', [AudienceController::class, 'create'])->name('create_audience');
+
 require __DIR__.'/auth.php';
