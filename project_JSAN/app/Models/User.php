@@ -22,6 +22,7 @@ class User extends Authenticatable
         'email',
         'Cour_appel',
         'TPI',
+        'telephone',
         'password',
     ];
 

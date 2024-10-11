@@ -154,7 +154,7 @@ body {
         <div class="header-info">
             <div class="center">
                 <p>FITSARANA AMBARATONGA VOALOHANY</p>
-                <p>{{ $user->Cour_appel }}</p>
+                <p>{{ $user->TPI }}</p>
                 <hr class="hr">
                 <p>FIRAKETAN-DRAHARAHA</p>
                 <hr class="hr">
@@ -171,11 +171,11 @@ body {
         
         <div class="case-info">
             <p>Fitsarana notarihin'i ......................................................</p>
-            <p>Mpitsara eto amin'ny Fitsarana Ambaratonga Voalohany /Antananarivo/-FILOHA-</p>
+            <p>Mpitsara eto amin'ny Fitsarana Ambaratonga Voalohany <u>{{ $user->TPI }}</u> -FILOHA-</p>
             <p>Notrorin'i Me ................................................................................-MPIRAKI-DRAHARAHA-</p>
             <p>Fitsarana ady madio ampahibemaso natao ny /date/</p>
         </div>
-            <p>Ny Fitsarana Ambaratonga Voalohany Antananarivo teto amin’ny fitsarana an-davan’andro;</p>
+            <p>Ny Fitsarana Ambaratonga Voalohany <u>{{ $user->TPI }}</u> teto amin’ny fitsarana an-davan’andro;</p>
             <p>Mamoaka izao didim-pitsarana manaraka izao :</p>
             <p><strong>NY FITSARANA</strong></p>
             <p>Hita ny antontan-taratasin’ady. Hita ny fehintenin’ny Fampanoavana ; Heno ny mpangataka;</p>

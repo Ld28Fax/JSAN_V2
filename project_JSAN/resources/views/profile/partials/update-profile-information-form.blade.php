@@ -26,7 +26,7 @@
         <div>
             <x-input-label for="Cour_appel" :value="__('Cour d\'appel')" />
             <select name="Cour_appel" id="Cour_appel" class="block mt-2 w-full rounded-md border-gray-300" style="background-color: white; color:black" :value="old('Cour_appel')" required autofocus onchange="updateTPIOptions()">
-                <option value=""></option>
+                <option value="">{{ $user->Cour_appel }}</option>
                 <option value="ANTANANARIVO">ANTANANARIVO</option>
                 <option value="ANTSIRANANA">ANTSIRANANA</option>
                 <option value="FIANARANTSOA">FIANARANTSOA</option>
@@ -40,13 +40,20 @@
          <!-- TPI -->
          <div>
             <x-input-label for="TPI" :value="__('TPI')" />
-            <select name="TPI" id="TPI" class="block mt-2 w-full rounded-md"  style="background-color: white; color:black":value="old('TPI')" required autofocus>
-                <option value=""></option>
+            <select name="TPI" id="TPI" class="block mt-2 w-full rounded-md border-gray-300"  style="background-color: white; color:black":value="old('TPI')" required autofocus>
+                <option value="">{{ $user->TPI }}</option>
                 
             </select>
             <x-input-error :messages="$errors->get('TPI')" class="mt-2" />
         </div>
         
+        <!-- Numero telephone -->
+        <div>
+            <x-input-label for="telephone" :value="__('Telephone')" />
+            <x-text-input id="telephone" name="telephone" value="{{ old('telephone', $user->telephone) }}" type="number" placeholder="000 00 000 00" class="mt-1 block w-full" required autofocus/>
+            <x-input-error class="mt-2" :messages="$errors->get('telephone')" />
+        </div>
+
         <div>
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
