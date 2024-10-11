@@ -36,19 +36,6 @@
 
   <!-- Content Wrapper. Contains page content -->
     <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Ajout Demandeur</h1>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{ route('dashboard')}}" class="text-white">Home</a></li>
-              <li class="breadcrumb-item active"><a href="{{ route('demandeurs.index')}}">Ajout Demandeur</a></li>
-            </ol>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
     </section>
 
     <!-- Main content -->
@@ -74,16 +61,14 @@
                         </div>
                       @endif
 
-                      <div class="row">
+                      {{-- <div class="row">
                         <button class="col-md-6 btn-default text-blue" type="button" id="btn-majeur">Majeur</button>
                         <button class="col-md-6 btn-default text-blue" type="button" id="btn-mineur">Mineur</button>
-                      </div>
+                      </div> --}}
                         
                       
                         <div class="row">
                           <div class="col-md-6" id="Pere et mere">
-
-
                             {{-- nom --}}
                             <div class="form-group">
                               <label>Nom du demandeur:</label>
@@ -95,6 +80,43 @@
                                 <input type="text" name="Nom" class="form-control" placeholder="nom du demandeur" data-mask>
                               </div>
                             </div>
+
+                             {{-- Input caché pour "Intéressé" --}}
+                              <div class="form-group" id="interesse-field" >
+                                <label>Nom de l'intéressé:</label>
+            
+                                <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                  <input type="text" name="interesse" class="form-control" placeholder="nom de l'intéressé">
+                                </div>
+                              </div>
+
+                               {{-- Input Kaominina --}}
+                               <div class="form-group" id="interesse-field" >
+                                <label>Commune:</label>
+            
+                                <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                  <input type="text" name="kaominina" class="form-control" placeholder="Commune de demandeur">
+                                </div>
+                              </div>
+
+                              {{-- Input Kaominina --}}
+                              <div class="form-group" id="interesse-field" >
+                                <label>Distrique:</label>
+            
+                                <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                  <input type="text" name="distrika" class="form-control" placeholder="Distrique de demandeur">
+                                </div>
+                              </div>
+
                             <input type="hidden" name="usertpi" value="{{\Illuminate\Support\Facades\Auth::user()->id }}">
                             
                              {{-- Date de Naissance --}}
@@ -153,23 +175,8 @@
                                   </div>
                                     
                                     
-                                </div>
-                                  
-                                  
-                                  {{-- Input caché pour "Intéressé" --}}
-                                  <div class="form-group col-md-12" id="interesse-field" style="display:none">
-                                    <label>Nom de l'intéressé:</label>
-                
-                                    <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                    </div>
-                                    <input type="text" name="interesse" class="form-control" placeholder="nom de l'intéressé">
-                                    </div>
-                                </div>
-                                  
                                   {{-- telephone --}}
-                                  <div class="col-md-12"> 
+                                  
                                     <div class="form-group">
                                       <label>Télephone:</label>
                                       
@@ -180,7 +187,9 @@
                                         <input type="number" name="Telephone" class="form-control" placeholder="000 00 000 00" data-mask>
                                       </div>
                                     </div>
-                                  </div>
+                                 
+                                </div>
+                                  
                                 </div>
                                 
                                 
