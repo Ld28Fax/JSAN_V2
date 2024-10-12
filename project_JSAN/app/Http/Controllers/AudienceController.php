@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Audience;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AudienceController extends Controller
 {
@@ -41,5 +42,11 @@ class AudienceController extends Controller
             // throw new Exception($e->getMessage());
             return redirect()->back()->withErrors(['error' =>$e->getMessage()]);
         }
+    }
+
+    public function liste(){
+        $listeAudience = DB::table('audience')->get();
+
+        return view('audience')->with('listeAudience', $listeAudience);
     }
 }

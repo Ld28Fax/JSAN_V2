@@ -23,30 +23,6 @@
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
 
-        <div>
-            <x-input-label for="Cour_appel" :value="__('Cour d\'appel')" />
-            <select name="Cour_appel" id="Cour_appel" class="block mt-2 w-full rounded-md border-gray-300" style="background-color: white; color:black" :value="old('Cour_appel')" required autofocus onchange="updateTPIOptions()">
-                <option value="">{{ $user->Cour_appel }}</option>
-                <option value="ANTANANARIVO">ANTANANARIVO</option>
-                <option value="ANTSIRANANA">ANTSIRANANA</option>
-                <option value="FIANARANTSOA">FIANARANTSOA</option>
-                <option value="MAHAJANGA">MAHAJANGA</option>
-                <option value="TOAMASINA">TOAMASINA</option>
-                <option value="TOLIARA">TOLIARA</option>
-            </select>
-            <x-input-error :messages="$errors->get('Cour_appel')" class="mt-2" />
-        </div>
-
-         <!-- TPI -->
-         <div>
-            <x-input-label for="TPI" :value="__('TPI')" />
-            <select name="TPI" id="TPI" class="block mt-2 w-full rounded-md border-gray-300"  style="background-color: white; color:black":value="old('TPI')" required autofocus>
-                <option value="">{{ $user->TPI }}</option>
-                
-            </select>
-            <x-input-error :messages="$errors->get('TPI')" class="mt-2" />
-        </div>
-        
         <!-- Numero telephone -->
         <div>
             <x-input-label for="telephone" :value="__('Telephone')" />
@@ -93,55 +69,3 @@
         </div>
     </form>
 </section>
-
-<script>
-    const tpiOptions = {
-        "ANTANANARIVO": [
-            "TPI AMBATOLAMPY", "TPI ANKAZOBE", "TPI ANTANANARIVO", "TPI ANTSIRABE",
-            "TPI ARIVONIMAMO", "TPI AVARADRANO", "TPI MIARINARIVO", "TPI TSIROANOMANDIDY"
-        ],
-        "ANTSIRANANA": [
-            "TPI AMBANJA", "TPI AMBILOBE", "TPI ANTALAHA", "TPI ANTSIRANANA", 
-            "TPI NOSY BE", "TPI SAMBAVA"
-        ],
-        "FIANARANTSOA": [
-            "TPI AMBOSITRA", "TPI FARAFANGANA", "TPI FIANARANTSOA", "TPI IHOSY", 
-            "TPI IKONGO", "TPI MANAKARA", "TPI MANANJARY", "TPI VANGAINDRANO"
-        ],
-        "MAHAJANGA": [
-            "TPI ANALALAVA", "TPI ANTSOHIHY", "TPI BESALAMPY", "TPI BORIZINY", 
-            "TPI MAEVATANANA", "TPI MAHAJANGA", "TPI MAINTIRANO", "TPI MAMPIKONY", 
-            "TPI MANDRITSARA"
-        ],
-        "TOAMASINA": [
-            "TPI AMBATONDRAZAKA", "TPI FENOARIVO ATSINANANA", "TPI MAROANTSETRA", 
-            "TPI MORAMANGA", "TPI SAINTE-MARIE", "TPI TOAMASINA", "TPI VATOMANDRY"
-        ],
-        "TOLIARA": [
-            "TPI AMBOVOMBE", "TPI AMPANIHY", "TPI ANKAZOABO ATSIMO", "TPI BELO-SUR-TSIRIBIHINA", 
-            "TPI BETROKA", "TPI MIANDRIVAZO", "TPI MOROMBE", "TPI MORONDAVA", 
-            "TPI TOLAGNARO", "TPI TOLIARA"
-        ]
-    };
-
-
-    // function pour generer automatiquement les TPI dans chaque cour_appel
-
-    function updateTPIOptions() {
-        const courAppel = document.getElementById("Cour_appel").value;
-        const tpiSelect = document.getElementById("TPI");
-
-        // Effacer les anciennes options
-        tpiSelect.innerHTML = '<option value=""></option>';
-
-        // Si une cour d'appel est sélectionnée, ajouter les TPI associés
-        if (courAppel && tpiOptions[courAppel]) {
-            tpiOptions[courAppel].forEach(tpi => {
-                const option = document.createElement("option");
-                option.value = tpi;
-                option.textContent = tpi;
-                tpiSelect.appendChild(option);
-            });
-        }
-    }
-</script>

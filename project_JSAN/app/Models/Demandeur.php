@@ -16,7 +16,7 @@ class Demandeur extends Model
 
     public $timestamps = true;
     protected $dates = ['created_at', 'updated_at'];
-    protected $fillable = [ 'Nom','Date_de_Naissance', 'Lieu_de_Naissance','Pere', 'Mere', 'Adresse', 'Telephone','etat', 'usertpi'];
+    protected $fillable = [ 'Nom','Date_de_Naissance', 'Lieu_de_Naissance','Pere', 'Mere', 'Adresse', 'Telephone','etat', 'usertpi', 'interesse', 'kaominina', 'distrika', 'genre'];
 
     public static function modifier($id ,$Nom,$Date_de_Naissance, $Lieu_de_Naissance,$Pere, $Mere, $Adresse, $Telephone)
     {
@@ -31,6 +31,10 @@ class Demandeur extends Model
                 'Mere'=> $Mere,
                 'Adresse'=> $Adresse,
                 'Telephone'=> $Telephone,
+                // 'interesse'=> $interesse,
+                // 'kaominina' => $kaominina,
+                // 'distrika' => $distrika
+
             ]);
             return $update;
             

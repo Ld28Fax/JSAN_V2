@@ -64,13 +64,13 @@
                         
                       
                         <div class="row">
-                        <div class="col-md-12">
+                          <div class="col-md-12">
                                 {{-- date de l'audience --}}
                             <div class="form-group">
                               <label>Date de l'Audience:</label>
           
                               <div class="input-group">
-                             
+                            
                               <input type="date" name="date" class="form-control" placeholder="Date de l'Audience" data-mask>
                               </div>
                             </div>
@@ -80,8 +80,7 @@
                               <label>Heure de l'Audience:</label>
           
                               <div class="input-group">
-                             
-                              <input type="time" name="heure" class="form-control" placeholder="Heure de l'Audience" data-mask>
+                                <input type="time" name="heure" class="form-control" placeholder="Heure de l'Audience" data-mask>
                               </div>
                             </div>
 
@@ -90,14 +89,13 @@
                               <label>Salle de l'Audience:</label>
           
                               <div class="input-group">
-                             
-                              <input type="text" name="salle" class="form-control" placeholder="Salle de l'Audience" data-mask>
+                                <input type="text" name="salle" class="form-control" placeholder="Salle de l'Audience" data-mask>
                               </div>
                             </div>
 
 
-                               {{-- Père --}}
-                               <div class="form-group">
+                               {{-- Nom du magistrat --}}
+                            <div class="form-group">
                                 <label>Nom du Magistrat:</label>
             
                               <div class="input-group">
@@ -105,44 +103,47 @@
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
                                   <input type="text" name="magistrat" class="form-control" placeholder="nom du Magistrat" data-mask>
-                                </div>
-                            </div>
-                                    {{-- Mère --}}
-                                    <div class="form-group ">
-                                      <label>Nom du Greffier:</label>
-                  
-                                      <div class="input-group">
-                                      <div class="input-group-prepend">
-                                          <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                      </div>
-                                      <input type="text" name="greffier" class="form-control" placeholder="nom du greffier" data-mask>
-                                      </div>
-                                  </div>
-                                    
-                                    
-                                </div>
-                                  
-                                </div>
-                                  
-                                
-                                
-                                
-                                <button class="btn btn-success col fileinput-button" type='submit'>
-                                  <i class="fas fa-balance-scale"></i>
-                                  <span>Enregistrer</span>
-                                </button>
-                                
                               </div>
                             </div>
-                        </form>
+
+
+                            {{-- Nom du greffier --}}
+                            <div class="form-group ">
+                              <label>Nom du Greffier:</label>
+          
+                              <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                <input type="text" name="greffier" class="form-control" placeholder="nom du greffier" data-mask>
+                              </div>
+                            </div>    
+                          </div>
                         </div>
+
+                        <button class="btn btn-success col fileinput-button" type='submit'>
+                          <i class="fas fa-balance-scale"></i>
+                          <span>Enregistrer</span>
+                        </button>
                       </div>
-                    </section>
-                  </div>
+                    </div>
+                  </form>
                 </div>
+
+                {{-- @foreach ($listeAudience as $audience)
+                <div class="box">
+                  <p>{{ $audience->date }}</p>
+                  <p>{{ $audience->heure }}</p>
+                </div>
+                @endforeach --}}
+
+              </div>
+            </section>
+          </div>
+        </div>
                 
-                <!-- jQuery -->
-                <script src="extern/plugins/jquery/jquery.min.js"></script>
+<!-- jQuery -->
+<script src="extern/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="extern/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- Select2 -->
@@ -166,9 +167,6 @@
 <script src="extern/plugins/dropzone/min/dropzone.min.js"></script>
 <!-- AdminLTE App -->
 <script src="extern/dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-{{-- <script src="extern/dist/js/demo.js"></script> --}}
-<!-- Page specific script -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('btn-mineur').addEventListener('click', function() {

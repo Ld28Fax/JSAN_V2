@@ -65,7 +65,7 @@
                         </tr>
                     </thead>
                     <tbody id="demandeurs-list">
-                        @forelse ($demandeurs as $demandeur )
+                        @forelse ($demandeurs as $demandeur)
                             @if ($demandeur->etat == 0)
                             <tr id="row-{{ $loop->index }}">
                               <td>{{ $demandeur->Nom }}</td>
@@ -131,7 +131,7 @@
                             @endif
                         @empty
                         <tr class="w-full">
-                          <td style="text-align: center" colspan="6">
+                          <td style="text-align: center" colspan="7">
                               <img src="{{ asset('undraw empty.svg')}}" alt="" style="width: 10%">
                               <div>Aucun élément</div>
                           </td>

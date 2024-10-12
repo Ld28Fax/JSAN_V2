@@ -186,16 +186,26 @@ body {
             <p>didim-pitsarana misolo sora-pahaterahana ho an'i <u>nom interessé</u></p>
             <p><u>Lahy na vavy</u></p>
             <p>Daty sy toerana nahaterahana: <u>{{ $demandeur->Date_de_Naissance }} {{ $demandeur->Lieu_de_Naissance }}</u></p>
-            <p>Kaominina: ......................... Distrika..................</p>
-            <p>Anaran'ny Ray aman-dReny: {{ $demandeur->Pere }}, {{ $demandeur->Mere }}</p>
+            <p>Kaominina: <u>{{ $demandeur->kaominina }}</u>, Distrika: <u>{{ $demandeur->distrika }}</u></p>
+            <p>Anaran'ny Ray aman-dReny: <u>{{ $demandeur->Pere }}</u>, <u>{{ $demandeur->Mere }}</u></p>
 
            <p>Araka ny antontan-taratasin'ady sy ny fanambaran'ny vavolombelona dia hita fa mitombona ny fangatahana ary omena rariny;</p>
            <p><strong>NOHO IREO ANTONY IREO</strong></p>
            <p>Mitsara ampahibemaso, amin'ny ady madio, ary azo anaovana fampakarana</p>
-           <p>Lazaina fa i ..............................<u>nom interesse</u></p>
-           <p><u>Lahy na vavy</u></p>
+           <p>Lazaina fa i <?php 
+                    if ($demandeur->interesse == '') {
+            ?>   
+            <u>{{ $demandeur->interesse }}</u>
+            <?php
+                    }else{
+            ?> 
+            <u>{{ $demandeur->nom }}</u>
+            <?php
+                    }
+           ?></p>
+           <p><u>{{ $demandeur->genre }}</u></p>
            <p>Dia teraka ny:<u>{{ $demandeur->Date_de_Naissance }}</u></p>
-           <p>Tao <u>{{ $demandeur->Lieu_de_Naissance }}</u> Kaominina.................. Distrika.............</p>
+           <p>Tao <u>{{ $demandeur->Lieu_de_Naissance }}</u> Kaominina  <u>{{ $demandeur->kaominina }}</u>Distrika <u>{{ $demandeur->distrika }}</u></p>
            <p>Zanak'i <u> {{ $demandeur->Pere }}</u></p>
            <p>Sy <u> {{ $demandeur->Mere }}</u></p>
            <p>Didiana sy fandikana ny matoan'izao didy izao ao amin'ny rejisitry ny sora-piankohonana;</p>

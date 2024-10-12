@@ -29,14 +29,23 @@ class DemandeurController extends Controller
                 "Adresse"=> "required|string|max:255",
                 'Telephone' => ['required', 'numeric', 'digits:10', 'regex:/^(032|033|034|037|038)[0-9]{7}$/'],
                 'usertpi'=>'required',
+                'distrika' => 'required|string|max:255',
+                'kaominina' => 'required|string|max:255',
+                'interesse' => 'nullable|string|max:255',
+                'genre' => 'required|in:masculin,feminin'
             ], [
-            'Telephone' => 'Le champ Téléphon doit être un nombre, contenir exactement 10 chiffres et commencer par 032, 033, 034, 037 ou 038.',
+            'Telephone' => 'Le champ Téléphone doit être un nombre, contenir exactement 10 chiffres et commencer par 032, 033, 034, 037 ou 038.',
             'Nom' => 'Le champ Nom doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
             'Date_de_Naissance' => 'Le champ Date de Naissance est requis.',
             'Lieu_de_Naissance' => 'Le champ Lieu de Naissance doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
             'Pere' => 'Le champ Père doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
             'Mere' => 'Le champ Mère doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
-            'Adresse' => 'Le champ Adresse doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.'
+            'Adresse' => 'Le champ Adresse doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
+            'distrika' => 'Le champ Distrika doit être une chaîne de caractères.',
+            'kaominina' => 'Le champ Kaominina doit être une chaîne de caractères.',
+            'interesse' => 'Le champ Interessé peut être une chaîne de caractères.',
+            'genre' => 'Le champ Genre doit être masculin ou féminin.',
+            
             ]);
 
             Demandeur::create($request->all());
@@ -70,15 +79,18 @@ class DemandeurController extends Controller
             "Mere"=> "required|string|max:255",
             "Adresse"=> "required|string|max:255",
             'Telephone' => [ 'required','numeric', 'digits:10', 'regex:/^(032|033|034|038)[0-9]{7}$/'],
+            'distrika' => 'required|string|max:255',
+            'kaominina' => 'required|string|max:255',
+            'interesse' => 'nullable|string|max:255',
             'id' => "required"
         ],[
-            'Telephone' => 'Le champ Téléphone est requis, doit être un nombre, contenir exactement 10 chiffres et commencer par 032, 033, 034 ou 038.',
-            'Nom' => 'Le champ Nom est requis, doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
+            'Telephone' => 'Le champ Téléphone doit être un nombre, contenir exactement 10 chiffres et commencer par 032, 033, 034 ou 038.',
+            'Nom' => 'Le champ Nom doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
             'Date_de_Naissance' => 'Le champ Date de Naissance est requis.',
-            'Lieu_de_Naissance' => 'Le champ Lieu de Naissance est requis, doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
-            'Pere' => 'Le champ Père est requis, doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
-            'Mere' => 'Le champ Mère est requis, doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
-            'Adresse' => 'Le champ Adresse est requis, doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.'
+            'Lieu_de_Naissance' => 'Le champ Lieu de Naissance doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
+            'Pere' => 'Le champ Père doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
+            'Mere' => 'Le champ Mère doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
+            'Adresse' => 'Le champ Adresse doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.'
         ]);
         Demandeur::modifier( $request->id, $request->Nom, $request->Date_de_Naissance, $request->Lieu_de_Naissance, $request->Pere, $request->Mere, $request->Adresse, $request->Telephone );
         return redirect()->route('demandeurs.liste')->with('success','Demandeur mis à jour avec succès.');
@@ -179,7 +191,6 @@ class DemandeurController extends Controller
             $demandeur->motif = $request->input('motif');
             $demandeur->fill([
                 'motif' => $request->input('motif'),
-                'etat' => 2
             ])->save();
             // $demandeur->save();
             return redirect()->route('nonactif', ['id'=> $demandeur->id])->with('success', 'Motif mis à jour avec succès.');

@@ -29,7 +29,6 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="extern/dist/css/adminlte.min.css">
 </head>
-
 {{-- <body class="hold-transition sidebar-mini"> --}}
   @extends('dashboard')
   @section('content')
@@ -37,7 +36,6 @@
   <!-- Content Wrapper. Contains page content -->
     <section class="content-header">
     </section>
-
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
@@ -65,9 +63,9 @@
                         <button class="col-md-6 btn-default text-blue" type="button" id="btn-majeur">Majeur</button>
                         <button class="col-md-6 btn-default text-blue" type="button" id="btn-mineur">Mineur</button>
                       </div> --}}
-                        
-                      
-                        <div class="row">
+
+
+                      <div class="row">
                           <div class="col-md-6" id="Pere et mere">
                             {{-- nom --}}
                             <div class="form-group">
@@ -77,7 +75,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input type="text" name="Nom" class="form-control" placeholder="nom du demandeur" data-mask>
+                                <input type="text" name="Nom" class="form-control" placeholder="nom du demandeur">
                               </div>
                             </div>
 
@@ -105,7 +103,7 @@
                                 </div>
                               </div>
 
-                              {{-- Input Kaominina --}}
+                              {{-- Input Distrika --}}
                               <div class="form-group" id="interesse-field" >
                                 <label>Distrique:</label>
             
@@ -185,6 +183,23 @@
                                           <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                         </div>
                                         <input type="number" name="Telephone" class="form-control" placeholder="000 00 000 00" data-mask>
+                                      </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                      <label>genre:</label>
+                  
+                                      <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        
+                                        <h2>M <i class="fas fa-male"></i></h2> 
+                                        <input type="radio" name="genre" value="masculin">
+                                      </div>
+                                      <div class="input-group-prepend" style="margin-left: 10%">
+                                        
+                                        <h2>F <i class="fas fa-female"></i></h2> 
+                                        <input type="radio" name="genre" value="feminin">
+                                      </div>
                                       </div>
                                     </div>
                                  
