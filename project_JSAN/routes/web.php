@@ -97,5 +97,6 @@ Route::post('/create_audience', [AudienceController::class, 'create'])->name('cr
 
 Route::get('/getDemandeurs/{audienceId}', [AudienceController::class, 'getDemandeurs']);
 
+Route::post('/updateEtatAudience/{demandeurId}', [AudienceController::class, 'updateEtatAudience']);
 
 require __DIR__.'/auth.php';

@@ -53,9 +53,25 @@ class AudienceController extends Controller
     public function getDemandeurs($audienceId) {
         // Récupérer les demandeurs associés à une audience
         $demandeurs = DB::table('demandeur')
-                        ->get();
+                        ->where('etat_audience', false)->where('audience_id', $audienceId)->get();
     
         // Retourner les demandeurs au format JSON
         return response()->json($demandeurs);
     }
+
+    // public function updateEtatAudience(Request $request, $demandeurId)
+    // {
+
+    //     $demandeur = DB::table('demandeur')->find($demandeurId);
+
+    //     if ($demandeur) {
+    //         // Mettre à jour la colonne etat_audience
+    //         $demandeur->etat_audience = $request->input('etat_audience');
+    //         $demandeur->save();
+
+    //         return response()->json(['success' => true]);
+    //     } else {
+    //         return response()->json(['success' => false], 404);
+    //     }
+    // }
 }

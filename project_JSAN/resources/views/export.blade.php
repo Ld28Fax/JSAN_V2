@@ -143,7 +143,12 @@ body {
 
 </style>
 <body>
-
+    <?php
+    setlocale(LC_TIME, 'mg_MG.UTF-8');
+    $date_en_lettres_created_at = strftime('%d %B %Y', strtotime($demandeur->created_at));
+    $date_en_lettres_Date_de_Naissance = strftime('%d %B %Y', strtotime($demandeur->Date_de_Naissance));
+    $date_actuelle = strftime('%d %B %Y', strtotime(\Carbon\Carbon::now()));
+    ?>
     <div class="document-container">
         <div class="header center">
             <h4>REPOBLIKAN'I MADAGASIKARA <br> AMIN'NY ANARAN'NY VAHOAKA MALAGASY</h4>
@@ -181,11 +186,31 @@ body {
             <p>Hita ny antontan-taratasin’ady. Hita ny fehintenin’ny Fampanoavana ; Heno ny mpangataka;</p>
             <p>Heno ny fanambaran’ny vavolombelona</p>
             <p>Rehefa nandinika araka ny lalàna;</p>
-            <p>Araka ny fangatahana tamin’ny <u>{{ $demandeur->created_at }}</u> dia nangataka ny Fitsarana</p>
+            <p>Araka ny fangatahana tamin’ny <u>{{ $date_en_lettres_created_at }}</u> dia nangataka ny Fitsarana</p>
             <p>etoana i <u>{{ $demandeur->Nom }}</u> mba amoaka</p>
-            <p>didim-pitsarana misolo sora-pahaterahana ho an'i <u>nom interessé</u></p>
-            <p><u>Lahy na vavy</u></p>
-            <p>Daty sy toerana nahaterahana: <u>{{ $demandeur->Date_de_Naissance }} {{ $demandeur->Lieu_de_Naissance }}</u></p>
+            <p>didim-pitsarana misolo sora-pahaterahana ho an'i <u>
+                <?php 
+                    if ($demandeur->interesse != '') {
+                        echo $demandeur->interesse; // Affiche 'interesse' si ce n'est pas vide
+                    } else {
+                        echo $demandeur->Nom; // Affiche 'nom' sinon
+                    }
+                ?>
+            </u></p>
+            <p>
+                <u>
+                    <?php 
+                        if ($demandeur->genre === 'masculin') {
+                            echo 'Lahy';
+                        } elseif ($demandeur->genre === 'feminin') {
+                            echo 'Vavy';
+                        } else {
+                            echo 'Sady tsy lahy no tsy vavy';
+                        }
+                    ?>
+                </u>
+            </p>
+            <p>Daty sy toerana nahaterahana: <u>{{ $date_en_lettres_Date_de_Naissance }}</u>, tao: <u> {{ $demandeur->Lieu_de_Naissance }}</u></p>
             <p>Kaominina: <u>{{ $demandeur->kaominina }}</u>, Distrika: <u>{{ $demandeur->distrika }}</u></p>
             <p>Anaran'ny Ray aman-dReny: <u>{{ $demandeur->Pere }}</u>, <u>{{ $demandeur->Mere }}</u></p>
 
@@ -193,26 +218,38 @@ body {
            <p><strong>NOHO IREO ANTONY IREO</strong></p>
            <p>Mitsara ampahibemaso, amin'ny ady madio, ary azo anaovana fampakarana</p>
            <p>Lazaina fa i <?php 
-                    if ($demandeur->interesse == '') {
+                    if ($demandeur->interesse != '') {
             ?>   
             <u>{{ $demandeur->interesse }}</u>
             <?php
                     }else{
             ?> 
-            <u>{{ $demandeur->nom }}</u>
+            <u>{{ $demandeur->Nom }}</u>
             <?php
                     }
            ?></p>
-           <p><u>{{ $demandeur->genre }}</u></p>
-           <p>Dia teraka ny:<u>{{ $demandeur->Date_de_Naissance }}</u></p>
-           <p>Tao <u>{{ $demandeur->Lieu_de_Naissance }}</u> Kaominina  <u>{{ $demandeur->kaominina }}</u>Distrika <u>{{ $demandeur->distrika }}</u></p>
+           <p>
+            <u>
+                <?php 
+                    if ($demandeur->genre === 'masculin') {
+                        echo 'Lahy';
+                    } elseif ($demandeur->genre === 'feminin') {
+                        echo 'Vavy';
+                    } else {
+                        echo 'Sady tsy lahy no tsy vavy';
+                    }
+                ?>
+            </u>
+        </p>
+           <p>Dia teraka ny: <u>{{ $date_en_lettres_Date_de_Naissance }}</u></p>
+           <p>Tao: <u>{{ $demandeur->Lieu_de_Naissance }}</u> Kaominina: <u>{{ $demandeur->kaominina }}</u>Distrika: <u>{{ $demandeur->distrika }}</u></p>
            <p>Zanak'i <u> {{ $demandeur->Pere }}</u></p>
            <p>Sy <u> {{ $demandeur->Mere }}</u></p>
            <p>Didiana sy fandikana ny matoan'izao didy izao ao amin'ny rejisitry ny sora-piankohonana;</p>
            <p>Notsaraina sy nambara araka izany nandritra ny fotoan-pitsarana ampahibemaso tamin'ny andro, volana, taona voalaza</p>
            <p>ery ambony ary nosoniavin'ny FILOHA sy ny MPIRAKI-DRAHARAHA.</p>
 
-        <p class="top-footer">Natao androany <u>{{ \Carbon\Carbon::now()->format('d-m-Y') }}</u></p>
+        <p class="top-footer">Natao androany <u>{{ $date_actuelle }}</u></p>
         <div class="footer">
             <p><strong>Ny Mpitsara Filoha</strong></p>
             <p><strong>Ny Mpiraki-draharaha</strong></p>
@@ -220,7 +257,7 @@ body {
     </div>
     <script>
         window.onload = function() {
-            window.print(); // Lancement de l'impression quand la page est chargée
+            window.print();
         };
     </script>
 </body>

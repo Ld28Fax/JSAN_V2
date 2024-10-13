@@ -66,7 +66,38 @@
 
 
                       <div class="row">
-                          <div class="col-md-6" id="Pere et mere">
+                          <div class="col-md-6">
+
+                            {{-- Date de Naissance --}}
+                            <div class="form-group" id="interesse-field">
+                              <label for="dob">Date de naissance:</label>
+                              <input type="date" id="dob" class="form-control" onchange="checkAge()" autocomplete="off">
+                            </div>
+
+                            {{-- Lieu de naissance --}}
+                            <div class="form-group">
+                              <label>Lieu de Naissance</label>
+
+                              <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                                </div>
+                                <input type="text" id="lieu" name="Lieu_de_Naissance" class="form-control" placeholder="Lieu de Naissance" data-mask autocomplete="off">
+                              </div>
+                            </div>
+
+                            {{-- Input caché pour "Intéressé" --}}
+                            <div class="form-group" id="interesse-message" style="display: none;">
+                              <label>Nom de l'intéressé:</label>
+                              <div class="input-group">
+                                  <div class="input-group-prepend">
+                                      <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                  </div>
+                                  <input type="text" name="interesse" class="form-control" placeholder="nom de l'intéressé" autocomplete="off">
+                              </div>
+                              <p id="age-message" style="color: red;"></p>
+                          </div>
+
                             {{-- nom --}}
                             <div class="form-group">
                               <label>Nom du demandeur:</label>
@@ -75,21 +106,10 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input type="text" name="Nom" class="form-control" placeholder="nom du demandeur">
+                                <input type="text" name="Nom" class="form-control" placeholder="nom du demandeur" autocomplete="off">
                               </div>
                             </div>
-
-                             {{-- Input caché pour "Intéressé" --}}
-                              <div class="form-group" id="interesse-field" >
-                                <label>Nom de l'intéressé:</label>
-            
-                                <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                </div>
-                                  <input type="text" name="interesse" class="form-control" placeholder="nom de l'intéressé">
-                                </div>
-                              </div>
+                             
 
                                {{-- Input Kaominina --}}
                                <div class="form-group" id="interesse-field" >
@@ -97,9 +117,9 @@
             
                                 <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                                 </div>
-                                  <input type="text" name="kaominina" class="form-control" placeholder="Commune de demandeur">
+                                  <input type="text" name="kaominina" class="form-control" placeholder="Commune de demandeur" autocomplete="off">
                                 </div>
                               </div>
 
@@ -108,32 +128,15 @@
                                 <label>Distrique:</label>
             
                                 <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                </div>
-                                  <input type="text" name="distrika" class="form-control" placeholder="Distrique de demandeur">
+                                  <div class="input-group-prepend">
+                                      <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                                  </div>
+                                  <input type="text" name="distrika" class="form-control" placeholder="Distrique de demandeur" autocomplete="off">
                                 </div>
                               </div>
 
                             <input type="hidden" name="usertpi" value="{{\Illuminate\Support\Facades\Auth::user()->id }}">
-                            
-                             {{-- Date de Naissance --}}
-                             <div class="form-group">
-                              <label>Date de Naissance</label>
-  
-                                <div class="input-group-prepend">
-                                </div>
-                                  <input type="date" id="date" name="Date_de_Naissance" class="form-control" placeholder="Date de Naissance" data-mask>
-                            </div>
-                                
-                            {{-- Lieu de naissance --}}
-                            <div class="form-group">
-                              <label>Lieu de Naissance</label>
-                              
-                              <div class="input-group-prepend">
-                              </div>
-                              <input type="text" id="lieu" name="Lieu_de_Naissance" class="form-control" placeholder="Lieu de Naissance" data-mask>
-                            </div>
+
                           </div>
                         
                         
@@ -146,7 +149,7 @@
                               <div class="input-group-prepend">
                                   <span class="input-group-text"><i class="fas fa-home"></i></span>
                               </div>
-                              <input type="text" name="Adresse" class="form-control" placeholder="Adresse du demandeur" data-mask>
+                              <input type="text" name="Adresse" class="form-control" placeholder="Adresse du demandeur" data-mask autocomplete="off">
                               </div>
                             </div>
                                {{-- Père --}}
@@ -157,7 +160,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                  <input type="text" name="Pere" class="form-control" placeholder="nom du Père" data-mask>
+                                  <input type="text" name="Pere" class="form-control" placeholder="nom du Père" data-mask autocomplete="off">
                                 </div>
                             </div>
                                     {{-- Mère --}}
@@ -168,7 +171,7 @@
                                       <div class="input-group-prepend">
                                           <span class="input-group-text"><i class="fas fa-user"></i></span>
                                       </div>
-                                      <input type="text" name="Mere" class="form-control" placeholder="nom du Mère" data-mask>
+                                      <input type="text" name="Mere" class="form-control" placeholder="nom du Mère" data-mask autocomplete="off">
                                       </div>
                                   </div>
                                     
@@ -182,7 +185,7 @@
                                         <div class="input-group-prepend">
                                           <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                         </div>
-                                        <input type="number" name="Telephone" class="form-control" placeholder="000 00 000 00" data-mask>
+                                        <input type="number" name="Telephone" class="form-control" placeholder="000 00 000 00" data-mask autocomplete="off">
                                       </div>
                                     </div>
 
@@ -394,7 +397,33 @@
   document.querySelector("#actions .cancel").onclick = function() {
     myDropzone.removeAllFiles(true)
   }
-  // DropzoneJS Demo Code End
+
+  function checkAge() {
+    const dobInput = document.getElementById('dob').value;
+    const dob = new Date(dobInput);
+    const today = new Date();
+    
+    // Calculer l'âge
+    let age = today.getFullYear() - dob.getFullYear();
+    const monthDiff = today.getMonth() - dob.getMonth();
+    
+    // Ajuster l'âge si la date de naissance n'est pas encore passée cette année
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+        age--;
+    }
+
+    // Vérifier l'âge et afficher/masquer les champs
+    const interesseMessage = document.getElementById('interesse-message');
+    const ageMessage = document.getElementById('age-message');
+
+    if (age < 18) {
+        interesseMessage.style.display = 'block';
+        ageMessage.textContent = "Le demandeur devez avoir au moins 18 ans, mettez ici son nom.";
+    } else {
+        interesseMessage.style.display = 'none';
+        ageMessage.textContent = "";
+    }
+}
 </script>
 </body>
 

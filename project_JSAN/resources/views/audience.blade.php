@@ -28,29 +28,31 @@
   <link rel="stylesheet" href="extern/plugins/dropzone/min/dropzone.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="extern/dist/css/adminlte.min.css">
+
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <style>
-/* Style pour la modal */
+
 .modal {
-    display: none; /* Masqué par défaut */
-    position: fixed;
-    z-index: 1000; /* Positionner la modal au-dessus */
+    display: none; /* Masquer le modal par défaut */
+    position: fixed; /* Rester en place */
+    z-index: 1000; /* Au-dessus du contenu */
     left: 0;
     top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Couleur d'arrière-plan semi-transparent */
+    width: 100%; /* Largeur complète */
+    height: 100%; /* Hauteur complète */
+    overflow: auto; /* Activer le défilement si nécessaire */
+    background-color: rgba(0, 0, 0, 0.5); /* Couleur d'arrière-plan semi-transparente */
 }
 
 .modal-content {
     background-color: #fff;
-    margin: 15% auto;
+    margin: 15% auto; /* Centrer le modal */
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
-    max-width: 500px;
-    border-radius: 8px;
-    z-index: 1010; /* Assurez-vous que cela reste au-dessus */
+    width: 80%; /* Largeur du modal */
+    max-width: 600px; /* Largeur maximale */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .close {
@@ -62,18 +64,15 @@
 
 .close:hover,
 .close:focus {
-    color: #000;
+    color: black;
     text-decoration: none;
     cursor: pointer;
 }
 
-/* Flouter uniquement l'arrière-plan, pas la modal */
-body.modal-open #page-content {
-    filter: blur(5px); /* Flou seulement sur le contenu de la page */
-}
 
 
 </style>
+
 {{-- <body class="hold-transition sidebar-mini"> --}}
   @extends('dashboard')
   @section('content')
@@ -84,7 +83,7 @@ body.modal-open #page-content {
         
         <!-- /.card -->
         
-        <div class="card card-default">
+        <div class="card ">
           
             <form class="card-body" action="{{ route('create_audience') }}" method="POST">
               @csrf
@@ -115,7 +114,7 @@ body.modal-open #page-content {
           
                               <div class="input-group">
                             
-                              <input type="date" name="date" class="form-control" placeholder="Date de l'Audience" data-mask>
+                              <input type="date" name="date" class="form-control" placeholder="Date de l'Audience" data-mask >
                               </div>
                             </div>
 
@@ -124,7 +123,7 @@ body.modal-open #page-content {
                               <label>Heure de l'Audience:</label>
           
                               <div class="input-group">
-                                <input type="time" name="heure" class="form-control" placeholder="Heure de l'Audience" data-mask>
+                                <input type="time" name="heure" class="form-control" placeholder="Heure de l'Audience" data-mask autocomplete="off">
                               </div>
                             </div>
 
@@ -133,7 +132,7 @@ body.modal-open #page-content {
                               <label>Salle de l'Audience:</label>
           
                               <div class="input-group">
-                                <input type="text" name="salle" class="form-control" placeholder="Salle de l'Audience" data-mask>
+                                <input type="text" name="salle" class="form-control" placeholder="Salle de l'Audience" data-mask autocomplete="off">
                               </div>
                             </div>
 
@@ -146,7 +145,7 @@ body.modal-open #page-content {
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                  <input type="text" name="magistrat" class="form-control" placeholder="nom du Magistrat" data-mask>
+                                  <input type="text" name="magistrat" class="form-control" placeholder="nom du Magistrat" data-mask autocomplete="off">
                               </div>
                             </div>
 
@@ -159,7 +158,7 @@ body.modal-open #page-content {
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input type="text" name="greffier" class="form-control" placeholder="nom du greffier" data-mask>
+                                <input type="text" name="greffier" class="form-control" placeholder="nom du greffier" data-mask autocomplete="off">
                               </div>
                             </div>    
                           </div>
@@ -176,33 +175,37 @@ body.modal-open #page-content {
 
                 <div id="page-content">
                   @foreach ($listeAudience as $audience)
+                  <?php
+                  setlocale(LC_TIME, 'mg_MG.UTF-8');
+                  $date_audience = strftime('%d %B %Y', strtotime($audience->date));
+                  ?>
                       <div class="box btn btn-default" onclick="showModal('{{ $audience->id }}')">
-                          <p>{{ $audience->date }}</p>
+                          <p>{{ $date_audience }}</p>
                           <p>{{ $audience->heure }}</p>
                       </div>
                   @endforeach
               </div>
-              
-            <!-- Modal -->
-            <div id="demandeursModal" class="modal">
-              <div class="modal-content">
-                  <span class="close" onclick="closeModal()">&times;</span>
-                  <h2>Liste des demandeurs</h2>
-                  <table id="demandeurTable">
-                      <thead>
-                          <tr>
-                              <th>ID</th>
-                              <th>Nom</th>
-                          </tr>
-                      </thead>
-                      <tbody id="demandeurList">
-                          <!-- Les demandeurs seront affichés ici dynamiquement -->
-                      </tbody>
-                  </table>
-              </div>
+
+
+              <div id="demandeurs-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <h3>Demandeurs</h3>
+                    <table id="demandeurs-table">
+                        <thead>
+                            <tr>
+                                <th>Sélectionner</th>
+                                <th>Nom</th>
+                                <th>Date de création</th>
+                            </tr>
+                        </thead>
+                        <tbody id="demandeurs-body">
+                            <!-- Les demandeurs seront ajoutés ici dynamiquement -->
+                        </tbody>
+                    </table>
+                    <button onclick="confirmSelection()">Confirmer</button>
+                </div>
             </div>
-
-
 
               </div>
             </section>
@@ -366,58 +369,45 @@ body.modal-open #page-content {
     myDropzone.removeAllFiles(true)
   }
 
+  function showModal(audienceId) {
+    // Réinitialiser le contenu du tableau
+    document.getElementById('demandeurs-body').innerHTML = '';
 
- // Fonction pour afficher la modal et flouter l'arrière-plan
-function showModal(audienceId) {
-    document.getElementById('demandeursModal').style.display = 'block';
-    document.body.classList.add('modal-open');
-
-    // Ici, vous pouvez faire une requête AJAX pour récupérer la liste des demandeurs
-    document.getElementById('demandeurList').innerHTML = "Liste des demandeurs pour l'audience ID " + audienceId;
-}
-
-// Fonction pour fermer la modal et retirer le flou
-function closeModal() {
-    document.getElementById('demandeursModal').style.display = 'none';
-    document.body.classList.remove('modal-open');
-}
-
-
-function showModal(audienceId) {
-    document.getElementById('demandeursModal').style.display = 'block';
-    document.body.classList.add('modal-open');
-
-    // Requête AJAX pour obtenir les demandeurs de l'audience
-    fetch('/getDemandeurs/' + audienceId)
+    // Récupérer les demandeurs avec etat_audience = false pour cette audience
+    fetch(`/demandeurs/${audienceId}`)
         .then(response => response.json())
         .then(data => {
-            let demandeurList = '';
-            if (data.length > 0) {
-                data.forEach(demandeur => {
-                    demandeurList += `
-                        <tr>
-                            <td>${demandeur.id}</td> <!-- Remplacez par le bon champ pour l'ID -->
-                            <td>${demandeur.Nom}</td>
-                            <!-- Ajoutez d'autres colonnes si nécessaire -->
-                        </tr>
-                    `;
-                });
-            } else {
-                demandeurList = '<tr><td colspan="3">Aucun demandeur trouvé pour cette audience.</td></tr>';
-            }
-
-            // Afficher les demandeurs dans la modal
-            document.getElementById('demandeurList').innerHTML = demandeurList;
-        })
-        .catch(error => {
-            console.error('Erreur lors de la récupération des demandeurs:', error);
+            const tbody = document.getElementById('demandeurs-body');
+            data.forEach(demandeur => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><input type="checkbox" value="${demandeur.id}"></td>
+                    <td>${demandeur.Nom}</td>
+                    <td>${demandeur.created_at}</td>
+                `;
+                tbody.appendChild(row);
+            });
         });
+
+    // Afficher le modal
+    document.getElementById('demandeurs-modal').style.display = 'block';
 }
 
 function closeModal() {
-    document.getElementById('demandeursModal').style.display = 'none';
-    document.body.classList.remove('modal-open');
+    document.getElementById('demandeurs-modal').style.display = 'none';
 }
+
+function confirmSelection() {
+    const selectedDemandeurs = Array.from(document.querySelectorAll('#demandeurs-body input:checked'))
+        .map(checkbox => checkbox.value);
+
+    // Envoyer la sélection au serveur ou traiter comme nécessaire
+    console.log(selectedDemandeurs);
+    // Vous pouvez faire une requête pour confirmer les demandeurs sélectionnés
+
+    closeModal(); // Fermer le modal après confirmation
+}
+
 
 </script>
 @endsection
