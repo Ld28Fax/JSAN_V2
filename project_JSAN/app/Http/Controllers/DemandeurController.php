@@ -82,7 +82,6 @@ class DemandeurController extends Controller
             'distrika' => 'required|string|max:255',
             'kaominina' => 'required|string|max:255',
             'interesse' => 'nullable|string|max:255',
-            'id' => "required"
         ],[
             'Telephone' => 'Le champ Téléphone doit être un nombre, contenir exactement 10 chiffres et commencer par 032, 033, 034 ou 038.',
             'Nom' => 'Le champ Nom doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
@@ -92,7 +91,7 @@ class DemandeurController extends Controller
             'Mere' => 'Le champ Mère doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
             'Adresse' => 'Le champ Adresse doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.'
         ]);
-        Demandeur::modifier( $request->id, $request->Nom, $request->Date_de_Naissance, $request->Lieu_de_Naissance, $request->Pere, $request->Mere, $request->Adresse, $request->Telephone );
+        Demandeur::modifier( $request->id, $request->Nom, $request->Date_de_Naissance, $request->Lieu_de_Naissance, $request->Pere, $request->Mere, $request->Adresse, $request->Telephone, $request->kaominina, $request->interesse, $request->distrika );
         return redirect()->route('demandeurs.liste')->with('success','Demandeur mis à jour avec succès.');
     } catch (Exception $e){
         // throw new Exception($e->getMessage());
@@ -179,14 +178,12 @@ class DemandeurController extends Controller
     
     public function DemandeurNonVerifier(){
         $DemandeursInactif = DB::table('demandeur')->where('etat', '=', 0)->get();
-        
 
         return view('demandeurs.exportationNonVerifier')->with('DemandeursInactif', $DemandeursInactif);
     }
 
     public function Motif(Request $request, $id){
         try{
-
             $demandeur = Demandeur::find($id);
             $demandeur->motif = $request->input('motif');
             $demandeur->fill([

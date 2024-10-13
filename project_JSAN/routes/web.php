@@ -91,10 +91,11 @@ Route::get('/exportationNonVerifier', [DemandeurController::class, 'DemandeurNon
 
 Route::get('/print/{id}', [ExportController::class, 'showPrintPage'])->name('export');
 
-Route::get('/audience', [AudienceController::class, 'index'])->name('Audience');
+Route::get('/audience', [AudienceController::class, 'liste'])->name('Audience');
 
 Route::post('/create_audience', [AudienceController::class, 'create'])->name('create_audience');
 
-Route::get('/audience_liste', [AudienceController::class, 'liste'])->name('audience_liste');
+Route::get('/getDemandeurs/{audienceId}', [AudienceController::class, 'getDemandeurs']);
+
 
 require __DIR__.'/auth.php';

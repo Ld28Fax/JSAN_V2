@@ -18,7 +18,7 @@ class Demandeur extends Model
     protected $dates = ['created_at', 'updated_at'];
     protected $fillable = [ 'Nom','Date_de_Naissance', 'Lieu_de_Naissance','Pere', 'Mere', 'Adresse', 'Telephone','etat', 'usertpi', 'interesse', 'kaominina', 'distrika', 'genre'];
 
-    public static function modifier($id ,$Nom,$Date_de_Naissance, $Lieu_de_Naissance,$Pere, $Mere, $Adresse, $Telephone)
+    public static function modifier($id ,$Nom,$Date_de_Naissance, $Lieu_de_Naissance,$Pere, $Mere, $Adresse, $Telephone, $interesse, $kaominina, $distrika)
     {
         try{
             $update = DB::table('demandeur')->where('id','=',$id)
@@ -31,9 +31,9 @@ class Demandeur extends Model
                 'Mere'=> $Mere,
                 'Adresse'=> $Adresse,
                 'Telephone'=> $Telephone,
-                // 'interesse'=> $interesse,
-                // 'kaominina' => $kaominina,
-                // 'distrika' => $distrika
+                'interesse'=> $interesse,
+                'kaominina' => $kaominina,
+                'distrika' => $distrika
 
             ]);
             return $update;
@@ -58,6 +58,11 @@ class Demandeur extends Model
         }catch(Exception $e){
             throw new Exception($e->getMessage());
         }
-    }    
+    }  
+    
+    public function audience()
+    {
+    return $this->belongsTo(Audience::class);
+    }
 
 }

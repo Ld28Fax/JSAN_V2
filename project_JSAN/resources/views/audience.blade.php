@@ -29,7 +29,51 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="extern/dist/css/adminlte.min.css">
 </head>
+<style>
+/* Style pour la modal */
+.modal {
+    display: none; /* Masqué par défaut */
+    position: fixed;
+    z-index: 1000; /* Positionner la modal au-dessus */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Couleur d'arrière-plan semi-transparent */
+}
 
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 8px;
+    z-index: 1010; /* Assurez-vous que cela reste au-dessus */
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Flouter uniquement l'arrière-plan, pas la modal */
+body.modal-open #page-content {
+    filter: blur(5px); /* Flou seulement sur le contenu de la page */
+}
+
+
+</style>
 {{-- <body class="hold-transition sidebar-mini"> --}}
   @extends('dashboard')
   @section('content')
@@ -130,12 +174,35 @@
                   </form>
                 </div>
 
-                {{-- @foreach ($listeAudience as $audience)
-                <div class="box">
-                  <p>{{ $audience->date }}</p>
-                  <p>{{ $audience->heure }}</p>
-                </div>
-                @endforeach --}}
+                <div id="page-content">
+                  @foreach ($listeAudience as $audience)
+                      <div class="box btn btn-default" onclick="showModal('{{ $audience->id }}')">
+                          <p>{{ $audience->date }}</p>
+                          <p>{{ $audience->heure }}</p>
+                      </div>
+                  @endforeach
+              </div>
+              
+            <!-- Modal -->
+            <div id="demandeursModal" class="modal">
+              <div class="modal-content">
+                  <span class="close" onclick="closeModal()">&times;</span>
+                  <h2>Liste des demandeurs</h2>
+                  <table id="demandeurTable">
+                      <thead>
+                          <tr>
+                              <th>ID</th>
+                              <th>Nom</th>
+                          </tr>
+                      </thead>
+                      <tbody id="demandeurList">
+                          <!-- Les demandeurs seront affichés ici dynamiquement -->
+                      </tbody>
+                  </table>
+              </div>
+            </div>
+
+
 
               </div>
             </section>
@@ -298,6 +365,60 @@
   document.querySelector("#actions .cancel").onclick = function() {
     myDropzone.removeAllFiles(true)
   }
+
+
+ // Fonction pour afficher la modal et flouter l'arrière-plan
+function showModal(audienceId) {
+    document.getElementById('demandeursModal').style.display = 'block';
+    document.body.classList.add('modal-open');
+
+    // Ici, vous pouvez faire une requête AJAX pour récupérer la liste des demandeurs
+    document.getElementById('demandeurList').innerHTML = "Liste des demandeurs pour l'audience ID " + audienceId;
+}
+
+// Fonction pour fermer la modal et retirer le flou
+function closeModal() {
+    document.getElementById('demandeursModal').style.display = 'none';
+    document.body.classList.remove('modal-open');
+}
+
+
+function showModal(audienceId) {
+    document.getElementById('demandeursModal').style.display = 'block';
+    document.body.classList.add('modal-open');
+
+    // Requête AJAX pour obtenir les demandeurs de l'audience
+    fetch('/getDemandeurs/' + audienceId)
+        .then(response => response.json())
+        .then(data => {
+            let demandeurList = '';
+            if (data.length > 0) {
+                data.forEach(demandeur => {
+                    demandeurList += `
+                        <tr>
+                            <td>${demandeur.id}</td> <!-- Remplacez par le bon champ pour l'ID -->
+                            <td>${demandeur.Nom}</td>
+                            <!-- Ajoutez d'autres colonnes si nécessaire -->
+                        </tr>
+                    `;
+                });
+            } else {
+                demandeurList = '<tr><td colspan="3">Aucun demandeur trouvé pour cette audience.</td></tr>';
+            }
+
+            // Afficher les demandeurs dans la modal
+            document.getElementById('demandeurList').innerHTML = demandeurList;
+        })
+        .catch(error => {
+            console.error('Erreur lors de la récupération des demandeurs:', error);
+        });
+}
+
+function closeModal() {
+    document.getElementById('demandeursModal').style.display = 'none';
+    document.body.classList.remove('modal-open');
+}
+
 </script>
 @endsection
 </body>

@@ -49,4 +49,13 @@ class AudienceController extends Controller
 
         return view('audience')->with('listeAudience', $listeAudience);
     }
+
+    public function getDemandeurs($audienceId) {
+        // Récupérer les demandeurs associés à une audience
+        $demandeurs = DB::table('demandeur')
+                        ->get();
+    
+        // Retourner les demandeurs au format JSON
+        return response()->json($demandeurs);
+    }
 }

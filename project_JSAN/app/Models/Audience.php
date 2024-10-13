@@ -19,4 +19,9 @@ class Audience extends Model
         'greffier',
         'salle',
     ];
+
+    public function demandeurs()
+    {
+    return $this->hasMany(Demandeur::class);
+    }
 }
