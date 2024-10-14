@@ -14,9 +14,10 @@ class Demandeur extends Model
 
     protected $table= 'demandeur';
 
+
     public $timestamps = true;
     protected $dates = ['created_at', 'updated_at'];
-    protected $fillable = [ 'Nom','Date_de_Naissance', 'Lieu_de_Naissance','Pere', 'Mere', 'Adresse', 'Telephone','etat', 'usertpi', 'interesse', 'kaominina', 'distrika', 'genre'];
+    protected $fillable = [ 'Nom','Date_de_Naissance', 'Lieu_de_Naissance','Pere', 'Mere', 'Adresse', 'Telephone','etat', 'usertpi', 'interesse', 'kaominina', 'distrika', 'genre', 'etat_audience', 'audience_id'];
 
     public static function modifier($id ,$Nom,$Date_de_Naissance, $Lieu_de_Naissance,$Pere, $Mere, $Adresse, $Telephone, $interesse, $kaominina, $distrika)
     {
@@ -60,9 +61,11 @@ class Demandeur extends Model
         }
     }  
     
+    // Demandeur.php (Modèle)
     public function audience()
     {
-    return $this->belongsTo(Audience::class);
+        return $this->belongsTo(Audience::class, 'audience_id');
     }
+
 
 }

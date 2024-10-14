@@ -89,7 +89,7 @@
                         </tr>
                         @empty
                             <tr class="w-full">
-                                <td style="text-align: center" colspan="6">
+                                <td style="text-align: center" colspan="7">
                                     <img src="{{ asset('undraw empty.svg')}}" alt="" style="width: 10%">
                                     <div>Aucun élément</div>
                                 </td>

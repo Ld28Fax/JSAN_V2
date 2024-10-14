@@ -118,13 +118,18 @@ class DemandeurController extends Controller
     // exportation des demandeurs
     public function exportation(){
         try{
-            $demandeurs = DB::table('demandeur')->orderBy('created_at', 'desc')->where('usertpi', '=', Auth::id())->get();
+            $demandeurs = DB::table('demandeur')->orderBy('created_at', 'desc')->where('usertpi', '=', Auth::id())->where('etat_audience',true)->get();
+
+            $audiences = DB::table('audience')
+            ->join('demandeur', 'audience.id', '=', 'demandeur.audience_id')
+            ->select('audience.*') 
+            ->get();
 
             $nombreDemandeurs = DB::table('demandeur')->count();
             $nombreDemandeursActif = DB::table(table: 'demandeur')->where('etat','=',1)->count();
             $nombreDemandeursInactif = DB::table(table: 'demandeur')->where('etat','=',0)->count();
 
-            return view('demandeurs.exportation')->with('demandeurs', $demandeurs)->with('nombreDemandeurs', $nombreDemandeurs)->with('nombreDemandeursActif', $nombreDemandeursActif)->with('nombreDemandeursInactif', $nombreDemandeursInactif);
+            return view('demandeurs.exportation')->with('demandeurs', $demandeurs)->with('nombreDemandeurs', $nombreDemandeurs)->with('nombreDemandeursActif', $nombreDemandeursActif)->with('nombreDemandeursInactif', $nombreDemandeursInactif)->with('audiences', $audiences);
         } 
         catch (Exception $e){
             return redirect()->back()->withErrors("error", $e->getMessage());

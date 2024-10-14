@@ -60,11 +60,24 @@ class AudienceController extends Controller
 
     public function selectionnerDemandeurs(Request $request)
     {
+        // Récupérer les ID des demandeurs sélectionnés
         $demandeursSelectionnes = $request->input('demandeurs_selectionnes', []);
         
-        // Gérer les demandeurs sélectionnés (par exemple, les marquer comme traités, les envoyer à une autre étape, etc.)
-
-        return redirect()->back()->with('success', 'Demandeurs sélectionnés avec succès.');
+        // Récupérer l'ID de l'audience
+        $audienceId = $request->input('audience_id');
+    
+        // Vérifier si des demandeurs ont été sélectionnés
+        if (!empty($demandeursSelectionnes)) {
+            // Mettre à jour l'état et l'audience_id pour les demandeurs sélectionnés
+            \App\Models\Demandeur::whereIn('id', $demandeursSelectionnes)
+                ->update([
+                    'etat_audience' => true,
+                    'audience_id' => $audienceId,
+                ]);
+        }
+    
+        return redirect()->back()->with('success', 'Les demandeurs ont été mis à jour avec succès.');
     }
+    
 
 }

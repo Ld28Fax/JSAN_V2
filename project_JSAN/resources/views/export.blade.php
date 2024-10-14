@@ -148,6 +148,8 @@ body {
     $date_en_lettres_created_at = strftime('%d %B %Y', strtotime($demandeur->created_at));
     $date_en_lettres_Date_de_Naissance = strftime('%d %B %Y', strtotime($demandeur->Date_de_Naissance));
     $date_actuelle = strftime('%d %B %Y', strtotime(\Carbon\Carbon::now()));
+    $date_audience = strftime('%d %B %Y', strtotime($demandeur->audience->date));
+
     ?>
     <div class="document-container">
         <div class="header center">
@@ -159,7 +161,7 @@ body {
         <div class="header-info">
             <div class="center">
                 <p>FITSARANA AMBARATONGA VOALOHANY</p>
-                <p>{{ $user->TPI }}</p>
+                <p>{{ str_replace('TPI', '', $user->TPI) }}</p>
                 <hr class="hr">
                 <p>FIRAKETAN-DRAHARAHA</p>
                 <hr class="hr">
@@ -175,12 +177,12 @@ body {
       </div>
         
         <div class="case-info">
-            <p>Fitsarana notarihin'i ......................................................</p>
-            <p>Mpitsara eto amin'ny Fitsarana Ambaratonga Voalohany <u>{{ $user->TPI }}</u> -FILOHA-</p>
-            <p>Notrorin'i Me ................................................................................-MPIRAKI-DRAHARAHA-</p>
-            <p>Fitsarana ady madio ampahibemaso natao ny /date/</p>
+            <p>Fitsarana notarihin'i <u>{{ $demandeur->audience->magistrat }}</u></p>
+            <p>Mpitsara eto amin'ny Fitsarana Ambaratonga Voalohany <u>{{ str_replace('TPI', '', $user->TPI) }}</u> -FILOHA-</p>
+            <p>Notrorin'i Me <u>{{ $demandeur->audience->greffier }}</u>.-MPIRAKI-DRAHARAHA-</p>
+            <p>Fitsarana ady madio ampahibemaso natao ny  <u>{{ $date_audience }}</u></p>
         </div>
-            <p>Ny Fitsarana Ambaratonga Voalohany <u>{{ $user->TPI }}</u> teto amin’ny fitsarana an-davan’andro;</p>
+            <p>Ny Fitsarana Ambaratonga Voalohany <u>{{ str_replace('TPI', '', $user->TPI) }}</u> teto amin’ny fitsarana an-davan’andro;</p>
             <p>Mamoaka izao didim-pitsarana manaraka izao :</p>
             <p><strong>NY FITSARANA</strong></p>
             <p>Hita ny antontan-taratasin’ady. Hita ny fehintenin’ny Fampanoavana ; Heno ny mpangataka;</p>

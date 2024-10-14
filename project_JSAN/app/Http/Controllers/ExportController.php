@@ -15,8 +15,9 @@ class ExportController extends Controller
 
     public function showPrintPage($id)
     {
-    $user = Auth::user();
-    $demandeur = Demandeur::findOrFail($id); // Récupère le demandeur par ID
-    return view('export')->with('demandeur', $demandeur)->with('user', $user);
+        $audiences = Demandeur::with('audience')->findOrFail($id);
+        $user = Auth::user();
+        $demandeur = Demandeur::findOrFail($id); // Récupère le demandeur par ID
+        return view('export')->with('demandeur', $demandeur)->with('user', $user)->with('audiences', $audiences);
     }
 }
