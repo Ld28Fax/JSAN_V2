@@ -47,31 +47,24 @@ class AudienceController extends Controller
     public function liste(){
         $listeAudience = DB::table('audience')->get();
 
-        return view('audience')->with('listeAudience', $listeAudience);
+        return view('audience.index')->with('listeAudience', $listeAudience);
     }
 
-    public function getDemandeurs($audienceId) {
-        // Récupérer les demandeurs associés à une audience
-        $demandeurs = DB::table('demandeur')
-                        ->where('etat_audience', false)->where('audience_id', $audienceId)->get();
-    
-        // Retourner les demandeurs au format JSON
-        return response()->json($demandeurs);
+    public function showDemandeurs($id)
+    {
+        $audience = Audience::findOrFail($id);
+        // $demandeurs = $audience->demandeurs; // Suppose que tu as une relation entre Audience et Demandeurs
+        $demandeurs = DB::table('demandeur')->where('etat_audience', false)->get();
+        return view('audience.demandeurs')->with('demandeurs', $demandeurs)->with('audience', $audience);
     }
 
-    // public function updateEtatAudience(Request $request, $demandeurId)
-    // {
+    public function selectionnerDemandeurs(Request $request)
+    {
+        $demandeursSelectionnes = $request->input('demandeurs_selectionnes', []);
+        
+        // Gérer les demandeurs sélectionnés (par exemple, les marquer comme traités, les envoyer à une autre étape, etc.)
 
-    //     $demandeur = DB::table('demandeur')->find($demandeurId);
+        return redirect()->back()->with('success', 'Demandeurs sélectionnés avec succès.');
+    }
 
-    //     if ($demandeur) {
-    //         // Mettre à jour la colonne etat_audience
-    //         $demandeur->etat_audience = $request->input('etat_audience');
-    //         $demandeur->save();
-
-    //         return response()->json(['success' => true]);
-    //     } else {
-    //         return response()->json(['success' => false], 404);
-    //     }
-    // }
 }

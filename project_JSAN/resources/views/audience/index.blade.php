@@ -179,12 +179,13 @@
                   setlocale(LC_TIME, 'mg_MG.UTF-8');
                   $date_audience = strftime('%d %B %Y', strtotime($audience->date));
                   ?>
-                      <div class="box btn btn-default" onclick="showModal('{{ $audience->id }}')">
+                      <div class="box btn btn-default" onclick="window.location.href='{{ route('audience.demandeurs', $audience->id) }}'">
                           <p>{{ $date_audience }}</p>
                           <p>{{ $audience->heure }}</p>
                       </div>
                   @endforeach
               </div>
+              
 
 
               <div id="demandeurs-modal" class="modal">
@@ -368,45 +369,6 @@
   document.querySelector("#actions .cancel").onclick = function() {
     myDropzone.removeAllFiles(true)
   }
-
-  function showModal(audienceId) {
-    // Réinitialiser le contenu du tableau
-    document.getElementById('demandeurs-body').innerHTML = '';
-
-    // Récupérer les demandeurs avec etat_audience = false pour cette audience
-    fetch(`/demandeurs/${audienceId}`)
-        .then(response => response.json())
-        .then(data => {
-            const tbody = document.getElementById('demandeurs-body');
-            data.forEach(demandeur => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td><input type="checkbox" value="${demandeur.id}"></td>
-                    <td>${demandeur.Nom}</td>
-                    <td>${demandeur.created_at}</td>
-                `;
-                tbody.appendChild(row);
-            });
-        });
-
-    // Afficher le modal
-    document.getElementById('demandeurs-modal').style.display = 'block';
-}
-
-function closeModal() {
-    document.getElementById('demandeurs-modal').style.display = 'none';
-}
-
-function confirmSelection() {
-    const selectedDemandeurs = Array.from(document.querySelectorAll('#demandeurs-body input:checked'))
-        .map(checkbox => checkbox.value);
-
-    // Envoyer la sélection au serveur ou traiter comme nécessaire
-    console.log(selectedDemandeurs);
-    // Vous pouvez faire une requête pour confirmer les demandeurs sélectionnés
-
-    closeModal(); // Fermer le modal après confirmation
-}
 
 
 </script>

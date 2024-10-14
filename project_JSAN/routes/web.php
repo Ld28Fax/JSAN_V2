@@ -95,8 +95,10 @@ Route::get('/audience', [AudienceController::class, 'liste'])->name('Audience');
 
 Route::post('/create_audience', [AudienceController::class, 'create'])->name('create_audience');
 
-Route::get('/getDemandeurs/{audienceId}', [AudienceController::class, 'getDemandeurs']);
+Route::get('/audience/{id}/demandeurs', [AudienceController::class, 'showDemandeurs'])->name('audience.demandeurs');
 
-Route::post('/updateEtatAudience/{demandeurId}', [AudienceController::class, 'updateEtatAudience']);
+Route::post('/selectionner-demandeurs', [AudienceController::class, 'selectionnerDemandeurs'])->name('selectionner.demandeurs');
+
+
 
 require __DIR__.'/auth.php';
