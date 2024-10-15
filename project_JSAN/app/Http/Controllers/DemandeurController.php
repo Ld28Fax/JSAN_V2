@@ -82,20 +82,37 @@ class DemandeurController extends Controller
             'distrika' => 'required|string|max:255',
             'kaominina' => 'required|string|max:255',
             'interesse' => 'nullable|string|max:255',
+            'numero' => 'required|string|max:255'
         ],[
-            'Telephone' => 'Le champ Téléphone doit être un nombre, contenir exactement 10 chiffres et commencer par 032, 033, 034 ou 038.',
             'Nom' => 'Le champ Nom doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
             'Date_de_Naissance' => 'Le champ Date de Naissance est requis.',
             'Lieu_de_Naissance' => 'Le champ Lieu de Naissance doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
             'Pere' => 'Le champ Père doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
             'Mere' => 'Le champ Mère doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
-            'Adresse' => 'Le champ Adresse doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.'
+            'Adresse' => 'Le champ Adresse doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
+            'Telephone' => 'Le champ Téléphone doit être un nombre, contenir exactement 10 chiffres et commencer par 032, 033, 034 ou 038.',
+            'distrika' =>'Le champ distrika doit être une chaîne de caractères et ne doit pas dépasser 255 caractères. ',
+            'kaominina' =>'Le champ kaominina doit être une chaîne de caractères et ne doit pas dépasser 255 caractères.',
+            'numero' => 'Le champ numero doit être un nombre.'
         ]);
-        Demandeur::modifier( $request->id, $request->Nom, $request->Date_de_Naissance, $request->Lieu_de_Naissance, $request->Pere, $request->Mere, $request->Adresse, $request->Telephone, $request->kaominina, $request->interesse, $request->distrika );
-        return redirect()->route('demandeurs.liste')->with('success','Demandeur mis à jour avec succès.');
-    } catch (Exception $e){
-        // throw new Exception($e->getMessage());
-        return redirect()->back()->withErrors(['error' => 'Une erreur s\'est produite : ' . $e->getMessage()]);
+        $demandeur = Demandeur::modifier(
+            $request->id, 
+            $request->Nom, 
+            $request->Date_de_Naissance, 
+            $request->Lieu_de_Naissance, 
+            $request->Pere, 
+            $request->Mere, 
+            $request->Adresse, 
+            $request->Telephone, 
+            $request->interesse, 
+            $request->kaominina, 
+            $request->distrika, 
+            $request->numero
+        );
+
+        return redirect()->route('demandeurs.liste')->with('success', 'Demandeur mis à jour avec succès.')->with('demandeur', $demandeur);
+    } catch (Exception $e) {
+        return redirect()->back()->withErrors(['error' => $e->getMessage()]);
     }
 
     }

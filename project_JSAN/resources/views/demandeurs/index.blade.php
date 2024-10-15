@@ -59,11 +59,6 @@
                         </div>
                       @endif
 
-                      {{-- <div class="row">
-                        <button class="col-md-6 btn-default text-blue" type="button" id="btn-majeur">Majeur</button>
-                        <button class="col-md-6 btn-default text-blue" type="button" id="btn-mineur">Mineur</button>
-                      </div> --}}
-
 
                       <div class="row">
                           <div class="col-md-6">

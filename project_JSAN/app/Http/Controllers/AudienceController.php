@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Audience;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class AudienceController extends Controller
@@ -53,9 +54,13 @@ class AudienceController extends Controller
     public function showDemandeurs($id)
     {
         $audience = Audience::findOrFail($id);
-        // $demandeurs = $audience->demandeurs; // Suppose que tu as une relation entre Audience et Demandeurs
-        $demandeurs = DB::table('demandeur')->where('etat_audience', false)->get();
-        return view('audience.demandeurs')->with('demandeurs', $demandeurs)->with('audience', $audience);
+
+        $audienceId = $audience->id;
+
+        $demandeurs = DB::table('demandeur')->where('usertpi', '=', Auth::id())->where('etat_audience', false)->get();
+
+        $demandeursAudience = DB::table('demandeur')->where('usertpi', '=', Auth::id())->where('etat_audience', true)->where('audience_id',$audienceId)->get();
+        return view('audience.demandeurs')->with('demandeurs', $demandeurs)->with('audience', $audience)->with('demandeursAudience', $demandeursAudience);
     }
 
     public function selectionnerDemandeurs(Request $request)

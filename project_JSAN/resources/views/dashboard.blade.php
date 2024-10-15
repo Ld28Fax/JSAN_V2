@@ -77,7 +77,7 @@
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
      <div style="margin-left: 20%">
-      <img src="Justice_logo.png" alt=" Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <img src="{{ asset('Justice_logo.png') }}" alt=" Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">CO-JSAN</span>
      </div>
       

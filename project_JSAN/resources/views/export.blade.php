@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document officiel</title>
-    <link rel="stylesheet" href="">
 </head>
 <style>
 * {
@@ -156,7 +155,7 @@ body {
             <h4>REPOBLIKAN'I MADAGASIKARA <br> AMIN'NY ANARAN'NY VAHOAKA MALAGASY</h4>
         </div>
             <div class="logo">
-                <img src="Justice_logo.png" alt="Logo" class="brand-image img-circle elevation-3" style=" width:10%;">
+                <img src="{{ asset('Justice_logo.png') }}" alt="Logo" class="brand-image img-circle elevation-3" style=" width:10%;">
             </div>
         <div class="header-info">
             <div class="center">

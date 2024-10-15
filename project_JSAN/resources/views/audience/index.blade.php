@@ -187,27 +187,6 @@
               </div>
               
 
-
-              <div id="demandeurs-modal" class="modal">
-                <div class="modal-content">
-                    <span class="close" onclick="closeModal()">&times;</span>
-                    <h3>Demandeurs</h3>
-                    <table id="demandeurs-table">
-                        <thead>
-                            <tr>
-                                <th>Sélectionner</th>
-                                <th>Nom</th>
-                                <th>Date de création</th>
-                            </tr>
-                        </thead>
-                        <tbody id="demandeurs-body">
-                            <!-- Les demandeurs seront ajoutés ici dynamiquement -->
-                        </tbody>
-                    </table>
-                    <button onclick="confirmSelection()">Confirmer</button>
-                </div>
-            </div>
-
               </div>
             </section>
           </div>

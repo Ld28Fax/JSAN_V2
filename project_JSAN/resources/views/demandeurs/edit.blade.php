@@ -66,6 +66,19 @@
 
                       <div class="row">
                           <div class="col-md-6" id="Pere et mere">
+
+                            <input type="hidden" name="id" value="{{ $demandeur->id }}">
+
+                            <div class="form-group">
+                                <label>Numero de dossier:</label>
+            
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                      <span class="input-group-text"><i class="fas fa-hashtag"></i></span>
+                                  </div>
+                                  <input type="text" name="numero" class="form-control" value="{{ $demandeur->numero }}">
+                                </div>
+                              </div>
                             {{-- nom --}}
                             <div class="form-group">
                               <label>Nom du demandeur:</label>
@@ -74,7 +87,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                <input type="text" value={{ $demandeur->Nom }} name="Nom" class="form-control" placeholder="nom du demandeur">
+                                <input type="text" value="{{ $demandeur->Nom }}" name="Nom" class="form-control" placeholder="nom du demandeur">
                               </div>
                             </div>
 
@@ -86,7 +99,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                  <input type="text" value={{ $demandeur->interesse }} name="interesse" class="form-control" placeholder="nom de l'intéressé">
+                                  <input name="interesse" type="text"  value="{{ $demandeur->interesse }} " class="form-control" placeholder="nom de l'intéressé">
                                 </div>
                               </div>
 
@@ -96,42 +109,41 @@
             
                                 <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                                 </div>
-                                  <input type="text" value={{ $demandeur->kaominina }} name="kaominina" class="form-control" placeholder="Commune de demandeur">
+                                  <input type="text" value="{{ $demandeur->kaominina }}" name="kaominina" class="form-control" placeholder="Commune de demandeur">
                                 </div>
                               </div>
 
-                              {{-- Input Distrika --}}
-                              <div class="form-group" id="interesse-field" >
+                            {{-- Input Distrika --}}
+                            <div class="form-group" id="interesse-field" >
                                 <label>Distrique:</label>
             
                                 <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                                 </div>
-                                  <input type="text" value={{ $demandeur->distrika }} name="distrika" class="form-control" placeholder="Distrique de demandeur">
+                                    <input type="text" value="{{ $demandeur->distrika }}" name="distrika" class="form-control" placeholder="Distrique de demandeur">
                                 </div>
-                              </div>
+                            </div>
                             
-                             {{-- Date de Naissance --}}
-                             <div class="form-group">
-                              <label>Date de Naissance</label>
+                            {{-- Date de Naissance --}}
+                            <div class="form-group">
+                                <label>Date de Naissance</label>
   
                                 <div class="input-group-prepend">
                                 </div>
-                                  <input type="date" value={{ $demandeur->Date_de_Naissance }} id="date" name="Date_de_Naissance" class="form-control" data-mask>
+                                <input type="date" value="{{ $demandeur->Date_de_Naissance }}" id="date" name="Date_de_Naissance" class="form-control" data-mask>
                             </div>
                                 
                             {{-- Lieu de naissance --}}
                             <div class="form-group">
-                              <label>Lieu de Naissance</label>
-                              
-                              <div class="input-group-prepend">
-                              </div>
-                              <input type="text" value={{ $demandeur->Lieu_de_Naissance }} id="lieu" name="Lieu_de_Naissance" class="form-control" data-mask>
+                                <label>Lieu de Naissance</label>
+                                <div class="input-group-prepend">
+                                </div>
+                                <input type="text" value="{{ $demandeur->Lieu_de_Naissance }}" id="lieu" name="Lieu_de_Naissance" class="form-control" data-mask>
                             </div>
-                          </div>
+                            </div>
                         
                         
                         <div class="col-md-6" id="Adresse etNaissance">
@@ -143,7 +155,7 @@
                               <div class="input-group-prepend">
                                   <span class="input-group-text"><i class="fas fa-home"></i></span>
                               </div>
-                              <input type="text" value={{ $demandeur->Adresse }} name="Adresse" class="form-control" data-mask>
+                              <input type="text" value="{{ $demandeur->Adresse }}" name="Adresse" class="form-control" data-mask>
                               </div>
                             </div>
                                {{-- Père --}}
@@ -154,32 +166,32 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                                 </div>
-                                  <input type="text" name="Pere" class="form-control" value={{ $demandeur->Pere }} data-mask>
+                                  <input type="text" name="Pere" class="form-control" value="{{ $demandeur->Pere }}" data-mask>
                                 </div>
                             </div>
-                                    {{-- Mère --}}
-                                    <div class="form-group ">
-                                      <label>Nom de la Mère:</label>
-                  
-                                      <div class="input-group">
-                                      <div class="input-group-prepend">
-                                          <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                      </div>
-                                      <input type="text" name="Mere" class="form-control" value={{ $demandeur->Mere }} data-mask>
-                                      </div>
-                                  </div>
+
+
+                            {{-- Mère --}}
+                            <div class="form-group ">
+                                <label>Nom de la Mère:</label>
+            
+                                <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                <input type="text" name="Mere" class="form-control" value="{{ $demandeur->Mere }}" data-mask>
+                                </div>
+                            </div>
                                     
                                     
-                                  {{-- telephone --}}
-                                  
-                                    <div class="form-group">
-                                        <label>Télephone:</label>
-                                      
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                            {{-- telephone --}}
+                            <div class="form-group">
+                                <label>Télephone:</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                             </div>
-                                            <input type="number" name="Telephone" class="form-control" value={{ $demandeur->Telephone }} data-mask>
+                                            <input type="number" name="Telephone" class="form-control" value="{{ $demandeur->Telephone }}" data-mask>
                                         </div>
                                     </div>
                                 </div>

@@ -17,9 +17,9 @@ class Demandeur extends Model
 
     public $timestamps = true;
     protected $dates = ['created_at', 'updated_at'];
-    protected $fillable = [ 'Nom','Date_de_Naissance', 'Lieu_de_Naissance','Pere', 'Mere', 'Adresse', 'Telephone','etat', 'usertpi', 'interesse', 'kaominina', 'distrika', 'genre', 'etat_audience', 'audience_id'];
+    protected $fillable = [ 'Nom','Date_de_Naissance', 'Lieu_de_Naissance','Pere', 'Mere', 'Adresse', 'Telephone','etat', 'usertpi', 'interesse', 'kaominina', 'distrika', 'genre', 'etat_audience', 'audience_id', 'numero'];
 
-    public static function modifier($id ,$Nom,$Date_de_Naissance, $Lieu_de_Naissance,$Pere, $Mere, $Adresse, $Telephone, $interesse, $kaominina, $distrika)
+    public static function modifier($id ,$Nom,$Date_de_Naissance, $Lieu_de_Naissance,$Pere, $Mere, $Adresse, $Telephone, $interesse, $kaominina, $distrika, $numero)
     {
         try{
             $update = DB::table('demandeur')->where('id','=',$id)
@@ -34,7 +34,8 @@ class Demandeur extends Model
                 'Telephone'=> $Telephone,
                 'interesse'=> $interesse,
                 'kaominina' => $kaominina,
-                'distrika' => $distrika
+                'distrika' => $distrika,
+                'numero' => $numero
 
             ]);
             return $update;
