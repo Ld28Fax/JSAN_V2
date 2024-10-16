@@ -122,7 +122,7 @@ class DemandeurController extends Controller
         try{
             $demandeurs = DB::table('demandeur')->orderBy('created_at', 'desc')->where('usertpi', '=', Auth::id())->orderBy('etat', 'asc')->get();
 
-            $jour = DB::table('demandeur')->get()->where('created_at', '=', Carbon::now());
+            $jour = DB::table('demandeur')->get()->where('created_at', '>=', Carbon::today());
 
             return view('demandeurs.liste')->with('demandeurs', $demandeurs)->with('jour', $jour);
 
@@ -175,7 +175,7 @@ class DemandeurController extends Controller
     public function filter(Request $request)
     {
     $period = $request->get('period');
-    $query = Demandeur::query();
+    $query = Demandeur::where('usertpi', '=', Auth::id());
 
     if ($period === 'day') {
         $query->whereDate('created_at', Carbon::today());
@@ -218,5 +218,49 @@ class DemandeurController extends Controller
         }
     }
 
+    public function Statistic(Request $request) {
+    
+        $debut = $request->input('debut');
+        $fin = $request->input('fin');
+    
+        $debutDay = date('d', strtotime($debut));
+        $debutMonth = date('m', strtotime($debut));
+        $finDay = date('d', strtotime($fin));
+        $finMonth = date('m', strtotime($fin));
+
+        $demandeurs = DB::table('demandeur')
+        ->whereMonth('created_at', '>=', $debutMonth)
+        ->whereMonth('created_at', '<=', $finMonth)
+        ->whereDay('created_at', '>=', $debutDay)
+        ->whereDay('created_at', '<=', $finDay)
+        ->get();
+
+        if ($debut && $fin) {
+            $debut_format = date('m-d', strtotime($debut));
+            $fin_format = date('m-d', strtotime($fin));
+    
+            $nombreDemandeurs = DB::table('demandeur')->where('usertpi', '=', Auth::id())
+                ->whereRaw('DATE_FORMAT(created_at, "%m-%d") BETWEEN ? AND ?', [$debut_format, $fin_format])
+                ->count();
+            
+            $nombreDemandeursActif = DB::table('demandeur')->where('usertpi', '=', Auth::id())
+                ->where('etat', '=', 1)
+                ->whereRaw('DATE_FORMAT(created_at, "%m-%d") BETWEEN ? AND ?', [$debut_format, $fin_format])
+                ->count();
+    
+            $nombreDemandeursInactif = DB::table('demandeur')->where('usertpi', '=', Auth::id())
+                ->where('etat', '=', 0)
+                ->whereRaw('DATE_FORMAT(created_at, "%m-%d") BETWEEN ? AND ?', [$debut_format, $fin_format])
+                ->count();
+        } else {
+            // Si aucune période n'est fournie, récupérer toutes les données
+            $nombreDemandeurs = DB::table('demandeur')->where('usertpi', '=', Auth::id())->count();
+            $nombreDemandeursActif = DB::table('demandeur')->where('usertpi', '=', Auth::id())->where('etat', '=', 1)->count();
+            $nombreDemandeursInactif = DB::table('demandeur')->where('usertpi', '=', Auth::id())->where('etat', '=', 0)->count();
+        }
+
+        return view('demandeurs.statistique')->with('nombreDemandeurs', $nombreDemandeurs)->with('nombreDemandeursActif', $nombreDemandeursActif)->with('nombreDemandeursInactif', $nombreDemandeursInactif)->with('demandeurs', $demandeurs );
+    }
+    
 
 }

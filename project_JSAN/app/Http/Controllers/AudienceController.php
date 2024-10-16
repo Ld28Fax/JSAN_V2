@@ -45,9 +45,12 @@ class AudienceController extends Controller
         }
     }
 
-    public function liste(){
-        $listeAudience = DB::table('audience')->get();
+    public function liste() {
 
+        $listeAudience = DB::table('audience')
+            ->orderBy('created_at', 'desc')
+            ->get();
+    
         return view('audience.index')->with('listeAudience', $listeAudience);
     }
 

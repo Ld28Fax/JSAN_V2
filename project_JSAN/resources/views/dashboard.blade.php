@@ -92,7 +92,7 @@
           <div>
             <div class="card-body">
               <div class="text-center">
-                <a href="{{ route('profile.edit') }}"><img src="extern/dist/img/user.png" alt="" class="brand-image img-circle elevation-3" style="opacity: .8; width:40%"></a>
+                <a href="{{ route('profile.edit') }}"><img src="{{ asset('extern/dist/img/user.png') }}" alt="" class="brand-image img-circle elevation-3" style="opacity: .8; width:40%"></a>
               </div>
 
               <a href="{{ route('profile.edit') }}"><h3 class="profile-username text-center">{{ Auth::user()->name }}</h3></a>
@@ -158,7 +158,7 @@
           </li>
           <li class="nav-item">
             <a href="{{ route('demandeurs.exportation')}}" class="nav-link">
-              <i class="nav-icon fas fa-table"></i>
+              <i class="nav-icon fas fa-file-export"></i>
               <p>
                 Exportation demandeurs
               </p>
@@ -169,6 +169,14 @@
               <i class="nav-icon fas fa-calendar-alt"></i>
               <p>
                 Etat
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('demandeurs.statistique') }}" class="nav-link">
+              <i class="nav-icon fas fa-chart-bar"></i>
+              <p>
+                Statistique
               </p>
             </a>
           </li>

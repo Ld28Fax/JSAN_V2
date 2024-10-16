@@ -99,6 +99,7 @@ Route::get('/audience/{id}/demandeurs', [AudienceController::class, 'showDemande
 
 Route::post('/selectionner-demandeurs', [AudienceController::class, 'selectionnerDemandeurs'])->name('selectionner.demandeurs');
 
+Route::get('/demandeurs/statistique', [DemandeurController::class, 'Statistic'])->name('demandeurs.statistique');
 
 
 require __DIR__.'/auth.php';
