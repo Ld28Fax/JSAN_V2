@@ -46,9 +46,12 @@
                           </div>
                           <button type="submit" class="btn btn-primary ">Ajouter le motif</button>    
                     </div>
-            
-            
+
                 </form>
+
+                <div class="mt-3">
+                  <a href="{{ route('demandeurs.liste') }}" class="btn btn-secondary">Retour à la liste des demandeurs</a>
+                </div>
             </div>
         </div>
     

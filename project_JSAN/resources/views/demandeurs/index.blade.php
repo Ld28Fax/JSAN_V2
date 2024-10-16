@@ -66,7 +66,7 @@
                             {{-- Date de Naissance --}}
                             <div class="form-group" id="interesse-field">
                               <label for="dob">Date de naissance:</label>
-                              <input type="date" id="dob" class="form-control" onchange="checkAge()" autocomplete="off">
+                              <input type="date" id="dob" name='Date_de_Naissance' class="form-control" onchange="checkAge()" autocomplete="off">
                             </div>
 
                             {{-- Lieu de naissance --}}

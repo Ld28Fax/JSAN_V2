@@ -96,31 +96,30 @@
 </head>
 <body>
 
-    <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
     <div class="container-fluid">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
+        </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{{ route('dashboard') }}"><i class="fas fa-arrow-left"></i>
+        <li class="nav-item">
+            <a class="nav-link active text-white" aria-current="page" href="{{ route('dashboard') }}"><i class="fas fa-arrow-left"></i>
                 retour</a>
-          </li>
+        </li>
         </ul>
-      </div>
     </div>
-  </nav>
+    </div>
+</nav>
 
-  <div class="Main" >
-
-      <div class="left-section">
-          <section class="document-container center">
-              <div class="container-fluid">
-                  <div class="card header m-2">
-                      <h1>Periode à saisir: </h1>
-                      <form action="/statistic" method="GET" class="text-center row mb-3" style="margin-left: 0.1%">
+    <div class="Main">
+        <div class="left-section">
+        <section class="document-container center">
+            <div class="container-fluid">
+                <div class="card header m-2">
+                    <h1>Periode à saisir: </h1>
+                    <form action="/statistic" method="GET" class="text-center row mb-3" style="margin-left: 0.1%">
                         @csrf
                         <div class="form-group col-md-6">
                             <label for="debut">Début :</label>
@@ -152,37 +151,35 @@
                         </div>
                 
                     </form>
-                      </div>
-                  </div>
-              </section>
-          </div>
-  
-          <div class="right-section">
-              <div class="document-container">
-                <button  id="printButton" class="btn btn-success imprimer" style="float: right; margin-bottom: 10px;">
+                    </div>
+                </div>
+            </section>
+        </div>
+
+            <div class="right-section">
+                <div class="document-container">
+                    <button  id="printButton" class="btn btn-success imprimer" style="float: right; margin-bottom: 10px;">
                     <i class="fas fa-print"></i> Imprimer
                 </button>
-                  <table>
-                      <thead>
-                          <tr>
-                              <td>Nombre total de demandeurs</td>
-                              <td>Nombre de demandeurs actifs</td>
-                              <td>Nombre de demandeurs inactifs</td>
-                          </tr>
-                      </thead>
-                      <tbody>
-                              <tr>
-                                  <td>{{ $nombreDemandeurs }}</td> 
-                                  <td>{{ $nombreDemandeursActif }}</td>
-                                  <td>{{ $nombreDemandeursInactif }}</td>
-                              </tr>
-                      </tbody>
-                  </table>
-                 
-              </div>
-          </div>
-
-  </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Nombre total de demandeurs</td>
+                                <td>Nombre de demandeurs actifs</td>
+                                <td>Nombre de demandeurs inactifs</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ $nombreDemandeurs }}</td> 
+                                <td>{{ $nombreDemandeursActif }}</td>
+                                <td>{{ $nombreDemandeursInactif }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
         <script>
