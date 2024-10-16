@@ -113,7 +113,7 @@
                                   </div>
                               @endif
                               <input type="hidden" name="audience_id" value="{{ $audience->id }}">
-                              <table class="table">
+                              <table class="table ">
                                   <thead>
                                       <tr>
                                           <th>Numero de dossier</th>
@@ -139,7 +139,7 @@
                                       @endforeach
                                   </tbody>
                               </table>
-                              <button type="submit" class="btn btn-success">Soumettre</button>
+                              <button type="submit" class="btn btn-success" style="margin-left: 80%">Soumettre</button>
                           </form>
                       </div>
                   </div>

@@ -167,7 +167,7 @@ class DemandeurController extends Controller
         try {
             $demandeur = Demandeur::find($id);
             if ($demandeur) {
-                $demandeur->etat = 2; // Mise à jour de l'état à 2
+                $demandeur->etat = 2;
                 $demandeur->save();
             }
     
