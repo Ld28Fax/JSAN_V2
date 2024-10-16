@@ -164,10 +164,15 @@ class DemandeurController extends Controller
     }
 
     public function Inactif($id){
-        try{
-            Demandeur::Activer($id);
-            return view('demandeurs.nonactif', ['demandeur' => Demandeur::find($id)]);
-        }catch(Exception $e){
+        try {
+            $demandeur = Demandeur::find($id);
+            if ($demandeur) {
+                $demandeur->etat = 2; // Mise à jour de l'état à 2
+                $demandeur->save();
+            }
+    
+            return view('demandeurs.nonactif', ['demandeur' => $demandeur]);
+        } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
     }
@@ -205,15 +210,14 @@ class DemandeurController extends Controller
     }
 
     public function Motif(Request $request, $id){
-        try{
+        try {
             $demandeur = Demandeur::find($id);
             $demandeur->motif = $request->input('motif');
-            $demandeur->fill([
-                'motif' => $request->input('motif'),
-            ])->save();
-            // $demandeur->save();
-            return redirect()->route('nonactif', ['id'=> $demandeur->id])->with('success', 'Motif mis à jour avec succès.');
-        }catch(Exception $e){
+            $demandeur->etat = 2; // Mise à jour de l'état à 2
+            $demandeur->save();
+            
+            return redirect()->route('nonactif', ['id' => $demandeur->id])->with('success', 'Motif et état mis à jour avec succès.');
+        } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
     }

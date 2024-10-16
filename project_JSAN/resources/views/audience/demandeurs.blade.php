@@ -4,18 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Page Divisée</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <link rel="stylesheet" href="extern/plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="extern/plugins/daterangepicker/daterangepicker.css">
-    <link rel="stylesheet" href="extern/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <link rel="stylesheet" href="extern/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
-    <link rel="stylesheet" href="extern/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-    <link rel="stylesheet" href="extern/plugins/select2/css/select2.min.css">
-    <link rel="stylesheet" href="extern/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-    <link rel="stylesheet" href="extern/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
-    <link rel="stylesheet" href="extern/plugins/bs-stepper/css/bs-stepper.min.css">
-    <link rel="stylesheet" href="extern/plugins/dropzone/min/dropzone.min.css">
-    <link rel="stylesheet" href="extern/dist/css/adminlte.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <style>
         * {
             margin: 0;
@@ -23,9 +14,11 @@
             box-sizing: border-box;
         }
 
-        body {
+        body{
             font-family: Source Sans Pro, Arial, sans-serif;
             background-color: #f4f4f4;
+        }
+        .Main {
             display: flex;
             height: 100vh; /* Remplir la hauteur de la fenêtre */
         }
@@ -86,95 +79,118 @@
     </style>
 </head>
 <body>
-    <div class="left-section">
-        <section class="content">
-            <div class="container-fluid">
-                <div class="card">
-                    <h1>Demandeurs pour l'audience du {{ $audience->date }}</h1>
-                    <form action="{{ route('selectionner.demandeurs') }}" method="POST">
-                        @csrf
-                        <div class="col-md-12">
-                            @if(session('success'))
-                                <div class="alert alert-success">
-                                    {{ session('success') }}
-                                </div>
-                            @endif
-                            <input type="hidden" name="audience_id" value="{{ $audience->id }}">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Numero de dossier</th>
-                                        <th>Nom</th>
-                                        <th>Date d'entrée</th>
-                                        <th>Sélectionner</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($demandeurs as $demandeur)
-                                    <?php
-                                    setlocale(LC_TIME, 'mg_MG.UTF-8');
-                                    $date_en_lettres_created_at = strftime('%d %B %Y', strtotime($demandeur->created_at));
-                                    ?>
-                                    <tr>
-                                        <td>{{ $demandeur->numero }}</td>
-                                        <td>{{ $demandeur->Nom }}</td>
-                                        <td>{{ $date_en_lettres_created_at }}</td>
-                                        <td>
-                                            <input type="checkbox" name="demandeurs_selectionnes[]" value="{{ $demandeur->id }}">
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                            <button type="submit" class="btn btn-primary">Soumettre</button>
-                        </form>
-                    </div>
-                </div>
-            </section>
-        </div>
 
-        <div class="right-section">
-            <div class="document-container">
-                <?php
-                setlocale(LC_TIME, 'mg_MG.UTF-8');
-                $date_audience = strftime('%d %B %Y', strtotime($audience->date));
-                ?>
-                <div class="header center">
-                    <h4>AUDIENCE DU {{ $date_audience }} à {{ $audience->heure }}</h4>
-                </div>
-                <div class="header-info">
-                    <p>PRESIDENT: {{ $audience->magistrat }}</p>
-                    <p>GREFFIER: {{ $audience->greffier }}</p>
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <td>Nº DOSSIER</td>
-                            <td>NOM DE PARTIE</td>
-                            <td>NATIVE DE L'AFFAIRE</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($demandeursAudience as $demandeur)
-                            <tr>
-                                <td>{{ $demandeur->numero }}</td> 
-                                <td> @if($demandeur->interesse)
-                                    {{ $demandeur->Nom }}, {{ $demandeur->interesse }}
-                                @else
-                                    {{ $demandeur->Nom }}
-                                @endif</td>
-                                <td></td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <button  id="printButton" class="btn btn-primary imprimer" style="float: right; margin-top: 10px;">
+    <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{ route('Audience') }}"><i class="fas fa-arrow-left"></i>
+                retour</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="Main" >
+
+      <div class="left-section">
+          <section class="document-container center">
+              <div class="container-fluid">
+                  <div class="card header m-2">
+                      <h1>Demandeurs pour l'audience du {{ $audience->date }}</h1>
+                      <form action="{{ route('selectionner.demandeurs') }}" method="POST">
+                          @csrf
+                          <div class="col-md-12">
+                              @if(session('success'))
+                                  <div class="alert alert-success">
+                                      {{ session('success') }}
+                                  </div>
+                              @endif
+                              <input type="hidden" name="audience_id" value="{{ $audience->id }}">
+                              <table class="table">
+                                  <thead>
+                                      <tr>
+                                          <th>Numero de dossier</th>
+                                          <th>Nom</th>
+                                          <th>Date d'entrée</th>
+                                          <th>Sélectionner</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      @foreach ($demandeurs as $demandeur)
+                                      <?php
+                                      setlocale(LC_TIME, 'mg_MG.UTF-8');
+                                      $date_en_lettres_created_at = strftime('%d %B %Y', strtotime($demandeur->created_at));
+                                      ?>
+                                      <tr>
+                                          <td>{{ $demandeur->numero }}</td>
+                                          <td>{{ $demandeur->Nom }}</td>
+                                          <td>{{ $date_en_lettres_created_at }}</td>
+                                          <td>
+                                              <input type="checkbox" name="demandeurs_selectionnes[]" value="{{ $demandeur->id }}">
+                                          </td>
+                                      </tr>
+                                      @endforeach
+                                  </tbody>
+                              </table>
+                              <button type="submit" class="btn btn-success">Soumettre</button>
+                          </form>
+                      </div>
+                  </div>
+              </section>
+          </div>
+  
+          <div class="right-section">
+              <div class="document-container">
+                  <?php
+                  setlocale(LC_TIME, 'mg_MG.UTF-8');
+                  $date_audience = strftime('%d %B %Y', strtotime($audience->date));
+                  ?>
+                  <div class="header center">
+                      <h4>AUDIENCE DU {{ $date_audience }} à {{ $audience->heure }}</h4>
+                  </div>
+                  <button  id="printButton" class="btn btn-success imprimer" style="float: right; margin-top: 10px;">
                     <i class="fas fa-print"></i> Imprimer
                 </button>
-            </div>
-        </div>
+                  <div class="header-info">
+                      <p>PRESIDENT: {{ $audience->magistrat }}</p>
+                      <p>GREFFIER: {{ $audience->greffier }}</p>
+                  </div>
+                  <table>
+                      <thead>
+                          <tr>
+                              <td>Nº DOSSIER</td>
+                              <td>NOM DE PARTIE</td>
+                              <td>NATIVE DE L'AFFAIRE</td>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          @foreach ($demandeursAudience as $demandeur)
+                              <tr>
+                                  <td>{{ $demandeur->numero }}</td> 
+                                  <td> @if($demandeur->interesse)
+                                      {{ $demandeur->Nom }}, {{ $demandeur->interesse }}
+                                  @else
+                                      {{ $demandeur->Nom }}
+                                  @endif</td>
+                                  <td></td>
+                              </tr>
+                          @endforeach
+                      </tbody>
+                  </table>
+                 
+              </div>
+          </div>
 
+  </div>
 
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
         <script>
             document.getElementById('printButton').addEventListener('click', function() {
                 // Cacher tout le reste de la page
