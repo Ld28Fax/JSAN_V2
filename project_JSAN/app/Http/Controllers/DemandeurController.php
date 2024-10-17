@@ -228,54 +228,67 @@ class DemandeurController extends Controller
             throw new Exception($e->getMessage());
         }
     }
-
     public function Statistic(Request $request) {
     
-        $debut = $request->input('debut');
-        $fin = $request->input('fin');
+        try {
+            $debut_jour = $request->input('debut_jour');
+            $debut_mois = $request->input('debut_mois');
+            $fin_jour = $request->input('fin_jour');
+            $fin_mois = $request->input('fin_mois');
     
-        $debutDay = date('d', strtotime($debut));
-        $debutMonth = date('m', strtotime($debut));
-        $finDay = date('d', strtotime($fin));
-        $finMonth = date('m', strtotime($fin));
-
-        $demandeurs = DB::table('demandeur')
-        ->whereMonth('created_at', '>=', $debutMonth)
-        ->whereMonth('created_at', '<=', $finMonth)
-        ->whereDay('created_at', '>=', $debutDay)
-        ->whereDay('created_at', '<=', $finDay)
-        ->get();
-
-        if ($debut && $fin) {
-            $debut_format = date('m-d', strtotime($debut));
-            $fin_format = date('m-d', strtotime($fin));
+            // Initialisation des variables
+            $nombreDemandeursPeriode = $nombreDemandeursActifPeriode = $nombreDemandeursInactifPeriode = $nombreDemandeursRefuséPeriode = 0;
     
-            $nombreDemandeurs = DB::table('demandeur')->where('usertpi', '=', Auth::id())
-                ->whereRaw('DATE_FORMAT(created_at, "%m-%d") BETWEEN ? AND ?', [$debut_format, $fin_format])
-                ->count();
-            
-            $nombreDemandeursActif = DB::table('demandeur')->where('usertpi', '=', Auth::id())
-                ->where('etat', '=', 1)
-                ->whereRaw('DATE_FORMAT(created_at, "%m-%d") BETWEEN ? AND ?', [$debut_format, $fin_format])
-                ->count();
+            if ($debut_jour && $debut_mois && $fin_jour && $fin_mois) {
+                $annee = date('Y');
+                $debut = "$annee-$debut_mois-$debut_jour";
+                $fin = "$annee-$fin_mois-$fin_jour";
     
-            $nombreDemandeursInactif = DB::table('demandeur')->where('usertpi', '=', Auth::id())
-                ->where('etat', '=', 0)
-                ->whereRaw('DATE_FORMAT(created_at, "%m-%d") BETWEEN ? AND ?', [$debut_format, $fin_format])
-                ->count();
-
-            $nombreDemandeursRefusé = DB::table(table: 'demandeur')->where('usertpi', '=', Auth::id())->whereRaw('DATE_FORMAT(created_at, "%m-%d") BETWEEN ? AND ?', [$debut_format, $fin_format])
-                ->where('etat','=',2)->count();
-        } else {
-            // Si aucune période n'est fournie, récupérer toutes les données
-            $nombreDemandeurs = DB::table('demandeur')->where('usertpi', '=', Auth::id())->count();
-            $nombreDemandeursActif = DB::table('demandeur')->where('usertpi', '=', Auth::id())->where('etat', '=', 1)->count();
-            $nombreDemandeursInactif = DB::table('demandeur')->where('usertpi', '=', Auth::id())->where('etat', '=', 0)->count();
-            $nombreDemandeursRefusé = DB::table(table: 'demandeur')->where('usertpi', '=', Auth::id())->where('etat','=',2)->count();
+                if ($debut && $fin) {
+                    $nombreDemandeursPeriode = DB::table('demandeur')
+                        ->where('usertpi', '=', Auth::id())
+                        ->whereBetween('created_at', [$debut, $fin])
+                        ->count();
+    
+                    $nombreDemandeursActifPeriode = DB::table('demandeur')
+                        ->where('usertpi', '=', Auth::id())
+                        ->where('etat', '=', 1)
+                        ->whereBetween('created_at', [$debut, $fin])
+                        ->count();
+    
+                    $nombreDemandeursInactifPeriode = DB::table('demandeur')
+                        ->where('usertpi', '=', Auth::id())
+                        ->where('etat', '=', 0)
+                        ->whereBetween('created_at', [$debut, $fin])
+                        ->count();
+    
+                    $nombreDemandeursRefuséPeriode = DB::table('demandeur')
+                        ->where('usertpi', '=', Auth::id())
+                        ->where('etat', '=', 2)
+                        ->whereBetween('created_at', [$debut, $fin])
+                        ->count();
+                } else {
+                    return back()->withErrors('Les dates fournies ne sont pas valides.');
+                }
+            } else {
+                // Logique pour compter sans période définie
+                $nombreDemandeurs = DB::table('demandeur')->where('usertpi', '=', Auth::id())->count();
+                $nombreDemandeursActif = DB::table('demandeur')->where('usertpi', '=', Auth::id())->where('etat', '=', 1)->count();
+                $nombreDemandeursInactif = DB::table('demandeur')->where('usertpi', '=', Auth::id())->where('etat', '=', 0)->count();
+                $nombreDemandeursRefusé = DB::table('demandeur')->where('usertpi', '=', Auth::id())->where('etat', '=', 2)->count();
+            }
+    
+            return view('demandeurs.statistique')
+                ->with('nombreDemandeursPeriode', $nombreDemandeursPeriode)
+                ->with('nombreDemandeurs', $nombreDemandeurs)
+                ->with('nombreDemandeursActifPeriode', $nombreDemandeursActifPeriode)
+                ->with('nombreDemandeursActif', $nombreDemandeursActif)
+                ->with('nombreDemandeursInactifPeriode', $nombreDemandeursInactifPeriode)
+                ->with('nombreDemandeursInactif', $nombreDemandeursInactif)
+                ->with('nombreDemandeursRefuséPeriode', $nombreDemandeursRefuséPeriode)
+                ->with('nombreDemandeursRefusé', $nombreDemandeursRefusé);
+        } catch (Exception $e) {
+            return back()->withErrors(['message' => $e->getMessage()]);
         }
-
-        return view('demandeurs.statistique')->with('nombreDemandeurs', $nombreDemandeurs)->with('nombreDemandeursActif', $nombreDemandeursActif)->with('nombreDemandeursInactif', $nombreDemandeursInactif)->with('demandeurs', $demandeurs )->with('nombreDemandeursRefusé', $nombreDemandeursRefusé);
     }
-    
-
 }

@@ -89,10 +89,10 @@
             text-align: left;
         }
         @media print {
-    .imprimer{
-        display: none;
-    }
-}
+        .imprimer{
+            display: none;
+        }
+        }
     </style>
 </head>
 <body>
@@ -116,45 +116,44 @@
 
     <div class="Main">
         <div class="left-section">
-        <section class="document-container center">
-            <div class="container-fluid">
-                <div class="card header m-2">
-                    <h1>Periode à saisir: </h1>
-                    <form action="/statistic" method="GET" class="text-center row mb-3" style="margin-left: 0.1%">
-                        @csrf
-                        <div class="form-group col-md-6">
-                            <label for="debut">Début :</label>
-                            <select name="debut_jour" class="form-control">
-                                @for ($i = 1; $i <= 31; $i++)
-                                    <option value="{{ $i }}">{{ $i }}</option>
-                                @endfor
-                            </select>
-                            <select name="debut_mois" class="form-control mt-2">
-                                @foreach ($months as $num => $nom)
-                                    <option value="{{ $num }}">{{ $nom }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        
-                        <div class="form-group col-md-6">
-                            <label for="fin">Fin :</label>
-                            <select name="fin_jour" class="form-control">
-                                @for ($i = 1; $i <= 31; $i++)
-                                    <option value="{{ $i }}">{{ $i }}</option>
-                                @endfor
-                            </select>
-                            <select name="fin_mois" class="form-control mt-2">
-                                @foreach ($months as $num => $nom)
-                                    <option value="{{ $num }}">{{ $nom }}</option>
-                                @endforeach
-                            </select>
-                            <button class="btn btn-success" style="margin-top: 10%; margin-left:30%" type="submit">Rechercher</button>
-                        </div>
-                
-                    </form>
+            <section class="document-container center">
+                <div class="container-fluid">
+                    <div class="card header m-2">
+                        <h1>Période à saisir :</h1>
+                        <form id="statisticForm" class="text-center row mb-3" style="margin-left: 0.1%">
+                            <div class="form-group col-md-6">
+                                <select name="debut_jour" class="form-control">
+                                    @for ($i = 1; $i <= 31; $i++)
+                                        <option value="{{ $i }}">{{ $i }}</option>
+                                    @endfor
+                                </select>
+                                <select name="debut_mois" class="form-control mt-2">
+                                    @foreach ($months as $num => $nom)
+                                        <option value="{{ $num }}">{{ $nom }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            
+                            <div class="form-group col-md-6">
+                                <select name="fin_jour" class="form-control">
+                                    @for ($i = 1; $i <= 31; $i++)
+                                        <option value="{{ $i }}">{{ $i }}</option>
+                                    @endfor
+                                </select>
+                                <select name="fin_mois" class="form-control mt-2">
+                                    @foreach ($months as $num => $nom)
+                                        <option value="{{ $num }}">{{ $nom }}</option>
+                                    @endforeach
+                                </select>
+                                <button class="btn btn-success" style="margin-top: 10%; margin-left:30%" type="submit">Rechercher</button>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
             </section>
+
+                        <div id="resultsContainer" ></div>
         </div>
 
             <div class="right-section">
@@ -162,39 +161,66 @@
                     <button  id="printButton" class="btn btn-success imprimer" style="float: right; margin-bottom: 10px;">
                     <i class="fas fa-print"></i> Imprimer
                 </button>
-                    <table>
-                        <thead>
-                            <tr>
-                                <td>Total de demandeurs</td>
-                                <td>Demandeurs Accepté</td>
-                                <td>Demandeurs Refusé</td>
-                                <td>Demandeurs en cours de traitement</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{{ $nombreDemandeurs }}</td> 
-                                <td>{{ $nombreDemandeursActif }}</td>
-                                <td>{{ $nombreDemandeursRefusé }}</td>
-                                <td>{{ $nombreDemandeursInactif }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Total de demandeurs</td>
+                            <td>Demandeurs Accepté</td>
+                            <td>Demandeurs Refusé</td>
+                            <td>Demandeurs en cours de traitement</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ $nombreDemandeurs }}</td> 
+                            <td>{{ $nombreDemandeursActif }}</td>
+                            <td>{{ $nombreDemandeursRefusé }}</td>
+                            <td>{{ $nombreDemandeursInactif }}</td>
+                        </tr>
+                    </tbody>
+                </table>
                 </div>
             </div>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-        <script>
-            document.getElementById('printButton').addEventListener('click', function() {
-                // Cacher tout le reste de la page
-                let originalContent = document.body.innerHTML; // Conserver le contenu original
-                let printContent = document.querySelector('.right-section').innerHTML; // Obtenir le contenu à imprimer
-                document.body.innerHTML = printContent; // Remplacer le contenu par celui à imprimer
-                window.print(); // Ouvrir la boîte de dialogue d'impression
-                document.body.innerHTML = originalContent; // Restaurer le contenu original
-                location.reload(); // Recharger la page pour revenir à l'état d'origine
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    document.getElementById('printButton').addEventListener('click', function() {
+        // Cacher tout le reste de la page
+        let originalContent = document.body.innerHTML; // Conserver le contenu original
+        let printContent = document.querySelector('.right-section').innerHTML; // Obtenir le contenu à imprimer
+        document.body.innerHTML = printContent; // Remplacer le contenu par celui à imprimer
+        window.print(); // Ouvrir la boîte de dialogue d'impression
+        document.body.innerHTML = originalContent; // Restaurer le contenu original
+        location.reload(); // Recharger la page pour revenir à l'état d'origine
+    });
+
+
+    $(document).ready(function() {
+        $('#statisticForm').on('submit', function(e) {
+            e.preventDefault(); // Empêche le rechargement de la page
+
+            // Récupération des données du formulaire
+            var formData = $(this).serialize();
+
+            // Envoi de la requête AJAX
+            $.ajax({
+                url: '/statistic',
+                type: 'GET',
+                data: formData,
+                success: function(response) {
+                    // Remplace le contenu du conteneur de résultats par la réponse
+                    $('#resultsContainer').html(response);
+                },
+                error: function(xhr) {
+                    // Gère les erreurs
+                    $('#resultsContainer').html('<p class="alert alert-danger">Une erreur est survenue.</p>');
+                }
             });
+        });
+    });
+
         </script>
     </body>
 </html>
