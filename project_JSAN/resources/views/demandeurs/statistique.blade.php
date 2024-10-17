@@ -31,26 +31,27 @@
         }
 
         body{
-            font-family: Source Sans Pro, Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: sans-serif;
+            overflow: hidden;
         }
         .Main {
             display: flex;
-            height: 100vh; /* Remplir la hauteur de la fenêtre */
+            height: 100vh; 
+            background-color: #f4f4f4;
         }
 
         .left-section, .right-section {
-            width: 50%; /* Chaque section prend 50% de la largeur */
+            width: 50%;
             padding: 20px;
-            overflow-y: auto; /* Ajoute un défilement si le contenu déborde */
+            overflow-y: auto;
         }
 
         .left-section {
-            background-color: #ffffff; /* Couleur de fond pour la partie gauche */
+            background-color: #8b8b8b; /* Couleur de fond pour la partie gauche */
         }
 
         .right-section {
-            background-color: #fff; /* Couleur de fond pour la partie droite */
+            background-color: #f4f4f4; /* Couleur de fond pour la partie droite */
         }
 
         .document-container {
@@ -164,15 +165,17 @@
                     <table>
                         <thead>
                             <tr>
-                                <td>Nombre total de demandeurs</td>
-                                <td>Nombre de demandeurs actifs</td>
-                                <td>Nombre de demandeurs inactifs</td>
+                                <td>Total de demandeurs</td>
+                                <td>Demandeurs Accepté</td>
+                                <td>Demandeurs Refusé</td>
+                                <td>Demandeurs en cours de traitement</td>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>{{ $nombreDemandeurs }}</td> 
                                 <td>{{ $nombreDemandeursActif }}</td>
+                                <td>{{ $nombreDemandeursRefusé }}</td>
                                 <td>{{ $nombreDemandeursInactif }}</td>
                             </tr>
                         </tbody>

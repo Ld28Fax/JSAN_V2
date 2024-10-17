@@ -17,71 +17,72 @@
     body {
     font-family: Source Sans Pro, Arial, sans-serif;
     background-color: #f4f4f4;
-    overflow: hidden; /* Désactive le défilement de toute la page */
+    overflow: hidden;
     }
 
     .Main {
         display: flex;
-        height: 100vh; /* Utilise la hauteur complète de la fenêtre */
+        height: 100vh;
     }
 
     .left-section {
-        width: 50%; /* Fixe la largeur à 50% */
+        width: 50%;
         padding: 20px;
         margin-bottom: 3%;
-        overflow-y: auto; /* Active le défilement vertical uniquement sur la gauche */
-        background-color: #ffffff;
+        overflow-y: auto;
+        background-color:dimgrey; 
+        
     }
 
     .right-section {
-        width: 50%; /* Fixe la largeur à 50% */
+        width: 50%;
         padding: 20px;
     }
         
 
 
-        .left-section, .right-section {
-            width: 50%; /* Chaque section prend 50% de la largeur */
-            padding: 20px;
-            overflow-y: auto; /* Ajoute un défilement si le contenu déborde */
-        }
+    .left-section, .right-section {
+        width: 50%;
+        padding: 20px;
+        overflow-y: auto;
+    }
 
 
 
-        .document-container {
-            width: 100%;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            border: 1px solid #ccc;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+    .document-container {
+        width: 100%;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-        .header {
-            text-align: center;
-        }
+    .header {
+        text-align: center;
+    }
 
-        .header-info {
-            display: flex;
-            justify-content: space-around;
-            text-align: center;
-            margin-bottom: 20px;
-        }
+    .header-info {
+        display: flex;
+        justify-content: space-around;
+        text-align: center;
+        margin-bottom: 20px;
+    }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
 
-        table, th, td {
-            border: 1px solid #ccc;
-        }
+    table, th, td {
+        border: 1px solid #ccc;
+    }
 
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
+    th, td {
+        padding: 10px;
+        text-align: left;
+    }
         @media print {
     .imprimer{
         display: none;
@@ -92,7 +93,7 @@
 <body>
 
     <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
     <div class="container-fluid">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -100,7 +101,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
         <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="{{ route('Audience') }}"><i class="fas fa-arrow-left"></i>
+        <a class="nav-link active text-white" aria-current="page" href="{{ route('Audience') }}"><i class="fas fa-arrow-left"></i>
             retour</a>
         </li>
     </ul>
@@ -110,7 +111,7 @@
 
 <div class="Main" >
 
-    <div class="left-section bg-dark">
+    <div class="left-section">
         <section class="document-container center">
             <div class="container-fluid">
                 <div class="card header m-2">
@@ -171,7 +172,7 @@
                         <th>Numero</th>
                         <th>Nom</th>
                         <th>Status</th>
-                        <th>Action</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody id="demandeurs-list">

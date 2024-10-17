@@ -50,7 +50,7 @@
                 </form>
 
                 <div class="mt-3">
-                  <a href="{{ route('demandeurs.liste') }}" class="btn btn-secondary">Retour à la liste des demandeurs</a>
+                  <a href="{{ route('audience.demandeurs') }}" class="btn btn-secondary">Retour Audience</a>
                 </div>
             </div>
         </div>

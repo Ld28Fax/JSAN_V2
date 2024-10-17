@@ -26,7 +26,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="{{'dashboard'}}" class="nav-link">Acceuil</a>
+        <a href="{{'dashboard'}}" class="nav-link">Accueil</a>
       </li>
     </ul>
 
@@ -128,7 +128,7 @@
             <a href="{{ route('dashboard')}}" class="nav-link ">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Acceuil
+                Accueil
               </p>
             </a>
           </li>
@@ -144,7 +144,7 @@
             <a href="{{ route('demandeurs.liste')}}" class="nav-link">
               <i class="nav-icon fas fa-table"></i>
               <p>
-                Listes demandeurs
+                Listes Demandeurs
               </p>
             </a>
           </li>
@@ -160,7 +160,7 @@
             <a href="{{ route('demandeurs.exportation')}}" class="nav-link">
               <i class="nav-icon fas fa-file-export"></i>
               <p>
-                Exportation demandeurs
+                Exportation Demandeurs
               </p>
             </a>
           </li>

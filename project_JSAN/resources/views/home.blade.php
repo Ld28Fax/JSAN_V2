@@ -110,7 +110,6 @@
                     <table class="table m-0">
                         <thead style="background: green; opacity:0.5">
                             <tr>
-                                <th>Id</th>
                                 <th>Nom</th>
                                 <th>Adresse</th>
                                 <th>Date de Naissance</th>
@@ -121,7 +120,6 @@
                             @foreach ( $demandeurs as $demandeur )
                                 
                             <tr>
-                                <td>{{$demandeur->id}}</td>
                                 <td>{{$demandeur->Nom}}</td>
                                 <td>{{$demandeur->Adresse}}</td>
                                 <td>{{$demandeur->Date_de_Naissance}}</td>
@@ -135,7 +133,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer clearfix">
-                    <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">View All Orders</a>
+                    <a href="{{ route('demandeurs.liste') }}" class="btn btn-sm btn-secondary float-right">Voir tous les demandeurs</a>
                 </div>
                 <!-- /.card-footer -->
                 </div>

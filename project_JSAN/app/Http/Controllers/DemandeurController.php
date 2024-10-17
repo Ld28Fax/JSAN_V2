@@ -263,14 +263,18 @@ class DemandeurController extends Controller
                 ->where('etat', '=', 0)
                 ->whereRaw('DATE_FORMAT(created_at, "%m-%d") BETWEEN ? AND ?', [$debut_format, $fin_format])
                 ->count();
+
+            $nombreDemandeursRefusé = DB::table(table: 'demandeur')->where('usertpi', '=', Auth::id())->whereRaw('DATE_FORMAT(created_at, "%m-%d") BETWEEN ? AND ?', [$debut_format, $fin_format])
+                ->where('etat','=',2)->count();
         } else {
             // Si aucune période n'est fournie, récupérer toutes les données
             $nombreDemandeurs = DB::table('demandeur')->where('usertpi', '=', Auth::id())->count();
             $nombreDemandeursActif = DB::table('demandeur')->where('usertpi', '=', Auth::id())->where('etat', '=', 1)->count();
             $nombreDemandeursInactif = DB::table('demandeur')->where('usertpi', '=', Auth::id())->where('etat', '=', 0)->count();
+            $nombreDemandeursRefusé = DB::table(table: 'demandeur')->where('usertpi', '=', Auth::id())->where('etat','=',2)->count();
         }
 
-        return view('demandeurs.statistique')->with('nombreDemandeurs', $nombreDemandeurs)->with('nombreDemandeursActif', $nombreDemandeursActif)->with('nombreDemandeursInactif', $nombreDemandeursInactif)->with('demandeurs', $demandeurs );
+        return view('demandeurs.statistique')->with('nombreDemandeurs', $nombreDemandeurs)->with('nombreDemandeursActif', $nombreDemandeursActif)->with('nombreDemandeursInactif', $nombreDemandeursInactif)->with('demandeurs', $demandeurs )->with('nombreDemandeursRefusé', $nombreDemandeursRefusé);
     }
     
 
