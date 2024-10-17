@@ -145,8 +145,9 @@ class DemandeurController extends Controller
             $nombreDemandeurs = DB::table('demandeur')->count();
             $nombreDemandeursActif = DB::table(table: 'demandeur')->where('etat','=',1)->count();
             $nombreDemandeursInactif = DB::table(table: 'demandeur')->where('etat','=',0)->count();
+            $nombreDemandeursRefusé = DB::table(table: 'demandeur')->where('usertpi', '=', Auth::id())->where('etat','=',2)->count();
 
-            return view('demandeurs.exportation')->with('demandeurs', $demandeurs)->with('nombreDemandeurs', $nombreDemandeurs)->with('nombreDemandeursActif', $nombreDemandeursActif)->with('nombreDemandeursInactif', $nombreDemandeursInactif)->with('audiences', $audiences);
+            return view('demandeurs.exportation')->with('demandeurs', $demandeurs)->with('nombreDemandeurs', $nombreDemandeurs)->with('nombreDemandeursActif', $nombreDemandeursActif)->with('nombreDemandeursInactif', $nombreDemandeursInactif)->with('audiences', $audiences)->with('nombreDemandeursRefusé', $nombreDemandeursRefusé);
         } 
         catch (Exception $e){
             return redirect()->back()->withErrors("error", $e->getMessage());
@@ -207,6 +208,12 @@ class DemandeurController extends Controller
         $DemandeursInactif = DB::table('demandeur')->where('etat', '=', 0)->get();
 
         return view('demandeurs.exportationNonVerifier')->with('DemandeursInactif', $DemandeursInactif);
+    }
+
+    public function DemandeurRefusé(){
+        $DemandeursRefusé = DB::table('demandeur')->where('etat', '=', 2)->get();
+
+        return view('demandeurs.exportationRefusé')->with('DemandeursRefusé', $DemandeursRefusé);
     }
 
     public function Motif(Request $request, $id){

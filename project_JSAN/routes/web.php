@@ -89,6 +89,8 @@ Route::get('/exportationVerifier', [DemandeurController::class, 'DemandeursVerif
 
 Route::get('/exportationNonVerifier', [DemandeurController::class, 'DemandeurNonVerifier'])->name('demandeurs.exportationNonVerifier');
 
+Route::get('/exportationRefusé', [DemandeurController::class, 'DemandeurRefusé'])->name('demandeurs.exportationRefusé');
+
 Route::get('/print/{id}', [ExportController::class, 'showPrintPage'])->name('export');
 
 Route::get('/audience', [AudienceController::class, 'liste'])->name('Audience');

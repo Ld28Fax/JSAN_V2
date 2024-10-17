@@ -40,7 +40,6 @@ class AudienceController extends Controller
     
             return back()->with('success', 'Audience enregistrée avec succès.');
         }catch(Exception $e){
-            // throw new Exception($e->getMessage());
             return redirect()->back()->withErrors(['error' =>$e->getMessage()]);
         }
     }
@@ -60,23 +59,27 @@ class AudienceController extends Controller
 
         $audienceId = $audience->id;
 
-        $demandeurs = DB::table('demandeur')->where('usertpi', '=', Auth::id())->where('etat_audience', false)->get();
+        $demandeurs = DB::table('demandeur')->orderBy('created_at', 'desc')->where('usertpi', '=', Auth::id())->where('etat_audience', false)->get();
 
-        $demandeursAudience = DB::table('demandeur')->where('usertpi', '=', Auth::id())->where('etat_audience', true)->where('audience_id',$audienceId)->get();
+        $demandeursAudience = DB::table('demandeur')->orderBy('created_at', 'desc')->where('usertpi', '=', Auth::id())->where('etat_audience', true)->where('audience_id',$audienceId)->get();
         return view('audience.demandeurs')->with('demandeurs', $demandeurs)->with('audience', $audience)->with('demandeursAudience', $demandeursAudience);
     }
 
     public function selectionnerDemandeurs(Request $request)
     {
-        // Récupérer les ID des demandeurs sélectionnés
+       try{
         $demandeursSelectionnes = $request->input('demandeurs_selectionnes', []);
-        
-        // Récupérer l'ID de l'audience
         $audienceId = $request->input('audience_id');
+
+        $request->validate([
+            'demandeurs_selectionnes' => 'required|array|min:1',
+        ], [
+            'demandeurs_selectionnes.required' => 'Veuillez sélectionner au moins un demandeur.',
+            'demandeurs_selectionnes.min' => 'Veuillez sélectionner au moins un demandeur.'
+        ]);
+        
     
-        // Vérifier si des demandeurs ont été sélectionnés
         if (!empty($demandeursSelectionnes)) {
-            // Mettre à jour l'état et l'audience_id pour les demandeurs sélectionnés
             \App\Models\Demandeur::whereIn('id', $demandeursSelectionnes)
                 ->update([
                     'etat_audience' => true,
@@ -84,7 +87,10 @@ class AudienceController extends Controller
                 ]);
         }
     
-        return redirect()->back()->with('success', 'Les demandeurs ont été mis à jour avec succès.');
+        return redirect()->back()->with('success', 'Les demandeurs ont eu un audience.');
+        }catch(Exception $e){
+            return redirect()->back()->withErrors($e->getMessage());
+        }
     }
     
 

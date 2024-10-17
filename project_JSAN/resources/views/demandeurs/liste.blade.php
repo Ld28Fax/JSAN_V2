@@ -20,7 +20,6 @@
 {{-- <body class="hold-transition sidebar-mini"> --}}
     @extends('dashboard')
     @section('content')
-
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
@@ -44,15 +43,15 @@
             <div class="card">
                
               <!-- /.card-header -->
-              <div class="card-body">
-                <div>
+              <div class="card-body" >
+                <div style="margin-bottom: 5%">
                     <button class="btn btn-default" onclick="filterByPeriod('tous')">Tous</button>
                     <button class="btn btn-default" onclick="filterByPeriod('day')">Jour</button>
                     <button class="btn btn-default" onclick="filterByPeriod('week')">Semaine</button>
                     <button class="btn btn-default" onclick="filterByPeriod('month')">Mois</button>
                 </div>
             
-                <table id="example1" class="table table-bordered table-striped">
+                <table class="table table-bordered table-striped">
                     <thead style="background: green; opacity:0.5">
                         <tr>
                             <th>Nom</th>
@@ -60,33 +59,32 @@
                             <th>Lieu de Naissance</th>
                             <th>Modifier</th>
                             <th>Status</th>
-                            <th></th>
                             <th>Date d'ajout</th>
                         </tr>
                     </thead>
                     <tbody id="demandeurs-list">
                         @forelse ($demandeurs as $demandeur)
+                        <?php
+                          setlocale(LC_TIME, 'mg_MG.UTF-8');
+                          $date_en_lettres_created_at = strftime('%d %B %Y', strtotime($demandeur->created_at));
+                        ?>
                             @if ($demandeur->etat == 0)
                             <tr id="row-{{ $loop->index }}">
                               <td>{{ $demandeur->Nom }}</td>
                               <td>{{ \Carbon\Carbon::parse($demandeur->Date_de_Naissance)->format('d-m-Y')}}</td>
                               <td>{{ $demandeur->Lieu_de_Naissance }}</td>
                               <td>
-                                      <a class="btn btn-primary" href="{{ route('demandeurs.edit', ['id' => $demandeur->id]) }}">Modifier</a>
+                                <a class="btn btn-primary" href="{{ route('demandeurs.edit', ['id' => $demandeur->id]) }}">Ajout Numero/Modification</a>
                               </td>
                               <td>
                                   <div>
                                     <span class="badge status-badge bg-warning">
-                                      Dossier non traiter 
+                                      Dossier en cours 
                                         <i class="fas fa-hourglass-start"></i>
                                     </span>
                                   </div>
                               </td>
-                              <td>
-                                      <a class="btn btn-block btn-success" href="{{ route('demandeurActiver', ['id' => $demandeur->id]) }}" class="text-white">Activer</a>
-                                      <a href="{{ route('nonactif', ['id' => $demandeur->id]) }}" class="btn btn-block btn-danger">Non Activer</a>
-                              </td>
-                              <td>{{ \Carbon\Carbon::parse($demandeur->created_at)->translatedFormat('d F Y') }}</td>
+                              <td>{{ $date_en_lettres_created_at }}</td>
 
                           </tr>
                           @elseif ($demandeur->etat == 1)
@@ -103,8 +101,7 @@
                                   </span>
                                 </div>
                             </td>
-                            <td></td>
-                            <td>{{ \Carbon\Carbon::parse($demandeur->created_at)->translatedFormat('d F Y') }}</td>
+                            <td>{{ $date_en_lettres_created_at }}</td>
 
                         </tr>
                           @elseif ($demandeur->etat == 2)
@@ -122,16 +119,13 @@
                                     </span>
                                 </div>
                             </td>
-                            <td>
-                                    <p>{{ $demandeur->motif }}</p>
-                            </td>
-                            <td>{{ \Carbon\Carbon::parse($demandeur->created_at)->translatedFormat('d F Y') }}</td>
+                            <td>{{ $date_en_lettres_created_at }}</td>
 
                         </tr>
                             @endif
                         @empty
                         <tr class="w-full">
-                          <td style="text-align: center" colspan="7">
+                          <td style="text-align: center" colspan="6">
                               <img src="{{ asset('undraw empty.svg')}}" alt="" style="width: 10%">
                               <div>Aucun élément</div>
                           </td>
@@ -207,22 +201,13 @@
                         <td>${demandeur.Nom}</td>
                         <td>${demandeur.Date_de_Naissance}</td>
                         <td>${demandeur.Lieu_de_Naissance}</td>
-                        <td>${demandeur.etat == 0 ? `<a class="btn btn-primary" href="/demandeurs/edit/${demandeur.id}">Modifier</a>` : ''}</td>
+                        <td>${demandeur.etat == 0 ? `<a class="btn btn-primary" href="/demandeurs/edit/${demandeur.id}">Ajout Numero/Modification</a>` : ''}</td>
                         <td>
                             <span class="badge status-badge ${getBadgeClass(demandeur.etat)}">
                                 ${getBadgeText(demandeur.etat)}
                                 <i class="fas ${getIconClass(demandeur.etat)}"></i>
                             </span>
                         </td>
-                       <td>
-                            ${demandeur.etat == 0 ? 
-                                `<a href="/Actif/${demandeur.id}" class="text-white btn btn-block btn-success">Activer</a> 
-                                <a href="nonactif/${demandeur.id}" class="btn btn-block btn-danger">Non Activer</a>` 
-                                : 
-                                (demandeur.etat == 2 ? `<span>${demandeur.motif}</span>` : '')}
-                        </td>
-
-
                         <td>${formatDate(demandeur.created_at)}</td>
                     `;
                     tbody.appendChild(row);

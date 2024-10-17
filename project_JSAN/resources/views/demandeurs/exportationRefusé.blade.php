@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Demandeurs</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demandeurs</title>
 
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="extern/plugins/fontawesome-free/css/all.min.css">
-  <!-- DataTables -->
-  <link rel="stylesheet" href="extern/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-  <link rel="stylesheet" href="extern/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-  <link rel="stylesheet" href="extern/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="extern/dist/css/adminlte.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="extern/plugins/fontawesome-free/css/all.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="extern/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="extern/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="extern/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="extern/dist/css/adminlte.min.css">
 </head>
 {{-- <body class="hold-transition sidebar-mini"> --}}
 @extends('dashboard')
@@ -26,34 +26,35 @@
 
     <!-- Main content -->
     <section class="content">
-      <div class="container-fluid">
+        <div class="container-fluid">
         <div class="row">
-          <div class="col-12">
+            <div class="col-12">
             <!-- /.card -->
 
             <div class="card">
-               
-              <!-- /.card-header -->
-              <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped ">
-                  <thead style="background: green; opacity:0.5 ">
-                  <tr>
-                    <th>Nom</th>
-                    <th>Date de Naissance</th>
-                    <th>Lieu de Naissance</th>
-                    <th>Père</th>
-                    <th>Mère</th>
-                    <th>Télephone</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                    @forelse ($DemandeursActifs as $demandeur )
-                          <tr>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped ">
+                    <thead style="background: green; opacity:0.5 ">
+                        <tr>
+                            <th>Nom</th>
+                            <th>Date de Naissance</th>
+                            <th>Lieu de Naissance</th>
+                            <th>Père</th>
+                            <th>Mère</th>
+                            <th>Motif</th>
+                            <th>Télephone</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @forelse ($DemandeursRefusé as $demandeur )
+                        <tr>
                             <td>{{$demandeur->Nom}}</td>
                             <td>{{\Carbon\Carbon::parse($demandeur->Date_de_Naissance)->format('d-m-Y')}}</td>
                             <td>{{$demandeur->Lieu_de_Naissance}}</td>
                             <td>{{$demandeur->Pere}}</td>
                             <td>{{$demandeur->Mere}}</td>
+                            <td>{{$demandeur->motif }}</td>
                             <td>{{$demandeur->Telephone}}</td>
                         </tr>
                         @empty
@@ -66,26 +67,26 @@
                                 </td>
                             </tr>
                     @endforelse
-                  </tbody>
+                    </tbody>
                 </table>
-              </div>
-              <!-- /.card-body -->
+            </div>
+            <!-- /.card-body -->
             </div>
             <!-- /.card -->
-          </div>
-          <!-- /.col -->
+        </div>
+        <!-- /.col -->
         </div>
         <!-- /.row -->
-      </div>
-      <!-- /.container-fluid -->
+    </div>
+    <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
+</aside>
+<!-- /.control-sidebar -->
 <!-- ./wrapper -->
 
 <!-- jQuery -->

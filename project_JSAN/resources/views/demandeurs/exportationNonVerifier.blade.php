@@ -17,24 +17,11 @@
   <link rel="stylesheet" href="extern/dist/css/adminlte.min.css">
 </head>
 {{-- <body class="hold-transition sidebar-mini"> --}}
-  @extends('dashboard')
+@extends('dashboard')
 @section('content')
 
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Exportation des demandeurs</h1>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Acceuil</a></li>
-              <li class="breadcrumb-item active"><a href="{{ route('demandeurs.liste')}}">Exportation des demandeurs</a></li>
-            </ol>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
     </section>
 
     <!-- Main content -->
@@ -51,7 +38,6 @@
                 <table id="example1" class="table table-bordered table-striped ">
                   <thead style="background: green; opacity:0.5 ">
                   <tr>
-                    <th>etat</th>
                     <th>Nom</th>
                     <th>Date de Naissance</th>
                     <th>Lieu de Naissance</th>
@@ -63,7 +49,6 @@
                   <tbody>
                     @forelse ($DemandeursInactif as $demandeur )
                           <tr>
-                            <td>{{ $demandeur->etat }}</td>
                             <td>{{$demandeur->Nom}}</td>
                             <td>{{\Carbon\Carbon::parse($demandeur->Date_de_Naissance)->format('d-m-Y')}}</td>
                             <td>{{$demandeur->Lieu_de_Naissance}}</td>

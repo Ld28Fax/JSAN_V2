@@ -104,10 +104,9 @@
                                 <input type="text" name="Nom" class="form-control" placeholder="nom du demandeur" autocomplete="off">
                               </div>
                             </div>
-                             
 
-                               {{-- Input Kaominina --}}
-                               <div class="form-group" id="interesse-field" >
+                            {{-- Input Kaominina --}}
+                            <div class="form-group" id="interesse-field" >
                                 <label>Commune:</label>
             
                                 <div class="input-group">
