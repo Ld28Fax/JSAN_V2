@@ -84,10 +84,15 @@
         text-align: left;
     }
         @media print {
-    .imprimer{
-        display: none;
+        .imprimer{
+            display: none;
+        }
     }
+
+.text-white {
+    color: white !important;
 }
+
     </style>
 </head>
 <body>
@@ -101,7 +106,6 @@
     <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
         <li class="nav-item">
-
         <div class="mt-3">
             <a href="{{ route('Audience') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>Retour</a>
         </div>
@@ -118,9 +122,9 @@
             <div class="container-fluid">
                 <div class="card header m-2">
                     <?php
-                                    setlocale(LC_TIME, 'mg_MG.UTF-8');
-                                    $date_audience = strftime('%d %B %Y', strtotime($audience->date));
-                                    ?>
+                    setlocale(LC_TIME, 'mg_MG.UTF-8');
+                    $date_audience = strftime('%d %B %Y', strtotime($audience->date));
+                    ?>
                     <h1>Demandeurs pour l'audience du {{ $date_audience }}</h1>
                     <form action="{{ route('selectionner.demandeurs') }}" method="POST">
                         @csrf
@@ -132,13 +136,13 @@
                             @endif
                             @if ($errors->any())
                             <div class="alert alert-danger">
-                              <ul>
-                                @foreach ($errors->all() as $error)
-                                  <li>{{ $error }}</li>
-                                @endforeach
-                              </ul>
+                            <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                            </ul>
                             </div>
-                          @endif
+                            @endif
                             <input type="hidden" name="audience_id" value="{{ $audience->id }}">
                             <table class="table ">
                                 <thead>
@@ -156,8 +160,8 @@
                                     $date_en_lettres_created_at = strftime('%d %B %Y', strtotime($demandeur->created_at));
                                     ?>
                                     <tr>
-                                        <td>{{ $demandeur->numero }}</td>
-                                        <td>{{ $demandeur->Nom }}</td>
+                                        <td  class="text-white">{{ $demandeur->numero }}</td>
+                                        <td  class="text-white">{{ $demandeur->Nom }}</td>
                                         <td>{{ $date_en_lettres_created_at }}</td>
                                         <td>
                                             <input type="checkbox" name="demandeurs_selectionnes[]" value="{{ $demandeur->id }}">
@@ -172,79 +176,94 @@
             </div>
         </section>
 
-            <table class="table table-bordered table-striped">
-                <thead style="background: green; opacity:0.5">
-                    <tr>
-                        <th>Numero</th>
-                        <th>Nom</th>
-                        <th>Status</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody id="demandeurs-list">
-                    @forelse ($demandeursAudience as $demandeur)
-                    @if ($demandeur->etat == 0)
-                    <tr id="row-{{ $loop->index }}">
-                        <td>{{ $demandeur->numero }}</td>
-                        <td>{{ $demandeur->Nom }}</td>
-                        <td>
+        <table class="table table-bordered table-striped text-white">
+            <thead style="background: green; opacity:0.5">
+                <tr>
+                    <th>Numero</th>
+                    <th>Nom</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="demandeurs-list">
+                @forelse ($demandeursAudience as $demandeur)
+                @if ($demandeur->etat == 0)
+                <tr id="row-{{ $loop->index }}">
+                    <td  class="text-white">{{ $demandeur->numero }}</td>
+                    <td  class="text-white">{{ $demandeur->Nom }}</td>
+                    <td>
                         <div>
-                            <span class="badge status-badge bg-warning">
-                            Dossier non traiter 
+                            <span class="badge status-badge bg-warning text-white">
+                                Dossier non traiter 
                                 <i class="fas fa-hourglass-start"></i>
                             </span>
                         </div>
-                      </td>
-                      <td>
-                        <a class="btn btn-block btn-success" href="{{ route('demandeurActiver', ['id' => $demandeur->id]) }}" class="text-white">Accepter</a>
-                        <a href="{{ route('nonactif', ['id' => $demandeur->id]) }}" class="btn btn-block" style="background:rgb(255, 102, 0); color:#f4f4f4">Renvoyer</a>
-                      </td>
-                  </tr>
-                        @elseif ($demandeur->etat == 1)
-                            <tr id="row-{{ $loop->index }}" class='text-white'>
-                                <td>{{ $demandeur->numero }}</td>
-                                <td>{{ $demandeur->Nom }}</td>
-                                <td>
-                                    <div>
-                                        <span class="badge status-badge bg-success text-white">
-                                            Dossier traiter
-                                            <i class="fas fa-check"></i>
-                                        </span>
-                                    </div>
-                                </td>
-                            </tr>
-                        @elseif ($demandeur->etat == 2)
-                            <tr id="row-{{ $loop->index }}" class="text-white">
-                                <td>{{ $demandeur->numero }}</td>
-                                <td>{{ $demandeur->Nom }}</td>
-                                <td>
-                                    <div>
-                                        <span class="badge status-badge  text-white" style="background:rgb(255, 102, 0);">
-                                            Dossier renvoyer
-                                            <i class="fas fa-times"></i>
-                                        </span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <p>{{ $demandeur->motif }}</p>
-                                </td>
-                            </tr>
-                        @endif
-                    @empty
-                        <tr class="w-full">
-                            <td style="text-align: center;" colspan="7">
-                                <img src="{{ asset('undraw empty.svg')}}" style="width: 10%">
-                                <div style="color: white;">Aucun élément</div>
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-            
+                    </td>
+                    <td>
+                        <a class="btn btn-block btn-success" href="{{ route('demandeurActiver', ['id' => $demandeur->id]) }}">Accepter</a>
+                        <a href="{{ route('nonactif', ['id' => $demandeur->id]) }}" class="btn btn-block" style="background:rgb(255, 102, 0); color:white;">Renvoyer</a>
+                    </td>
+                </tr>
+                @elseif ($demandeur->etat == 1)
+                <tr id="row-{{ $loop->index }}">
+                    <td  class="text-white">{{ $demandeur->numero }}</td>
+                    <td  class="text-white">{{ $demandeur->Nom }}</td>
+                    <td>
+                        <div>
+                            <span class="badge status-badge bg-success text-white">
+                                Dossier traiter
+                                <i class="fas fa-check"></i>
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        <a href="{{ route('export', $demandeur->id) }}">
+                            <i class="fas fa-print"></i>
+                        </a>
+                    </td>
+                </tr>
+                @elseif ($demandeur->etat == 2)
+                <tr id="row-{{ $loop->index }}">
+                    <td  class="text-white">{{ $demandeur->numero }}</td>
+                    <td  class="text-white">{{ $demandeur->Nom }}</td>
+                    <td>
+                        <div>
+                            <span class="badge status-badge text-white" style="background:rgb(255, 102, 0);">
+                                Dossier renvoyer
+                                <i class="fas fa-times"></i>
+                            </span>
+                        </div>
+                    </td>
+                    <td  class="text-white">
+                        <p>{{ $demandeur->motif }}</p>
+                    </td>
+                </tr>
+                @endif
+                @empty
+                <tr class="w-full">
+                    <td style="text-align: center;" colspan="7">
+                        <img src="{{ asset('undraw empty.svg')}}" style="width: 10%">
+                        <div>Aucun élément</div>
+                    </td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-between align-items-center" style="margin-left: 2%">
+            <nav aria-label="Page navigation">
+                <ul class="pagination pagination-sm">
+                    {{ $demandeursAudience->links('pagination::bootstrap-4') }}
+                </ul>
+            </nav>
+            <div class="elements-count text-white">
+                Affichage de {{ $demandeursAudience->count() }} sur {{ $demandeursAudience->total() }} éléments
+            </div>
+        </div>
+        
         </div>
 
         <div class="right-section">
-            <div class="document-container">
+            <div>
                 <?php
                     setlocale(LC_TIME, 'mg_MG.UTF-8');
                     $date_audience = strftime('%d %B %Y', strtotime($audience->date));
@@ -283,11 +302,11 @@
                         </tbody>
                     </table>
                 </div>
+                <?php 
+                    $date_actuelle = strftime('%d %B %Y', strtotime(\Carbon\Carbon::now()));
+                ?>
+                <p style="margin-top: 5%">{{ str_replace('TPI', '', $user->TPI) }}, le {{ $date_actuelle }}</p>
             </div>
-            <?php 
-                $date_actuelle = strftime('%d %B %Y', strtotime(\Carbon\Carbon::now()));
-            ?>
-            {{-- <p>{{ $user->TPI }} , le {{ $date_actuelle }}</p> --}}
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

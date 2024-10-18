@@ -243,7 +243,7 @@ body {
             
         </p>
            <p>Dia teraka ny: {{ $date_en_lettres_Date_de_Naissance }}</p>
-           <p>Tao: {{ $demandeur->Lieu_de_Naissance }} Kaominina: {{ $demandeur->kaominina }}Distrika: {{ $demandeur->distrika }}</p>
+           <p>Tao: {{ $demandeur->Lieu_de_Naissance }} Kaominina: {{ $demandeur->kaominina }},  Distrika: {{ $demandeur->distrika }}</p>
            <p>Zanak'i  {{ $demandeur->Pere }}</p>
            <p>Sy  {{ $demandeur->Mere }}</p>
            <p>Didiana sy fandikana ny matoan'izao didy izao ao amin'ny rejisitry ny sora-piankohonana;</p>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Audience;
+use App\Models\Demandeur;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -61,9 +62,17 @@ class AudienceController extends Controller
 
         $demandeurs = DB::table('demandeur')->orderBy('created_at', 'asc')->where('usertpi', '=', Auth::id())->where('etat_audience', false)->get();
 
-        $user = DB::table('users')->get();
+        $demandeursAudience  = Demandeur::where('etat_audience', true)
+                ->where('usertpi', '=', Auth::id())
+                ->orderBy('created_at', 'asc')
+                ->where('audience_id',$audienceId)
+                ->paginate(5);
 
-        $demandeursAudience = DB::table('demandeur')->orderBy('created_at', 'desc')->where('usertpi', '=', Auth::id())->where('etat_audience', true)->where('audience_id',$audienceId)->get();
+        $user = Auth::user();
+
+        // $demandeursAudience = DB::table('demandeur')->orderBy('created_at', 'desc')->where('usertpi', '=', Auth::id())->where('etat_audience', true)->where('audience_id',$audienceId)->get();
+
+
         return view('audience.demandeurs')->with('demandeurs', $demandeurs)->with('audience', $audience)->with('demandeursAudience', $demandeursAudience)->with('user', $user);
     }
 
