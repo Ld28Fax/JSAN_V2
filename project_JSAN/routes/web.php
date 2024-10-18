@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AudienceController;
-use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CalendrierController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DemandeurController;
@@ -28,7 +27,7 @@ App::setLocale('fr'); // ou 'en' pour anglais
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');;
 
 Route::get('/dashboard', [HomeController::class, 'home_liste'])->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -55,7 +54,9 @@ Route::get('/calendrier', [CalendrierController::class,'index'])->middleware(['a
 
 Route::get('/Actif/{id?}', [DemandeurController::class,'actif'])->middleware(['auth','verified'])->name('demandeurActiver');
 
-Route::get('/nonactif/{id?}', [DemandeurController::class,'Inactif'])->middleware(['auth','verified'])->name('nonactif');
+Route::get('/nonactif/{id}', [DemandeurController::class, 'Inactif'])
+    ->middleware(['auth', 'verified'])
+    ->name('nonactif');
 
 Route::post('/ajoutMotif/{id}', [DemandeurController::class, 'Motif'])->middleware(['auth', 'verified'])->name('ajoutMotif');
 
@@ -81,8 +82,8 @@ Route::get('/contactUser', [ContactController::class, 'contact'])->name('contact
 
 
 
-Route::get('/unauthorized', function () {
-    return view('unauthorized'); 
+Route::get('/erreur', function () {
+    return view('erreur'); 
 });
 
 Route::get('/exportationVerifier', [DemandeurController::class, 'DemandeursVerifier'])->name('demandeurs.exportationVerifier');

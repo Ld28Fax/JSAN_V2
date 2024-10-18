@@ -5,8 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>home</title>
+    <style>
+        .number-shadow {
+            font-size: 5em!important;
+            color: grey;
+        }
+    </style>
 </head>
 <body>
+
 @extends('dashboard')
 @section('content')
 
@@ -17,72 +24,57 @@
             <div class="container-fluid">
             <!-- Info boxes -->
             <div class="row">
-            <div class="col-12 col-sm-6 col-md-3">
-                <div class="info-box">
-                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">Total Demandeurs</span>
-                    <span class="info-box-number text-purple">
-                        {{ $nombreDemandeurs }}
-                    <small>Personnes</small>
-                    </span>
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                        <div class="inner">
+                            <h3 class="number-shadow icon" style="margin-top: -13%;">{{ $nombreDemandeurs }}</h3>
+                            <h4>Total Demandeurs</h4>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
                 </div>
-                <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-            </div>
-            <!-- /.col -->
-            <div class="col-12 col-sm-6 col-md-3">
-                <div class="info-box mb-3">
-                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-thumbs-up"></i></span>
 
-                <div class="info-box-content">
-                    <span class="info-box-text">Dossier Accepter</span>
-                    <span class="info-box-number text-purple " >{{ $nombreDemandeursActif }}
-                        <small>Personnes</small>
-                    </span>
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-success">
+                        <div class="inner">
+                            <h3 class="number-shadow icon" style="margin-top: -13%;">{{ $nombreDemandeursActif }}</h3>
+                            <h4>Dossier Accepter</h4>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-thumbs-up"></i>
+                        </div>
+                    </div>
                 </div>
-                <!-- /.info-box-content -->
+
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-danger">
+                        <div class="inner">
+                            <h3 class="number-shadow icon" style="margin-top: -13%;">{{ $nombreDemandeursRefusé }}</h3>
+                            <h4>Dossier Refusé</h4>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-times"></i>
+                        </div>
+                    </div>
                 </div>
-                <!-- /.info-box -->
-            </div>
 
-            <div class="col-12 col-sm-6 col-md-3">
-                <div class="info-box mb-3">
-                <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-times"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">Dossier Refusé</span>
-                    <span class="info-box-number text-purple " >{{ $nombreDemandeursRefusé }}
-                        <small>Personnes</small>
-                    </span>
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-warning">
+                        <div class="inner">
+                            <h3 class="number-shadow icon" style="margin-top: -13%;">{{ $nombreDemandeursInactif }}</h3>
+                            <h4 style="color: white">En cours de traitement</h4>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-hourglass-start"></i>
+                        </div>
+                    </div>
                 </div>
-                <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-            </div>
-            <!-- /.col -->
-
-            <!-- fix for small devices only -->
-            <div class="clearfix hidden-md-up"></div>
-
-            <div class="col-12 col-sm-6 col-md-3">
-                <div class="info-box mb-3">
-                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-hourglass-start"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">En cours de traitement</span>
-                    <span class="info-box-number text-purple ">{{ $nombreDemandeursInactif }}
-                        <small>Personnes</small>
-                    </span>
-                </div>
-                <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-            </div>
-            <!-- /.col -->
-
             </div>
             
             <!-- Main row -->

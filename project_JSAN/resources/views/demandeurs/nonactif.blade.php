@@ -5,30 +5,27 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Modifications</title>
       </head>
-
-    {{-- <body class="hold-transition sidebar-mini"> --}}
+      <body>
         @extends('dashboard')
         @section('content')
     
-        <div class="container">
-            <h1>Motif de Non activer</h1>
-        
+        <div class="container m-2">
             <div class="card card-default">
                 <form class="card-body" action="{{ route('ajoutMotif', ['id' => $demandeur->id]) }}" method="POST">
                     @csrf
             
                     <div class="row">
                         <div class="col-md-12">
-            
                             
                           @if(session('success'))
                               <div class="alert alert-success">
                                   {{ session('success') }}
                               </div>
                           @endif
+
                             <div class="row">
-                                <h2>Le demandeur <u>{{ $demandeur->Nom }}</u> est maintenant inactif
-                                </h2>
+                                <h3>Le demandeur <u>{{ $demandeur->Nom }}</u> est maintenant inactif
+                                </h3>
                                 @if ($errors->any())
                                   <div class="alert alert-danger">
                                     <ul>
@@ -50,7 +47,7 @@
                 </form>
 
                 <div class="mt-3">
-                  <a href="{{ route('audience.demandeurs') }}" class="btn btn-secondary">Retour Audience</a>
+                  <a href="javascript:void(0)" class="btn btn-secondary" onclick="window.history.back()">Retour Audience</a>
                 </div>
             </div>
         </div>

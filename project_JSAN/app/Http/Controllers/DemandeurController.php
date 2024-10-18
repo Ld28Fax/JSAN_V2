@@ -120,11 +120,16 @@ class DemandeurController extends Controller
     // Liste des demandeurs
     public function liste(){
         try{
-            $demandeurs = DB::table('demandeur')->orderBy('created_at', 'desc')->where('usertpi', '=', Auth::id())->orderBy('etat', 'asc')->get();
+
+            $demandeurs = Demandeur::where('usertpi', Auth::id())
+                ->orderBy('etat', 'asc')
+                ->orderBy('created_at', 'desc')
+                ->whereDate('created_at', today())
+                ->paginate(20);
 
             $jour = DB::table('demandeur')->get()->where('created_at', '>=', Carbon::today());
 
-            return view('demandeurs.liste')->with('demandeurs', $demandeurs)->with('jour', $jour);
+            return view('demandeurs.liste')->with('jour', $jour)->with('demandeurs', $demandeurs);
 
         } 
         catch (Exception $e){
@@ -168,7 +173,6 @@ class DemandeurController extends Controller
         try {
             $demandeur = Demandeur::find($id);
             if ($demandeur) {
-                $demandeur->etat = 2;
                 $demandeur->save();
             }
     
@@ -180,22 +184,25 @@ class DemandeurController extends Controller
 
     public function filter(Request $request)
     {
-    $period = $request->get('period');
-    $query = Demandeur::where('usertpi', '=', Auth::id());
+        $period = $request->get('period');
+        $query = Demandeur::where('usertpi', '=', Auth::id());
 
-    if ($period === 'day') {
-        $query->whereDate('created_at', Carbon::today());
-    } elseif ($period === 'week') {
-        $query->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]);
-    } elseif ($period === 'month') {
-        $query->whereMonth('created_at', Carbon::now()->month);
-    }elseif($period == 'tous'){
-        
-    }
+        if ($period === 'day') {
+            $query->whereDate('created_at', Carbon::today());
+        } elseif ($period === 'week') {
+            $query->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]);
+        } elseif ($period === 'month') {
+            $query->whereMonth('created_at', Carbon::now()->month);
+        } elseif ($period === 'tous') {
+        }
 
-    $demandeurPeriode = $query->orderBy('created_at', 'desc')->get();
+        $demandeurs = $query->orderBy('created_at', 'desc')->paginate(20);
 
-    return response()->json(['demandeurs' => $demandeurPeriode]);
+        return response()->json([
+            'demandeurs' => $demandeurs->items(), 
+            'total' => $demandeurs->total(),
+            'pagination' => (string) $demandeurs->links('pagination::bootstrap-4'),
+        ]);
     }
 
     public function DemandeursVerifier() {
@@ -228,70 +235,7 @@ class DemandeurController extends Controller
             throw new Exception($e->getMessage());
         }
     }
-    // public function Statistic(Request $request) {
     
-    //     try {
-    //         $debut_jour = $request->input('debut_jour');
-    //         $debut_mois = $request->input('debut_mois');
-    //         $fin_jour = $request->input('fin_jour');
-    //         $fin_mois = $request->input('fin_mois');
-    
-    //         // Initialisation des variables
-    //         $nombreDemandeursPeriode = $nombreDemandeursActifPeriode = $nombreDemandeursInactifPeriode = $nombreDemandeursRefuséPeriode = 0;
-    
-    //         if ($debut_jour && $debut_mois && $fin_jour && $fin_mois) {
-    //             $annee = date('Y');
-    //             $debut = "$annee-$debut_mois-$debut_jour";
-    //             $fin = "$annee-$fin_mois-$fin_jour";
-    
-    //             if ($debut && $fin) {
-    //                 $nombreDemandeursPeriode = DB::table('demandeur')
-    //                     ->where('usertpi', '=', Auth::id())
-    //                     ->whereBetween('created_at', [$debut, $fin])
-    //                     ->count();
-    
-    //                 $nombreDemandeursActifPeriode = DB::table('demandeur')
-    //                     ->where('usertpi', '=', Auth::id())
-    //                     ->where('etat', '=', 1)
-    //                     ->whereBetween('created_at', [$debut, $fin])
-    //                     ->count();
-    
-    //                 $nombreDemandeursInactifPeriode = DB::table('demandeur')
-    //                     ->where('usertpi', '=', Auth::id())
-    //                     ->where('etat', '=', 0)
-    //                     ->whereBetween('created_at', [$debut, $fin])
-    //                     ->count();
-    
-    //                 $nombreDemandeursRefuséPeriode = DB::table('demandeur')
-    //                     ->where('usertpi', '=', Auth::id())
-    //                     ->where('etat', '=', 2)
-    //                     ->whereBetween('created_at', [$debut, $fin])
-    //                     ->count();
-    //             } else {
-    //                 return back()->withErrors('Les dates fournies ne sont pas valides.');
-    //             }
-    //         } else {
-    //             // Logique pour compter sans période définie
-    //             $nombreDemandeurs = DB::table('demandeur')->where('usertpi', '=', Auth::id())->count();
-    //             $nombreDemandeursActif = DB::table('demandeur')->where('usertpi', '=', Auth::id())->where('etat', '=', 1)->count();
-    //             $nombreDemandeursInactif = DB::table('demandeur')->where('usertpi', '=', Auth::id())->where('etat', '=', 0)->count();
-    //             $nombreDemandeursRefusé = DB::table('demandeur')->where('usertpi', '=', Auth::id())->where('etat', '=', 2)->count();
-    //         }
-    
-    //         return view('demandeurs.statistique')
-    //             ->with('nombreDemandeursPeriode', $nombreDemandeursPeriode)
-    //             ->with('nombreDemandeurs', $nombreDemandeurs)
-    //             ->with('nombreDemandeursActifPeriode', $nombreDemandeursActifPeriode)
-    //             ->with('nombreDemandeursActif', $nombreDemandeursActif)
-    //             ->with('nombreDemandeursInactifPeriode', $nombreDemandeursInactifPeriode)
-    //             ->with('nombreDemandeursInactif', $nombreDemandeursInactif)
-    //             ->with('nombreDemandeursRefuséPeriode', $nombreDemandeursRefuséPeriode)
-    //             ->with('nombreDemandeursRefusé', $nombreDemandeursRefusé);
-    //     } catch (Exception $e) {
-    //         return back()->withErrors(['message' => $e->getMessage()]);
-    //     }
-    // }
-
     public function filtrerStatistiques(Request $request)
 {
     // Récupérer les données du formulaire

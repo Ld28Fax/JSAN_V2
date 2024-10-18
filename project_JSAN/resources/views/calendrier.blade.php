@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="extern/dist/css/adminlte.min.css">
 </head>
 {{-- <body class="hold-transition sidebar-mini"> --}}
+<body>
 
 @extends('dashboard')
 @section('content')

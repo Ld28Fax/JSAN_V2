@@ -47,11 +47,11 @@
         }
 
         .left-section {
-            background-color: #8b8b8b; /* Couleur de fond pour la partie gauche */
+            background-color: #8b8b8b;
         }
 
         .right-section {
-            background-color: #f4f4f4; /* Couleur de fond pour la partie droite */
+            background-color: #f4f4f4;
         }
 
         .document-container {
@@ -156,37 +156,38 @@
             </section>
 
 
-                    <div class="document-container Periode" >
-                        <!-- Affichage des résultats -->
-                        @if($nombreDemandeursPeriode || $nombreDemandeursActifPeriode || $nombreDemandeursInactifPeriode || $nombreDemandeursRefuséPeriode)
-                        <h4>Période du: {{ $debut_jour }} {{ $months[$debut_mois] }} - {{ $fin_jour }} {{ $months[$fin_mois] }}</h4>
-                        <button  id="printButton1" class="btn btn-success imprimer" style="float: right; margin-bottom: 10px;">
-                            <i class="fas fa-print"></i> Imprimer
-                        </button>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <td>Total de demandeurs</td>
-                                    <td>Demandeurs Acceptés</td>
-                                    <td>Demandeurs Refusés</td>
-                                    <td>Demandeurs en cours de traitement</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>{{ $nombreDemandeursPeriode }}</td> 
-                                    <td>{{ $nombreDemandeursActifPeriode }}</td>
-                                    <td>{{ $nombreDemandeursRefuséPeriode }}</td>
-                                    <td>{{ $nombreDemandeursInactifPeriode }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    @else
-                        <h4>Période du: {{ $debut_jour }} {{ $months[$debut_mois] }} - {{ $fin_jour }} {{ $months[$fin_mois] }}</h4>
-
-                        <p class="alert alert-danger">Aucun demandeur trouvé pour la période sélectionnée.</p>
-                    @endif
-                </div>
+            @if(request()->has('debut_jour') && request()->has('fin_jour') && request()->has('debut_mois') && request()->has('fin_mois'))
+            <div class="document-container Periode">
+                <!-- Affichage des résultats -->
+                @if($nombreDemandeursPeriode || $nombreDemandeursActifPeriode || $nombreDemandeursInactifPeriode || $nombreDemandeursRefuséPeriode)
+                    <h4>Période du: {{ $debut_jour }} {{ $months[$debut_mois] }} - {{ $fin_jour }} {{ $months[$fin_mois] }}</h4>
+                    <button id="printButton1" class="btn btn-success imprimer" style="float: right; margin-bottom: 10px;">
+                        <i class="fas fa-print"></i> Imprimer
+                    </button>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td>Total de demandeurs</td>
+                                <td>Demandeurs Acceptés</td>
+                                <td>Demandeurs Refusés</td>
+                                <td>Demandeurs en cours de traitement</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ $nombreDemandeursPeriode }}</td>
+                                <td>{{ $nombreDemandeursActifPeriode }}</td>
+                                <td>{{ $nombreDemandeursRefuséPeriode }}</td>
+                                <td>{{ $nombreDemandeursInactifPeriode }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                @else
+                    <h4>Période du: {{ $debut_jour }} {{ $months[$debut_mois] }} - {{ $fin_jour }} {{ $months[$fin_mois] }}</h4>
+                    <p class="alert alert-danger">Aucun demandeur trouvé pour la période sélectionnée.</p>
+                @endif
+            </div>
+        @endif
 
         </div>
 

@@ -176,20 +176,20 @@ body {
       </div>
         
         <div class="case-info">
-            <p>Fitsarana notarihin'i <u>{{ $demandeur->audience->magistrat }}</u></p>
-            <p>Mpitsara eto amin'ny Fitsarana Ambaratonga Voalohany <u>{{ str_replace('TPI', '', $user->TPI) }}</u> -FILOHA-</p>
-            <p>Notrorin'i Me <u>{{ $demandeur->audience->greffier }}</u>.-MPIRAKI-DRAHARAHA-</p>
-            <p>Fitsarana ady madio ampahibemaso natao ny  <u>{{ $date_audience }}</u></p>
+            <p>Fitsarana notarihin'i {{ $demandeur->audience->magistrat }}</p>
+            <p>Mpitsara eto amin'ny Fitsarana Ambaratonga Voalohany {{ str_replace('TPI', '', $user->TPI) }}</u> -FILOHA-</p>
+            <p>Notrorin'i Me {{ $demandeur->audience->greffier }}</u>.-MPIRAKI-DRAHARAHA-</p>
+            <p>Fitsarana ady madio ampahibemaso natao ny  {{ $date_audience }}</p>
         </div>
-            <p>Ny Fitsarana Ambaratonga Voalohany <u>{{ str_replace('TPI', '', $user->TPI) }}</u> teto amin’ny fitsarana an-davan’andro;</p>
+            <p>Ny Fitsarana Ambaratonga Voalohany {{ str_replace('TPI', '', $user->TPI) }} teto amin’ny fitsarana an-davan’andro;</p>
             <p>Mamoaka izao didim-pitsarana manaraka izao :</p>
             <p><strong>NY FITSARANA</strong></p>
             <p>Hita ny antontan-taratasin’ady. Hita ny fehintenin’ny Fampanoavana ; Heno ny mpangataka;</p>
             <p>Heno ny fanambaran’ny vavolombelona</p>
             <p>Rehefa nandinika araka ny lalàna;</p>
-            <p>Araka ny fangatahana tamin’ny <u>{{ $date_en_lettres_created_at }}</u> dia nangataka ny Fitsarana</p>
-            <p>etoana i <u>{{ $demandeur->Nom }}</u> mba amoaka</p>
-            <p>didim-pitsarana misolo sora-pahaterahana ho an'i <u>
+            <p>Araka ny fangatahana tamin’ny {{ $date_en_lettres_created_at }} dia nangataka ny Fitsarana</p>
+            <p>etoana i {{ $demandeur->Nom }} mba amoaka</p>
+            <p>didim-pitsarana misolo sora-pahaterahana ho an'i 
                 <?php 
                     if ($demandeur->interesse != '') {
                         echo $demandeur->interesse; // Affiche 'interesse' si ce n'est pas vide
@@ -197,9 +197,9 @@ body {
                         echo $demandeur->Nom; // Affiche 'nom' sinon
                     }
                 ?>
-            </u></p>
+            </p>
             <p>
-                <u>
+                
                     <?php 
                         if ($demandeur->genre === 'masculin') {
                             echo 'Lahy';
@@ -209,11 +209,11 @@ body {
                             echo 'Sady tsy lahy no tsy vavy';
                         }
                     ?>
-                </u>
+                
             </p>
-            <p>Daty sy toerana nahaterahana: <u>{{ $date_en_lettres_Date_de_Naissance }}</u>, tao: <u> {{ $demandeur->Lieu_de_Naissance }}</u></p>
-            <p>Kaominina: <u>{{ $demandeur->kaominina }}</u>, Distrika: <u>{{ $demandeur->distrika }}</u></p>
-            <p>Anaran'ny Ray aman-dReny: <u>{{ $demandeur->Pere }}</u>, <u>{{ $demandeur->Mere }}</u></p>
+            <p>Daty sy toerana nahaterahana: {{ $date_en_lettres_Date_de_Naissance }}, tao:  {{ $demandeur->Lieu_de_Naissance }}</p>
+            <p>Kaominina: {{ $demandeur->kaominina }}, Distrika: {{ $demandeur->distrika }}</p>
+            <p>Anaran'ny Ray aman-dReny: {{ $demandeur->Pere }}, {{ $demandeur->Mere }}</p>
 
            <p>Araka ny antontan-taratasin'ady sy ny fanambaran'ny vavolombelona dia hita fa mitombona ny fangatahana ary omena rariny;</p>
            <p><strong>NOHO IREO ANTONY IREO</strong></p>
@@ -221,16 +221,16 @@ body {
            <p>Lazaina fa i <?php 
                     if ($demandeur->interesse != '') {
             ?>   
-            <u>{{ $demandeur->interesse }}</u>
+            {{ $demandeur->interesse }}
             <?php
                     }else{
             ?> 
-            <u>{{ $demandeur->Nom }}</u>
+            {{ $demandeur->Nom }}
             <?php
                     }
            ?></p>
            <p>
-            <u>
+            
                 <?php 
                     if ($demandeur->genre === 'masculin') {
                         echo 'Lahy';
@@ -240,17 +240,17 @@ body {
                         echo 'Sady tsy lahy no tsy vavy';
                     }
                 ?>
-            </u>
+            
         </p>
-           <p>Dia teraka ny: <u>{{ $date_en_lettres_Date_de_Naissance }}</u></p>
-           <p>Tao: <u>{{ $demandeur->Lieu_de_Naissance }}</u> Kaominina: <u>{{ $demandeur->kaominina }}</u>Distrika: <u>{{ $demandeur->distrika }}</u></p>
-           <p>Zanak'i <u> {{ $demandeur->Pere }}</u></p>
-           <p>Sy <u> {{ $demandeur->Mere }}</u></p>
+           <p>Dia teraka ny: {{ $date_en_lettres_Date_de_Naissance }}</p>
+           <p>Tao: {{ $demandeur->Lieu_de_Naissance }} Kaominina: {{ $demandeur->kaominina }}Distrika: {{ $demandeur->distrika }}</p>
+           <p>Zanak'i  {{ $demandeur->Pere }}</p>
+           <p>Sy  {{ $demandeur->Mere }}</p>
            <p>Didiana sy fandikana ny matoan'izao didy izao ao amin'ny rejisitry ny sora-piankohonana;</p>
            <p>Notsaraina sy nambara araka izany nandritra ny fotoan-pitsarana ampahibemaso tamin'ny andro, volana, taona voalaza</p>
            <p>ery ambony ary nosoniavin'ny FILOHA sy ny MPIRAKI-DRAHARAHA.</p>
 
-        <p class="top-footer">Natao androany <u>{{ $date_actuelle }}</u></p>
+        <p class="top-footer">Natao androany {{ $date_actuelle }}</p>
         <div class="footer">
             <p><strong>Ny Mpitsara Filoha</strong></p>
             <p><strong>Ny Mpiraki-draharaha</strong></p>

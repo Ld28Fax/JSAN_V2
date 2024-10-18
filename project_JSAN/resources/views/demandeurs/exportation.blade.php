@@ -16,55 +16,55 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="extern/dist/css/adminlte.min.css">
 </head>
-{{-- <body class="hold-transition sidebar-mini"> --}}
+<body>
 @extends('dashboard')
 @section('content')
 
 <section class="content-header">
- <div class="row">
-  <a class="col-12 col-sm-6 col-md-3 btn" href="{{ route('demandeurs.exportationVerifier') }}">
-    <div class="info-box mb-3">
-    <span class="info-box-icon bg-success elevation-1"><i class="fas fa-thumbs-up"></i></span>
+  <div class="row">
 
-    <div class="info-box-content">
-        <span class="info-box-text">Verifier</span>
-        <span class="info-box-number text-purple " >{{ $nombreDemandeursActif }}
-            <small>Personnes</small>
-        </span>
-    </div>
-    <!-- /.info-box-content -->
-    </div>
-    <!-- /.info-box -->
-</a>
-<a class="col-12 col-sm-6 col-md-3 btn" href="{{ route('demandeurs.exportationRefusé') }}">
-  <div class="info-box mb-3">
-  <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-times"></i></span>
 
-  <div class="info-box-content">
-      <span class="info-box-text">Dossier Refusé</span>
-      <span class="info-box-number text-purple " >{{ $nombreDemandeursRefusé }}
-          <small>Personnes</small>
-      </span>
-  </div>
-  <!-- /.info-box-content -->
-  </div>
-  <!-- /.info-box -->
-</a>
-<a class="col-12 col-sm-6 col-md-3 btn" href="{{ route('demandeurs.exportationNonVerifier') }}">
-  <div class="info-box mb-3">
-  <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-hourglass-start"></i></span>
+    <a class="col-12 col-sm-6 col-md-3 btn" href="{{ route('demandeurs.exportationVerifier') }}">
+      <div class="info-box mb-3">
+      <span class="info-box-icon bg-success elevation-1"><i class="fas fa-thumbs-up"></i></span>
 
-  <div class="info-box-content">
-      <span class="info-box-text">En cours de traitement</span>
-      <span class="info-box-number text-purple " >{{ $nombreDemandeursInactif }}
-          <small>Personnes</small>
-      </span>
-  </div>
-  <!-- /.info-box-content -->
-  </div>
-  <!-- /.info-box -->
-</a>
- </div>
+      <div class="info-box-content">
+          <span class="info-box-text">Dossier Accepter</span>
+          <span class="info-box-number text-purple " >{{ $nombreDemandeursActif }}
+              <small>Personnes</small>
+          </span>
+      </div>
+      </div>
+    </a>
+
+    <a class="col-12 col-sm-6 col-md-3 btn" href="{{ route('demandeurs.exportationRefusé') }}">
+      <div class="info-box mb-3">
+      <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-times"></i></span>
+
+      <div class="info-box-content">
+          <span class="info-box-text">Dossier Refusé</span>
+          <span class="info-box-number text-purple " >{{ $nombreDemandeursRefusé }}
+              <small>Personnes</small>
+          </span>
+      </div>
+      </div>
+    </a>
+
+    <a class="col-12 col-sm-6 col-md-3 btn" href="{{ route('demandeurs.exportationNonVerifier') }}">
+      <div class="info-box mb-3">
+      <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-hourglass-start"></i></span>
+
+      <div class="info-box-content">
+          <span class="info-box-text">En cours de traitement</span>
+          <span class="info-box-number text-purple " >{{ $nombreDemandeursInactif }}
+              <small>Personnes</small>
+          </span>
+      </div>
+      </div>
+    </a>
+</div>
+
+
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">

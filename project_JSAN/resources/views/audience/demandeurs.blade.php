@@ -101,8 +101,10 @@
     <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
         <li class="nav-item">
-        <a class="nav-link active text-white" aria-current="page" href="{{ route('Audience') }}"><i class="fas fa-arrow-left"></i>
-            retour</a>
+
+        <div class="mt-3">
+            <a href="{{ route('Audience') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>Retour</a>
+        </div>
         </li>
     </ul>
     </div>
@@ -115,7 +117,11 @@
         <section class="document-container center">
             <div class="container-fluid">
                 <div class="card header m-2">
-                    <h1>Demandeurs pour l'audience du {{ $audience->date }}</h1>
+                    <?php
+                                    setlocale(LC_TIME, 'mg_MG.UTF-8');
+                                    $date_audience = strftime('%d %B %Y', strtotime($audience->date));
+                                    ?>
+                    <h1>Demandeurs pour l'audience du {{ $date_audience }}</h1>
                     <form action="{{ route('selectionner.demandeurs') }}" method="POST">
                         @csrf
                         <div class="col-md-12">
@@ -166,7 +172,7 @@
             </div>
         </section>
 
-            <table class="table table-bordered table-striped text-white">
+            <table class="table table-bordered table-striped">
                 <thead style="background: green; opacity:0.5">
                     <tr>
                         <th>Numero</th>
@@ -190,8 +196,8 @@
                         </div>
                       </td>
                       <td>
-                        <a class="btn btn-block btn-success" href="{{ route('demandeurActiver', ['id' => $demandeur->id]) }}" class="text-white">Activer</a>
-                        <a href="{{ route('nonactif', ['id' => $demandeur->id]) }}" class="btn btn-block btn-danger">Non Activer</a>
+                        <a class="btn btn-block btn-success" href="{{ route('demandeurActiver', ['id' => $demandeur->id]) }}" class="text-white">Accepter</a>
+                        <a href="{{ route('nonactif', ['id' => $demandeur->id]) }}" class="btn btn-block" style="background:rgb(255, 102, 0); color:#f4f4f4">Renvoyer</a>
                       </td>
                   </tr>
                         @elseif ($demandeur->etat == 1)
@@ -213,8 +219,8 @@
                                 <td>{{ $demandeur->Nom }}</td>
                                 <td>
                                     <div>
-                                        <span class="badge status-badge bg-danger text-white">
-                                            Dossier refuser
+                                        <span class="badge status-badge  text-white" style="background:rgb(255, 102, 0);">
+                                            Dossier renvoyer
                                             <i class="fas fa-times"></i>
                                         </span>
                                     </div>
@@ -259,7 +265,7 @@
                             <tr>
                                 <td>Nº DOSSIER</td>
                                 <td>NOM DE PARTIE</td>
-                                <td>NATIVE DE L'AFFAIRE</td>
+                                <td>NATURE DE L'AFFAIRE</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -278,6 +284,10 @@
                     </table>
                 </div>
             </div>
+            <?php 
+                $date_actuelle = strftime('%d %B %Y', strtotime(\Carbon\Carbon::now()));
+            ?>
+            {{-- <p>{{ $user->TPI }} , le {{ $date_actuelle }}</p> --}}
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

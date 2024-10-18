@@ -59,10 +59,12 @@ class AudienceController extends Controller
 
         $audienceId = $audience->id;
 
-        $demandeurs = DB::table('demandeur')->orderBy('created_at', 'desc')->where('usertpi', '=', Auth::id())->where('etat_audience', false)->get();
+        $demandeurs = DB::table('demandeur')->orderBy('created_at', 'asc')->where('usertpi', '=', Auth::id())->where('etat_audience', false)->get();
+
+        $user = DB::table('users')->get();
 
         $demandeursAudience = DB::table('demandeur')->orderBy('created_at', 'desc')->where('usertpi', '=', Auth::id())->where('etat_audience', true)->where('audience_id',$audienceId)->get();
-        return view('audience.demandeurs')->with('demandeurs', $demandeurs)->with('audience', $audience)->with('demandeursAudience', $demandeursAudience);
+        return view('audience.demandeurs')->with('demandeurs', $demandeurs)->with('audience', $audience)->with('demandeursAudience', $demandeursAudience)->with('user', $user);
     }
 
     public function selectionnerDemandeurs(Request $request)

@@ -17,7 +17,21 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="extern/dist/css/adminlte.min.css">
 </head>
-{{-- <body class="hold-transition sidebar-mini"> --}}
+<style>
+  .pagination {
+    font-size: 0.8em; /* Réduire la taille de la police */
+}
+
+.pagination .page-item {
+    margin: 0 2px; /* Réduire l'espacement entre les éléments */
+}
+
+.pagination .page-link {
+    padding: 0.3rem 0.5rem; /* Réduire le rembourrage */
+}
+
+</style>
+<body>
     @extends('dashboard')
     @section('content')
     <!-- Content Header (Page header) -->
@@ -45,10 +59,10 @@
               <!-- /.card-header -->
               <div class="card-body" >
                 <div style="margin-bottom: 5%">
-                    <button class="btn btn-default" onclick="filterByPeriod('tous')">Tous</button>
-                    <button class="btn btn-default" onclick="filterByPeriod('day')">Jour</button>
-                    <button class="btn btn-default" onclick="filterByPeriod('week')">Semaine</button>
-                    <button class="btn btn-default" onclick="filterByPeriod('month')">Mois</button>
+                  <button class="btn btn-default" onclick="filterByPeriod('day')">Jour</button>
+                  <button class="btn btn-default" onclick="filterByPeriod('week')">Semaine</button>
+                  <button class="btn btn-default" onclick="filterByPeriod('month')">Mois</button>
+                  <button class="btn btn-default" onclick="filterByPeriod('tous')">Tous</button>
                 </div>
             
                 <table class="table table-bordered table-striped">
@@ -67,11 +81,12 @@
                         <?php
                           setlocale(LC_TIME, 'mg_MG.UTF-8');
                           $date_en_lettres_created_at = strftime('%d %B %Y', strtotime($demandeur->created_at));
+                          $date_en_lettres_naissance = strftime('%d %B %Y', strtotime($demandeur->Date_de_Naissance));
                         ?>
                             @if ($demandeur->etat == 0)
                             <tr id="row-{{ $loop->index }}">
                               <td>{{ $demandeur->Nom }}</td>
-                              <td>{{ \Carbon\Carbon::parse($demandeur->Date_de_Naissance)->format('d-m-Y')}}</td>
+                              <td>{{ $date_en_lettres_naissance }}</td>
                               <td>{{ $demandeur->Lieu_de_Naissance }}</td>
                               <td>
                                 <a class="btn btn-primary" href="{{ route('demandeurs.edit', ['id' => $demandeur->id]) }}">Ajout Numero/Modification</a>
@@ -88,9 +103,9 @@
 
                           </tr>
                           @elseif ($demandeur->etat == 1)
-                          <tr id="row-{{ $loop->index }}" class='grey'>
+                          <tr id="row-{{ $loop->index }}">
                             <td>{{ $demandeur->Nom }}</td>
-                            <td>{{ \Carbon\Carbon::parse($demandeur->Date_de_Naissance)->format('d-m-Y')}}</td>
+                            <td>{{$date_en_lettres_naissance}}</td>
                             <td>{{ $demandeur->Lieu_de_Naissance }}</td>
                             <td></td>
                             <td>
@@ -105,16 +120,16 @@
 
                         </tr>
                           @elseif ($demandeur->etat == 2)
-                          <tr id="row-{{ $loop->index }}" class="table-danger">
+                          <tr id="row-{{ $loop->index }}">
                             <td>{{ $demandeur->Nom }}</td>
-                            <td>{{ \Carbon\Carbon::parse($demandeur->Date_de_Naissance)->format('d-m-Y')}}</td>
+                            <td>{{ $date_en_lettres_naissance}}</td>
                             <td>{{ $demandeur->Lieu_de_Naissance }}</td>
                             <td>
                             </td>
                             <td>
                                 <div>
-                                    <span class="badge status-badge bg-danger">
-                                      Dossier refuser
+                                    <span class="badge status-badge" style="background:rgb(255, 102, 0);">
+                                      Dossier renvoyer
                                         <i class="fas fa-times"></i>
                                     </span>
                                 </div>
@@ -133,9 +148,20 @@
                         @endforelse
                     </tbody>
                 </table>
+              </div>
+              
+              
+              <div class="d-flex justify-content-between align-items-center" style="margin-left: 2%">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination pagination-sm">
+                        {{ $demandeurs->links('pagination::bootstrap-4') }}
+                    </ul>
+                </nav>
+                <div class="elements-count">
+                    Affichage de {{ $demandeurs->count() }} sur {{ $demandeurs->total() }} éléments
+                </div>
             </div>
-            
-            
+
             </div>
             <!-- /.card -->
           </div>
@@ -169,16 +195,15 @@
 <script src="extern/dist/js/adminlte.min.js"></script>
 <!-- Page specific script -->
 <script>
-  function filterByPeriod(period) {
+ function filterByPeriod(period, page = 1) {
     function formatDate(createdAt) {
         const date = new Date(createdAt);
         return new Intl.DateTimeFormat('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' }).format(date);
     }
 
     // Requête AJAX pour récupérer les demandeurs filtrés
-    fetch(`/demandeurs/filter?period=${period}`)
+    fetch(`/demandeurs/filter?period=${period}&page=${page}`)
         .then(response => {
-            // Vérifie si la réponse est correcte (status 200)
             if (!response.ok) {
                 throw new Error('Erreur de réseau');
             }
@@ -191,15 +216,9 @@
             if (data.demandeurs.length > 0) {
                 data.demandeurs.forEach((demandeur) => {
                     const row = document.createElement('tr');
-                   // Ajoutez une condition pour changer la couleur de la ligne
-                   if (demandeur.etat == 2) {
-                        row.classList.add('table-danger');
-                    } else if (demandeur.etat == 1) {
-                        row.classList.add('grey'); 
-                    }
                     row.innerHTML = `
                         <td>${demandeur.Nom}</td>
-                        <td>${demandeur.Date_de_Naissance}</td>
+                        <td>${formatDate(demandeur.Date_de_Naissance)}</td>
                         <td>${demandeur.Lieu_de_Naissance}</td>
                         <td>${demandeur.etat == 0 ? `<a class="btn btn-primary" href="/demandeurs/edit/${demandeur.id}">Ajout Numero/Modification</a>` : ''}</td>
                         <td>
@@ -215,6 +234,24 @@
             } else {
                 tbody.innerHTML = `<tr><td colspan="7" class="text-center">Aucun élément</td></tr>`;
             }
+
+            // Mettre à jour la pagination
+            const paginationNav = document.querySelector('.pagination');
+            paginationNav.innerHTML = data.pagination;
+
+            // Mettre à jour l'affichage du compteur d'éléments
+            const elementsDisplay = document.querySelector('.elements-count');
+            elementsDisplay.innerHTML = `Affichage de ${data.demandeurs.length} sur ${data.total} éléments`;
+
+            // Ajouter des gestionnaires d'événements pour les liens de pagination
+            const links = paginationNav.querySelectorAll('.page-link');
+            links.forEach(link => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault(); // Empêche le comportement par défaut
+                    const page = new URL(link.href).searchParams.get('page'); // Récupère le numéro de page
+                    filterByPeriod(period, page); // Appelle la fonction avec le nouveau numéro de page
+                });
+            });
         })
         .catch(error => {
             console.error('Erreur:', error);
@@ -222,6 +259,35 @@
             tbody.innerHTML = `<tr><td colspan="7" class="text-center">Erreur lors du chargement des données</td></tr>`;
         });
 }
+
+// Exemple de fonctions pour les badges et icônes
+function getBadgeClass(etat) {
+    switch (etat) {
+        case 0: return 'bg-warning';
+        case 1: return 'bg-success';
+        case 2: return 'bg-danger';
+        default: return 'bg-secondary';
+    }
+}
+
+function getBadgeText(etat) {
+    switch (etat) {
+        case 0: return 'Dossier en cours';
+        case 1: return 'Dossier traité';
+        case 2: return 'Dossier renvoyé';
+        default: return 'Inconnu';
+    }
+}
+
+function getIconClass(etat) {
+    switch (etat) {
+        case 0: return 'fa-hourglass-start';
+        case 1: return 'fa-check';
+        case 2: return 'fa-times';
+        default: return 'fa-question';
+    }
+}
+
 
 // Fonction pour déterminer la classe de badge selon l'état
 function getBadgeClass(etat) {

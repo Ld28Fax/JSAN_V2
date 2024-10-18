@@ -28,7 +28,7 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="extern/dist/css/adminlte.min.css">
 </head>
-{{-- <body class="hold-transition sidebar-mini"> --}}
+<body>
   @extends('dashboard')
   @section('content')
 
@@ -57,12 +57,6 @@
                           </ul>
                         </div>
                       @endif
-
-                      {{-- <div class="row">
-                        <button class="col-md-6 btn-default text-blue" type="button" id="btn-majeur">Majeur</button>
-                        <button class="col-md-6 btn-default text-blue" type="button" id="btn-mineur">Mineur</button>
-                      </div> --}}
-
 
                       <div class="row">
                           <div class="col-md-6" id="Pere et mere">

@@ -12,8 +12,8 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
 </head>
-{{-- <body class="hold-transition sidebar-mini"> --}}
-<!-- Site wrapper -->
+<body>
+
 @extends('dashboard')
 @section('content')
 
