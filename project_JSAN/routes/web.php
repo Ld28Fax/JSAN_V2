@@ -101,7 +101,9 @@ Route::get('/audience/{id}/demandeurs', [AudienceController::class, 'showDemande
 
 Route::post('/selectionner-demandeurs', [AudienceController::class, 'selectionnerDemandeurs'])->name('selectionner.demandeurs');
 
-Route::get('/demandeurs/statistique', [DemandeurController::class, 'Statistic'])->name('demandeurs.statistique');
+Route::get('/demandeurs/statistique', [DemandeurController::class, 'filtrerStatistiques'])->name('demandeurs.statistique');
+
+Route::post('/filtrer-statistiques', [DemandeurController::class, 'filtrerStatistiques'])->name('filtrer_statistiques');
 
 
 require __DIR__.'/auth.php';

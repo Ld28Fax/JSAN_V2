@@ -228,67 +228,129 @@ class DemandeurController extends Controller
             throw new Exception($e->getMessage());
         }
     }
-    public function Statistic(Request $request) {
+    // public function Statistic(Request $request) {
     
-        try {
-            $debut_jour = $request->input('debut_jour');
-            $debut_mois = $request->input('debut_mois');
-            $fin_jour = $request->input('fin_jour');
-            $fin_mois = $request->input('fin_mois');
+    //     try {
+    //         $debut_jour = $request->input('debut_jour');
+    //         $debut_mois = $request->input('debut_mois');
+    //         $fin_jour = $request->input('fin_jour');
+    //         $fin_mois = $request->input('fin_mois');
     
-            // Initialisation des variables
-            $nombreDemandeursPeriode = $nombreDemandeursActifPeriode = $nombreDemandeursInactifPeriode = $nombreDemandeursRefuséPeriode = 0;
+    //         // Initialisation des variables
+    //         $nombreDemandeursPeriode = $nombreDemandeursActifPeriode = $nombreDemandeursInactifPeriode = $nombreDemandeursRefuséPeriode = 0;
     
-            if ($debut_jour && $debut_mois && $fin_jour && $fin_mois) {
-                $annee = date('Y');
-                $debut = "$annee-$debut_mois-$debut_jour";
-                $fin = "$annee-$fin_mois-$fin_jour";
+    //         if ($debut_jour && $debut_mois && $fin_jour && $fin_mois) {
+    //             $annee = date('Y');
+    //             $debut = "$annee-$debut_mois-$debut_jour";
+    //             $fin = "$annee-$fin_mois-$fin_jour";
     
-                if ($debut && $fin) {
-                    $nombreDemandeursPeriode = DB::table('demandeur')
-                        ->where('usertpi', '=', Auth::id())
-                        ->whereBetween('created_at', [$debut, $fin])
-                        ->count();
+    //             if ($debut && $fin) {
+    //                 $nombreDemandeursPeriode = DB::table('demandeur')
+    //                     ->where('usertpi', '=', Auth::id())
+    //                     ->whereBetween('created_at', [$debut, $fin])
+    //                     ->count();
     
-                    $nombreDemandeursActifPeriode = DB::table('demandeur')
-                        ->where('usertpi', '=', Auth::id())
-                        ->where('etat', '=', 1)
-                        ->whereBetween('created_at', [$debut, $fin])
-                        ->count();
+    //                 $nombreDemandeursActifPeriode = DB::table('demandeur')
+    //                     ->where('usertpi', '=', Auth::id())
+    //                     ->where('etat', '=', 1)
+    //                     ->whereBetween('created_at', [$debut, $fin])
+    //                     ->count();
     
-                    $nombreDemandeursInactifPeriode = DB::table('demandeur')
-                        ->where('usertpi', '=', Auth::id())
-                        ->where('etat', '=', 0)
-                        ->whereBetween('created_at', [$debut, $fin])
-                        ->count();
+    //                 $nombreDemandeursInactifPeriode = DB::table('demandeur')
+    //                     ->where('usertpi', '=', Auth::id())
+    //                     ->where('etat', '=', 0)
+    //                     ->whereBetween('created_at', [$debut, $fin])
+    //                     ->count();
     
-                    $nombreDemandeursRefuséPeriode = DB::table('demandeur')
-                        ->where('usertpi', '=', Auth::id())
-                        ->where('etat', '=', 2)
-                        ->whereBetween('created_at', [$debut, $fin])
-                        ->count();
-                } else {
-                    return back()->withErrors('Les dates fournies ne sont pas valides.');
-                }
-            } else {
-                // Logique pour compter sans période définie
-                $nombreDemandeurs = DB::table('demandeur')->where('usertpi', '=', Auth::id())->count();
-                $nombreDemandeursActif = DB::table('demandeur')->where('usertpi', '=', Auth::id())->where('etat', '=', 1)->count();
-                $nombreDemandeursInactif = DB::table('demandeur')->where('usertpi', '=', Auth::id())->where('etat', '=', 0)->count();
-                $nombreDemandeursRefusé = DB::table('demandeur')->where('usertpi', '=', Auth::id())->where('etat', '=', 2)->count();
-            }
+    //                 $nombreDemandeursRefuséPeriode = DB::table('demandeur')
+    //                     ->where('usertpi', '=', Auth::id())
+    //                     ->where('etat', '=', 2)
+    //                     ->whereBetween('created_at', [$debut, $fin])
+    //                     ->count();
+    //             } else {
+    //                 return back()->withErrors('Les dates fournies ne sont pas valides.');
+    //             }
+    //         } else {
+    //             // Logique pour compter sans période définie
+    //             $nombreDemandeurs = DB::table('demandeur')->where('usertpi', '=', Auth::id())->count();
+    //             $nombreDemandeursActif = DB::table('demandeur')->where('usertpi', '=', Auth::id())->where('etat', '=', 1)->count();
+    //             $nombreDemandeursInactif = DB::table('demandeur')->where('usertpi', '=', Auth::id())->where('etat', '=', 0)->count();
+    //             $nombreDemandeursRefusé = DB::table('demandeur')->where('usertpi', '=', Auth::id())->where('etat', '=', 2)->count();
+    //         }
     
-            return view('demandeurs.statistique')
-                ->with('nombreDemandeursPeriode', $nombreDemandeursPeriode)
-                ->with('nombreDemandeurs', $nombreDemandeurs)
-                ->with('nombreDemandeursActifPeriode', $nombreDemandeursActifPeriode)
-                ->with('nombreDemandeursActif', $nombreDemandeursActif)
-                ->with('nombreDemandeursInactifPeriode', $nombreDemandeursInactifPeriode)
-                ->with('nombreDemandeursInactif', $nombreDemandeursInactif)
-                ->with('nombreDemandeursRefuséPeriode', $nombreDemandeursRefuséPeriode)
-                ->with('nombreDemandeursRefusé', $nombreDemandeursRefusé);
-        } catch (Exception $e) {
-            return back()->withErrors(['message' => $e->getMessage()]);
-        }
-    }
+    //         return view('demandeurs.statistique')
+    //             ->with('nombreDemandeursPeriode', $nombreDemandeursPeriode)
+    //             ->with('nombreDemandeurs', $nombreDemandeurs)
+    //             ->with('nombreDemandeursActifPeriode', $nombreDemandeursActifPeriode)
+    //             ->with('nombreDemandeursActif', $nombreDemandeursActif)
+    //             ->with('nombreDemandeursInactifPeriode', $nombreDemandeursInactifPeriode)
+    //             ->with('nombreDemandeursInactif', $nombreDemandeursInactif)
+    //             ->with('nombreDemandeursRefuséPeriode', $nombreDemandeursRefuséPeriode)
+    //             ->with('nombreDemandeursRefusé', $nombreDemandeursRefusé);
+    //     } catch (Exception $e) {
+    //         return back()->withErrors(['message' => $e->getMessage()]);
+    //     }
+    // }
+
+    public function filtrerStatistiques(Request $request)
+{
+    // Récupérer les données du formulaire
+    $debut_jour = $request->input('debut_jour');
+    $debut_mois = $request->input('debut_mois');
+    $fin_jour = $request->input('fin_jour');
+    $fin_mois = $request->input('fin_mois');
+
+    // Créer la date de début et de fin à partir des entrées
+    $debut = Carbon::create(null, $debut_mois, $debut_jour);
+    $fin = Carbon::create(null, $fin_mois, $fin_jour)->endOfDay();
+
+    // Filtrer les demandeurs en fonction de la période
+    $nombreDemandeursPeriode = DB::table('demandeur')
+        ->where('usertpi', '=', Auth::id())
+        ->whereBetween('created_at', [$debut, $fin])
+        ->count();
+    
+    $nombreDemandeursActifPeriode = DB::table('demandeur')
+        ->where('usertpi', '=', Auth::id())
+        ->where('etat', '=', 1)
+        ->whereBetween('created_at', [$debut, $fin])
+        ->count();
+        
+    $nombreDemandeursInactifPeriode = DB::table('demandeur')
+        ->where('usertpi', '=', Auth::id())
+        ->where('etat', '=', 0)
+        ->whereBetween('created_at', [$debut, $fin])
+        ->count();
+        
+    $nombreDemandeursRefuséPeriode = DB::table('demandeur')
+        ->where('usertpi', '=', Auth::id())
+        ->where('etat', '=', 2)
+        ->whereBetween('created_at', [$debut, $fin])
+        ->count();
+
+
+        $nombreDemandeurs = DB::table('demandeur')->where('usertpi', '=', Auth::id())->count();           
+        
+        $nombreDemandeursActif = DB::table('demandeur')->where('usertpi', '=', Auth::id())->where('etat', '=', 1)->count();
+        
+        $nombreDemandeursInactif = DB::table('demandeur')->where('usertpi', '=', Auth::id())->where('etat', '=', 0)->count();
+        
+        $nombreDemandeursRefusé = DB::table('demandeur')->where('usertpi', '=', Auth::id())->where('etat', '=', 2)->count();
+
+
+    return view('demandeurs.statistique')
+    ->with('nombreDemandeursPeriode', $nombreDemandeursPeriode)
+    ->with('nombreDemandeursActifPeriode', $nombreDemandeursActifPeriode)
+    ->with('nombreDemandeursInactifPeriode', $nombreDemandeursInactifPeriode)
+    ->with('nombreDemandeursRefuséPeriode', $nombreDemandeursRefuséPeriode)
+    ->with('debut_jour', $debut_jour)
+    ->with('debut_mois', $debut_mois)
+    ->with('fin_jour', $fin_jour)
+    ->with('fin_mois', $fin_mois)
+    ->with('nombreDemandeurs', $nombreDemandeurs)
+    ->with('nombreDemandeursActif', $nombreDemandeursActif)
+    ->with('nombreDemandeursInactif', $nombreDemandeursInactif)
+    ->with('nombreDemandeursRefusé', $nombreDemandeursRefusé);
+}
+
 }

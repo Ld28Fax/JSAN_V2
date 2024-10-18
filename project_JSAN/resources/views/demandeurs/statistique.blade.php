@@ -89,9 +89,9 @@
             text-align: left;
         }
         @media print {
-        .imprimer{
-            display: none;
-        }
+            .imprimer{
+                display: none;
+            }
         }
     </style>
 </head>
@@ -116,12 +116,14 @@
 
     <div class="Main">
         <div class="left-section">
-            <section class="document-container center">
+            <section class="document-container center mb-3">
                 <div class="container-fluid">
                     <div class="card header m-2">
                         <h1>Période à saisir :</h1>
-                        <form id="statisticForm" class="text-center row mb-3" style="margin-left: 0.1%">
+                        <form id="statisticForm" class="text-center row mb-3" style="margin-left: 0.1%" method="POST" action="{{ route('filtrer_statistiques') }}">
+                            @csrf
                             <div class="form-group col-md-6">
+                                <label for="debut_jour">Début</label>
                                 <select name="debut_jour" class="form-control">
                                     @for ($i = 1; $i <= 31; $i++)
                                         <option value="{{ $i }}">{{ $i }}</option>
@@ -135,6 +137,7 @@
                             </div>
                             
                             <div class="form-group col-md-6">
+                                <label for="fin_jour">Fin</label>
                                 <select name="fin_jour" class="form-control">
                                     @for ($i = 1; $i <= 31; $i++)
                                         <option value="{{ $i }}">{{ $i }}</option>
@@ -148,12 +151,43 @@
                                 <button class="btn btn-success" style="margin-top: 10%; margin-left:30%" type="submit">Rechercher</button>
                             </div>
                         </form>
-
                     </div>
                 </div>
             </section>
 
-                        <div id="resultsContainer" ></div>
+
+                    <div class="document-container Periode" >
+                        <!-- Affichage des résultats -->
+                        @if($nombreDemandeursPeriode || $nombreDemandeursActifPeriode || $nombreDemandeursInactifPeriode || $nombreDemandeursRefuséPeriode)
+                        <h4>Période du: {{ $debut_jour }} {{ $months[$debut_mois] }} - {{ $fin_jour }} {{ $months[$fin_mois] }}</h4>
+                        <button  id="printButton1" class="btn btn-success imprimer" style="float: right; margin-bottom: 10px;">
+                            <i class="fas fa-print"></i> Imprimer
+                        </button>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <td>Total de demandeurs</td>
+                                    <td>Demandeurs Acceptés</td>
+                                    <td>Demandeurs Refusés</td>
+                                    <td>Demandeurs en cours de traitement</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{ $nombreDemandeursPeriode }}</td> 
+                                    <td>{{ $nombreDemandeursActifPeriode }}</td>
+                                    <td>{{ $nombreDemandeursRefuséPeriode }}</td>
+                                    <td>{{ $nombreDemandeursInactifPeriode }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    @else
+                        <h4>Période du: {{ $debut_jour }} {{ $months[$debut_mois] }} - {{ $fin_jour }} {{ $months[$fin_mois] }}</h4>
+
+                        <p class="alert alert-danger">Aucun demandeur trouvé pour la période sélectionnée.</p>
+                    @endif
+                </div>
+
         </div>
 
             <div class="right-section">
@@ -193,32 +227,17 @@
         document.body.innerHTML = printContent; // Remplacer le contenu par celui à imprimer
         window.print(); // Ouvrir la boîte de dialogue d'impression
         document.body.innerHTML = originalContent; // Restaurer le contenu original
-        location.reload(); // Recharger la page pour revenir à l'état d'origine
+        location.reload();
     });
 
-
-    $(document).ready(function() {
-        $('#statisticForm').on('submit', function(e) {
-            e.preventDefault(); // Empêche le rechargement de la page
-
-            // Récupération des données du formulaire
-            var formData = $(this).serialize();
-
-            // Envoi de la requête AJAX
-            $.ajax({
-                url: '/statistic',
-                type: 'GET',
-                data: formData,
-                success: function(response) {
-                    // Remplace le contenu du conteneur de résultats par la réponse
-                    $('#resultsContainer').html(response);
-                },
-                error: function(xhr) {
-                    // Gère les erreurs
-                    $('#resultsContainer').html('<p class="alert alert-danger">Une erreur est survenue.</p>');
-                }
-            });
-        });
+    document.getElementById('printButton1').addEventListener('click', function() {
+        // Cacher tout le reste de la page
+        let originalContent = document.body.innerHTML; // Conserver le contenu original
+        let printContent = document.querySelector('.document-container.Periode').innerHTML; // Obtenir le contenu à imprimer
+        document.body.innerHTML = printContent; // Remplacer le contenu par celui à imprimer
+        window.print(); // Ouvrir la boîte de dialogue d'impression
+        document.body.innerHTML = originalContent; // Restaurer le contenu original
+        location.reload();
     });
 
         </script>
