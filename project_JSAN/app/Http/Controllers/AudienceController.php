@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Audience;
 use App\Models\Demandeur;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -50,8 +51,19 @@ class AudienceController extends Controller
         $listeAudience = DB::table('audience')
             ->orderBy('created_at', 'desc')
             ->get();
+
+        $audiences = Audience::all();
+
+            $events = [];
+            foreach ($audiences as $audience) {
+                $events[] = [
+                    'title' => 'Audience: ' . $audience->magistrat, // titre de l'audience
+                    'start' => $audience->date, // date de l'audience
+                    'end' => $audience->date, // vous pouvez ajouter une heure de fin si nécessaire
+                ];
+            }
     
-        return view('audience.index')->with('listeAudience', $listeAudience);
+        return view('audience.index')->with('listeAudience', $listeAudience)->with('events', $events)->with('audiences', $audiences);
     }
 
     public function showDemandeurs($id)
@@ -102,5 +114,54 @@ class AudienceController extends Controller
         }
     }
     
+    public function getRejetesApresAudience()
+    {
+        $today = Carbon::now();
+
+        $demandeursRejetes = DB::table('demandeur')
+            ->join('audience', 'demandeur.audience_id', '=', 'audience.id')
+            ->where('demandeur.etat', '=', 2)
+            ->where('usertpi', '=', Auth::id())
+            ->where('audience.date', '>', $today)
+            ->orderBy('audience.date', 'asc')
+            ->select('demandeur.*', 'audience.date as audience_date')
+            ->get();
+        return $demandeursRejetes;
+    }
+
+    public function showRejetes()
+    {
+    $demandeursRejetes = $this->getRejetesApresAudience();
+
+    return view('audience.demandeursRejected')->with('demandeursRejetes', $demandeursRejetes);
+    }
+
+    public function selectionnerDemandeursRejected(Request $request)
+{
+    try {
+        $demandeursSelectionnes = $request->input('demandeurs_selectionnes', []);
+        $audienceId = $request->input('audience_id');
+
+        $request->validate([
+            'demandeurs_selectionnes' => 'required|array|min:1',
+        ], [
+            'demandeurs_selectionnes.required' => 'Veuillez sélectionner au moins un demandeur.',
+            'demandeurs_selectionnes.min' => 'Veuillez sélectionner au moins un demandeur.'
+        ]);
+
+        if (!empty($demandeursSelectionnes)) {
+            Demandeur::whereIn('id', $demandeursSelectionnes)
+                ->update([
+                    'etat' => 0,  // Change l'état à 0
+                    'audience_id' => $audienceId, // Met à jour l'ID de l'audience
+                ]);
+        }
+
+        return redirect()->back()->with('success', 'Les demandeurs ont été soumis avec succès.');
+    } catch (Exception $e) {
+        return redirect()->back()->withErrors($e->getMessage());
+    }
+}
+
 
 }

@@ -80,8 +80,6 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('/contactUser', [ContactController::class, 'contact'])->name('contact');
 
 
-
-
 Route::get('/erreur', function () {
     return view('erreur'); 
 });
@@ -105,6 +103,10 @@ Route::post('/selectionner-demandeurs', [AudienceController::class, 'selectionne
 Route::get('/demandeurs/statistique', [DemandeurController::class, 'filtrerStatistiques'])->name('demandeurs.statistique');
 
 Route::post('/filtrer-statistiques', [DemandeurController::class, 'filtrerStatistiques'])->name('filtrer_statistiques');
+
+Route::get('/audience/rejected', [AudienceController::class, 'showRejetes'])->name('audienceRejected');
+
+Route::get('/selectionner_demandeur_rejected', [AudienceController::class,'selectionnerDemandeursRejected' ])->name('selectedRejected');
 
 
 require __DIR__.'/auth.php';

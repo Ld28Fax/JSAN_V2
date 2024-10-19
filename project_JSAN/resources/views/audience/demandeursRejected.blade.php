@@ -117,15 +117,15 @@
 
 <div class="Main" >
 
-    <div class="left-section">
+    {{-- <div class="left-section"> --}}
         <section class="document-container center">
             <div class="container-fluid">
                 <div class="card header m-2">
                     <?php
                     setlocale(LC_TIME, 'mg_MG.UTF-8');
-                    $date_audience = strftime('%d %B %Y', strtotime($audience->date));
+                    // $date_audience = strftime('%d %B %Y', strtotime($audience->date));
                     ?>
-                    <h1>Demandeurs pour l'audience du {{ $date_audience }}</h1>
+                    {{-- <h1>Demandeurs pour l'audience du {{ $date_audience }}</h1> --}}
                     <form action="{{ route('selectionner.demandeurs') }}" method="POST">
                         @csrf
                         <div class="col-md-12">
@@ -143,26 +143,29 @@
                             </ul>
                             </div>
                             @endif
-                            <input type="hidden" name="audience_id" value="{{ $audience->id }}">
+                            {{-- <input type="hidden" name="audience_id" value="{{ $audience->id }}"> --}}
                             <table class="table ">
                                 <thead>
                                     <tr>
                                         <th>Numero de dossier</th>
                                         <th>Nom</th>
                                         <th>Date d'entrée</th>
+                                        <th>Date de renvoye</th>
                                         <th>Sélectionner</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($demandeurs as $demandeur)
+                                    @foreach ($demandeursRejetes as $demandeur)
                                     <?php
                                     setlocale(LC_TIME, 'mg_MG.UTF-8');
                                     $date_en_lettres_created_at = strftime('%d %B %Y', strtotime($demandeur->created_at));
+                                    $date_en_lettres_audience_date = strftime('%d %B %Y', strtotime($demandeur->audience_date));
                                     ?>
                                     <tr>
-                                        <td  class="text-white">{{ $demandeur->numero }}</td>
-                                        <td  class="text-white">{{ $demandeur->Nom }}</td>
+                                        <td>{{ $demandeur->numero }}</td>
+                                        <td>{{ $demandeur->Nom }}</td>
                                         <td>{{ $date_en_lettres_created_at }}</td>
+                                        <td> {{ $date_en_lettres_audience_date }}</td>
                                         <td>
                                             <input type="checkbox" name="demandeurs_selectionnes[]" value="{{ $demandeur->id }}">
                                         </td>
@@ -170,16 +173,13 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            <div class="clearfix">
-                                <a href="{{ route('audienceRejected') }}" class="btn btn-warning float-left text-white" style="margin-right: 46%">Demandeurs renvoyer</a>
-                                <button type="submit" class="btn btn-success float-right">Soumettre</button>
-                            </div>
-                        </form>
+                            <button type="submit" class="btn btn-success" style="margin-left: 80%">Soumettre</button>
+                    </form>
                 </div>
             </div>
         </section>
 
-        <table class="table table-bordered table-striped text-white">
+        {{-- <table class="table table-bordered table-striped text-white">
             <thead style="background: green; opacity:0.5">
                 <tr>
                     <th>Numero</th>
@@ -251,8 +251,8 @@
                 </tr>
                 @endforelse
             </tbody>
-        </table>
-        <div class="d-flex justify-content-between align-items-center" style="margin-left: 2%">
+        </table> --}}
+        {{-- <div class="d-flex justify-content-between align-items-center" style="margin-left: 2%">
             <nav aria-label="Page navigation">
                 <ul class="pagination pagination-sm">
                     {{ $demandeursAudience->links('pagination::bootstrap-4') }}
@@ -261,11 +261,11 @@
             <div class="elements-count text-white">
                 Affichage de {{ $demandeursAudience->count() }} sur {{ $demandeursAudience->total() }} éléments
             </div>
-        </div>
+        </div> --}}
         
         </div>
 
-        <div class="right-section">
+        {{-- <div class="right-section">
             <div>
                 <?php
                     setlocale(LC_TIME, 'mg_MG.UTF-8');
@@ -310,7 +310,7 @@
                 ?>
                 <p style="margin-top: 5%">{{ str_replace('TPI', '', $user->TPI) }}, le {{ $date_actuelle }}</p>
             </div>
-        </div>
+        </div> --}}
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
         <script>

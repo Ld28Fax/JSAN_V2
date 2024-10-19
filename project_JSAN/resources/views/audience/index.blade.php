@@ -29,6 +29,13 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="extern/dist/css/adminlte.min.css">
 
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css' rel='stylesheet' />
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js'></script>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js'></script>
+
   <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <style>
@@ -185,8 +192,8 @@
                       </div>
                   @endforeach
               </div>
-              
 
+              <div id='calendar'></div>
               </div>
             </section>
           </div>
@@ -217,6 +224,7 @@
 <script src="extern/plugins/dropzone/min/dropzone.min.js"></script>
 <!-- AdminLTE App -->
 <script src="extern/dist/js/adminlte.min.js"></script>
+
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('btn-mineur').addEventListener('click', function() {
@@ -348,6 +356,21 @@
   document.querySelector("#actions .cancel").onclick = function() {
     myDropzone.removeAllFiles(true)
   }
+
+  $(document).ready(function() {
+    $('#calendar').fullCalendar({
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+        },
+        defaultDate: moment().format('YYYY-MM-DD'),
+        editable: true,
+        events: {!! json_encode($events) !!},
+        eventLimit: true // allow "more" link when too many events
+    });
+});
+  
 
 
 </script>
