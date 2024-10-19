@@ -70,8 +70,6 @@ class AudienceController extends Controller
 
         $user = Auth::user();
 
-        // $demandeursAudience = DB::table('demandeur')->orderBy('created_at', 'desc')->where('usertpi', '=', Auth::id())->where('etat_audience', true)->where('audience_id',$audienceId)->get();
-
 
         return view('audience.demandeurs')->with('demandeurs', $demandeurs)->with('audience', $audience)->with('demandeursAudience', $demandeursAudience)->with('user', $user);
     }
@@ -91,7 +89,7 @@ class AudienceController extends Controller
         
     
         if (!empty($demandeursSelectionnes)) {
-            \App\Models\Demandeur::whereIn('id', $demandeursSelectionnes)
+            Demandeur::whereIn('id', $demandeursSelectionnes)
                 ->update([
                     'etat_audience' => true,
                     'audience_id' => $audienceId,

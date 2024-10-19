@@ -12,12 +12,12 @@
     
 <div class="font">
     <div class="ombre">
-     <div class="menu" >
+     <div class="menu" style="margin-left: -5%">
         <span class="craft">
             <img src="Justice_logo.png" alt=" Logo" class="brand-image img-circle elevation-3" style="opacity: .8; width:10% ">
             MINISTERE DE LA JUSTICE</span>
          <ul>
-             <li>
+             <li style="margin-left: -40%">
                 @if (Route::has('login'))
                     <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
                 @auth
@@ -27,11 +27,11 @@
                 @endauth
                 @endif
              <li><a href="{{ route('About') }}" class="white">Documentation</a></li>
-             <li><a href="{{ route('contact') }}" class="white">Contact</a></li>
+             <li><a href='#' class="white">Contact</a></li>
          </ul>
          <div class="search">
             @if (Route::has('login'))
-            <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
+            <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10" style="margin-right: 50px;">
                 @auth
                     <a href="{{ url('/dashboard') }}" class="btn btn-outline-light">Acceuil</a>
                 @else
