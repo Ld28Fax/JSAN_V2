@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Audience;
 use App\Models\Calendrier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,4 +22,5 @@ class CalendrierController extends Controller
             'fin_periode' => 'nullable|date|after_or_equal:start_date',
         ]);
     }
+
 }

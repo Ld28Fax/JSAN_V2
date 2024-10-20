@@ -106,7 +106,7 @@ Route::post('/filtrer-statistiques', [DemandeurController::class, 'filtrerStatis
 
 Route::get('/audience/rejected', [AudienceController::class, 'showRejetes'])->name('audienceRejected');
 
-Route::get('/selectionner_demandeur_rejected', [AudienceController::class,'selectionnerDemandeursRejected' ])->name('selectedRejected');
+Route::post('/selectionner_demandeur_rejected', [AudienceController::class,'selectionnerDemandeursRejected' ])->name('selectedRejected');
 
 
 require __DIR__.'/auth.php';

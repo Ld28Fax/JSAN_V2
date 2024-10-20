@@ -121,11 +121,6 @@
         <section class="document-container center">
             <div class="container-fluid">
                 <div class="card header m-2">
-                    <?php
-                    setlocale(LC_TIME, 'mg_MG.UTF-8');
-                    // $date_audience = strftime('%d %B %Y', strtotime($audience->date));
-                    ?>
-                    {{-- <h1>Demandeurs pour l'audience du {{ $date_audience }}</h1> --}}
                     <form action="{{ route('selectionner.demandeurs') }}" method="POST">
                         @csrf
                         <div class="col-md-12">

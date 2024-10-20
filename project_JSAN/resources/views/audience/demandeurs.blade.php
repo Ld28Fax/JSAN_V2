@@ -154,14 +154,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($demandeurs as $demandeur)
+                                    @foreach ($demandeursRejected as $demandeur )
                                     <?php
                                     setlocale(LC_TIME, 'mg_MG.UTF-8');
                                     $date_en_lettres_created_at = strftime('%d %B %Y', strtotime($demandeur->created_at));
                                     ?>
                                     <tr>
-                                        <td  class="text-white">{{ $demandeur->numero }}</td>
-                                        <td  class="text-white">{{ $demandeur->Nom }}</td>
+                                        <td>{{ $demandeur->numero }}</td>
+                                        <td>{{ $demandeur->Nom }}</td>
+                                        <td>{{ $date_en_lettres_created_at }}</td>
+                                        <td>
+                                            <input type="checkbox" name="demandeurs_selectionnes[]" value="{{ $demandeur->id }}">
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    @foreach ($demandeurs as $demandeur)
+                                    <tr>
+                                        <td>{{ $demandeur->numero }}</td>
+                                        <td>{{ $demandeur->Nom }}</td>
                                         <td>{{ $date_en_lettres_created_at }}</td>
                                         <td>
                                             <input type="checkbox" name="demandeurs_selectionnes[]" value="{{ $demandeur->id }}">
@@ -171,7 +181,7 @@
                                 </tbody>
                             </table>
                             <div class="clearfix">
-                                <a href="{{ route('audienceRejected') }}" class="btn btn-warning float-left text-white" style="margin-right: 46%">Demandeurs renvoyer</a>
+                                {{-- <a href="{{ route('audienceRejected') }}" class="btn btn-warning float-left text-white" style="margin-right: 46%">Demandeurs renvoyer</a> --}}
                                 <button type="submit" class="btn btn-success float-right">Soumettre</button>
                             </div>
                         </form>

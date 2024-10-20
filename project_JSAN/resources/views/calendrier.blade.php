@@ -206,6 +206,7 @@
       $('#new-event').val('')
     })
   })
+
 </script>
 @endsection
 </body>

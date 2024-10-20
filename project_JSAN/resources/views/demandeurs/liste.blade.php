@@ -111,7 +111,7 @@
                             <td>
                                 <div>
                                   <span class="badge status-badge bg-success">
-                                    Dossier traiter
+                                    Dossier accepté
                                       <i class="fas fa-check"></i>
                                   </span>
                                 </div>
@@ -273,7 +273,7 @@ function getBadgeClass(etat) {
 function getBadgeText(etat) {
     switch (etat) {
         case 0: return 'Dossier en cours';
-        case 1: return 'Dossier traité';
+        case 1: return 'Dossier accepté';
         case 2: return 'Dossier renvoyé';
         default: return 'Inconnu';
     }
@@ -309,9 +309,9 @@ function getBadgeText(etat) {
         case 0:
             return 'Dossier non traité';
         case 1:
-            return 'Dossier traité';
+            return 'Dossier accepté';
         case 2:
-            return 'Dossier refusé';
+            return 'Dossier renvoyé';
         default:
             return '';
     }
