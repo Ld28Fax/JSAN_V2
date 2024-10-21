@@ -61,9 +61,14 @@ class AudienceController extends Controller
 
         $audienceId = $audience->id;
 
+        $dateAudience = $audience->date;
+
         $demandeurs = DB::table('demandeur')->orderBy('created_at', 'asc')->where('usertpi', '=', Auth::id())->where('etat_audience', false)->get();
 
-        $demandeursRejected = DB::table('demandeur')->orderBy('created_at', 'asc')->where('usertpi', '=', Auth::id())->where('etat', 2)->get();
+        $demandeursRejected = Demandeur::where('usertpi', Auth::id())
+            ->where('etat', 2)
+            ->orderBy('created_at', 'asc')
+            ->get();
 
         $demandeursAudience  = Demandeur::where('etat_audience', true)
                 ->where('usertpi', '=', Auth::id())
@@ -110,6 +115,30 @@ class AudienceController extends Controller
             return redirect()->back()->withErrors($e->getMessage());
         }
     }
+
+    // public function afficherDemandeursRefusesDansAudiencesFutures($audienceId)
+    // {
+    // // Récupérer l'audience actuelle avec sa date
+    // $audience = Audience::find($audienceId);
+
+    // if (!$audience) {
+    //     return redirect()->back()->withErrors('Audience non trouvée.');
+    // }
+
+    // // Date de l'audience actuelle
+    // $dateAudience = $audience->date;
+
+    // // Récupérer les demandeurs refusés (état = 0) et dont l'audience_id est supérieur à la date de refus
+    // $demandeursRefusé = Demandeur::where('audience_id', $audienceId)
+    //                         ->where('etat', 0)  // Refusé, état modifié en 0
+    //                         ->whereHas('audience', function($query) use ($dateAudience) {
+    //                             // Vérifier que la date de l'audience est supérieure à la date de refus
+    //                             $query->where('date', '>', $dateAudience);
+    //                         })
+    //                         ->get();
+
+    // return redirect()->back()->with('demandeursRefusé', $demandeursRefusé);
+    // }
     
     // public function getRejetesApresAudience()
     // {

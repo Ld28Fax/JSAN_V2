@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Demandeur;
+use App\Models\Distrika;
+use App\Models\Kaominina;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -13,7 +15,9 @@ class DemandeurController extends Controller
 {
     public function index()
     {
-        return view('demandeurs.index');
+        $distrikas = DB::table('distrika')->get();
+        $kaomininas = DB::table('kaominina')->get();
+        return view('demandeurs.index')->with('distrikas', $distrikas)->with('kaomininas', $kaomininas);
     }
 
 
@@ -53,7 +57,6 @@ class DemandeurController extends Controller
 
         } 
         catch (Exception $e){
-            // throw new Exception($e->getMessage());
             return redirect()->back()->withErrors(['error' =>$e->getMessage()]);
         }
     }

@@ -7,6 +7,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DemandeurController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\KaomininaController;
 use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\App;
@@ -38,7 +39,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/demandeur', [DemandeurController::class,'index'])->middleware(['auth', 'verified'])->name('demandeurs.index');
+Route::get('/demandeur', [DemandeurController::class,'index'])->middleware(['auth', 'verified'])->name('demandeurs');
+
+// Route::get('/formulaire', [DemandeurController::class, 'showForm']);
+
+
+// Route::get('/get-kaominina/{distrikaId}', [KaomininaController::class, 'getKaominina']);
+
 
 Route::post('/demandeur', [DemandeurController::class,'create'])->middleware(['auth', 'verified'])->name('demandeurs.index');
 
@@ -104,9 +111,9 @@ Route::get('/demandeurs/statistique', [DemandeurController::class, 'filtrerStati
 
 Route::post('/filtrer-statistiques', [DemandeurController::class, 'filtrerStatistiques'])->name('filtrer_statistiques');
 
-Route::get('/audience/rejected', [AudienceController::class, 'showRejetes'])->name('audienceRejected');
+// Route::get('/audience/rejected', [AudienceController::class, 'showRejetes'])->name('audienceRejected');
 
-Route::post('/selectionner_demandeur_rejected', [AudienceController::class,'selectionnerDemandeursRejected' ])->name('selectedRejected');
+// Route::post('/selectionner_demandeur_rejected', [AudienceController::class,'selectionnerDemandeursRejected' ])->name('selectedRejected');
 
 
 require __DIR__.'/auth.php';

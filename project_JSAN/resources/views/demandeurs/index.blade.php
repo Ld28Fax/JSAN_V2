@@ -105,6 +105,25 @@
                               </div>
                             </div>
 
+
+                             {{-- Input Distrika --}}
+                             <div class="form-group" id="interesse-field">
+                              <label>Distrique:</label>
+                          
+                              <div class="input-group">
+                                  <div class="input-group-prepend">
+                                      <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                                  </div>
+                                  <select name="distrika" class="form-control select2" id="distrika-select">
+                                    <option value="" disabled selected>Choisissez un distrique</option>
+                                    @foreach ($distrikas as $distrika)
+                                        <option value="{{ $distrika->id }}">{{ $distrika->nom }}</option>
+                                    @endforeach
+                                </select>
+                              </div>
+                          </div>
+
+
                             {{-- Input Kaominina --}}
                             <div class="form-group" id="interesse-field" >
                                 <label>Commune:</label>
@@ -113,19 +132,12 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                                 </div>
-                                  <input type="text" name="kaominina" class="form-control" placeholder="Commune de demandeur" autocomplete="off">
-                                </div>
-                              </div>
-
-                              {{-- Input Distrika --}}
-                              <div class="form-group" id="interesse-field" >
-                                <label>Distrique:</label>
-            
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                      <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                                  </div>
-                                  <input type="text" name="distrika" class="form-control" placeholder="Distrique de demandeur" autocomplete="off">
+                                <select name="kaominina" class="form-control" id="kaominina-select">
+                                  <option value="" disabled selected>Choisissez une commune</option>
+                                  @foreach ($kaomininas as $kaominina )
+                                  <option value="{{ $kaominina->id }}">{{ $kaominina->nom }}</option>
+                                  @endforeach
+                              </select>
                                 </div>
                               </div>
 
@@ -246,10 +258,11 @@
 <script src="extern/plugins/dropzone/min/dropzone.min.js"></script>
 <!-- AdminLTE App -->
 <script src="extern/dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-{{-- <script src="extern/dist/js/demo.js"></script> --}}
-<!-- Page specific script -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <script>
+
   document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('btn-mineur').addEventListener('click', function() {
         document.getElementById('interesse-field').style.display = 'block';
@@ -418,6 +431,27 @@
         ageMessage.textContent = "";
     }
 }
+
+// $('#distrika-select').on('change', function() {
+//     var distrikaId = $(this).val();
+//     if (distrikaId) {
+//         $.ajax({
+//             url: '/get-kaominina/' + distrikaId,
+//             type: 'GET',
+//             dataType: 'json',
+//             success: function(data) {
+//                 $('#kaominina-select').empty();
+//                 $('#kaominina-select').append('<option value="" disabled selected>Choisissez une commune</option>');
+//                 $.each(data, function(key, value) {
+//                     $('#kaominina-select').append('<option value="' + value.id + '">' + value.nom + '</option>');
+//                 });
+//             }
+//         });
+//     }
+// });
+
+</script>
+
 </script>
 </body>
 

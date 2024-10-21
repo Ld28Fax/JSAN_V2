@@ -133,7 +133,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('demandeurs.index')}}" class="nav-link">
+            <a href="{{ route('demandeurs')}}" class="nav-link">
               <i class="nav-icon fas fa-user-plus"></i>
               <p>
                 Demandeur
