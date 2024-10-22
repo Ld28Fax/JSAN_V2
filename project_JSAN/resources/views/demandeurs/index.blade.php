@@ -106,38 +106,35 @@
                             </div>
 
 
-                             {{-- Input Distrika --}}
-                             <div class="form-group" id="interesse-field">
-                              <label>Distrique:</label>
-                          
-                              <div class="input-group">
-                                  <div class="input-group-prepend">
-                                      <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                                  </div>
-                                  <select name="distrika" class="form-control select2" id="distrika-select">
-                                    <option value="" disabled selected>Choisissez un distrique</option>
-                                    @foreach ($distrikas as $distrika)
-                                        <option value="{{ $distrika->id }}">{{ $distrika->nom }}</option>
-                                    @endforeach
-                                </select>
-                              </div>
-                          </div>
-
-
-                            {{-- Input Kaominina --}}
-                            <div class="form-group" id="interesse-field" >
-                                <label>Commune:</label>
-            
+                              {{-- Input Distrika --}}
+                              <div class="form-group" id="interesse-field">
+                                <label>Distrique:</label>
+                            
                                 <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                                    </div>
+                                    <select name="distrika" class="form-control select2" id="distrika-select">
+                                      <option value="" disabled selected>Choisissez un distrique</option>
+                                      @foreach ($distrika as $distrika)
+                                          <option value="{{ $distrika->id }}">{{ $distrika->nom }}</option>
+                                      @endforeach
+                                  </select>
                                 </div>
-                                <select name="kaominina" class="form-control" id="kaominina-select">
-                                  <option value="" disabled selected>Choisissez une commune</option>
-                                  @foreach ($kaomininas as $kaominina )
-                                  <option value="{{ $kaominina->id }}">{{ $kaominina->nom }}</option>
-                                  @endforeach
-                              </select>
+                            </div>
+
+
+                              {{-- Input Kaominina --}}
+                              <div class="form-group" id="interesse-field" >
+                                <label>Commune:</label>
+                              
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                                  </div>
+                                  <select name="kaominina" class="form-control" id="kaominina-select">
+                                    <option value="" disabled selected>Choisissez une commune</option>
+                                  </select>
                                 </div>
                               </div>
 
@@ -432,23 +429,31 @@
     }
 }
 
-// $('#distrika-select').on('change', function() {
-//     var distrikaId = $(this).val();
-//     if (distrikaId) {
-//         $.ajax({
-//             url: '/get-kaominina/' + distrikaId,
-//             type: 'GET',
-//             dataType: 'json',
-//             success: function(data) {
-//                 $('#kaominina-select').empty();
-//                 $('#kaominina-select').append('<option value="" disabled selected>Choisissez une commune</option>');
-//                 $.each(data, function(key, value) {
-//                     $('#kaominina-select').append('<option value="' + value.id + '">' + value.nom + '</option>');
-//                 });
-//             }
-//         });
-//     }
-// });
+$(document).ready(function() {
+    $('#distrika-select').on('change', function() {
+        var distrikaId = $(this).val();
+
+        if(distrikaId) {
+            $.ajax({
+                url: '/get-kaomininas/' + distrikaId,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    console.log(data); 
+                    $('#kaominina-select').empty();
+                    $('#kaominina-select').append('<option value="" disabled selected>Choisissez une commune</option>');
+
+                    $.each(data, function(key, value) {
+                        $('#kaominina-select').append('<option value="'+ value.id +'">'+ value.nom +'</option>');
+                    });
+                }
+            });
+        } else {
+            $('#kaominina-select').empty();
+        }
+    });
+});
+
 
 </script>
 

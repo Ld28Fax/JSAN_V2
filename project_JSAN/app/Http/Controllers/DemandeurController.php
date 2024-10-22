@@ -15,9 +15,9 @@ class DemandeurController extends Controller
 {
     public function index()
     {
-        $distrikas = DB::table('distrika')->get();
-        $kaomininas = DB::table('kaominina')->get();
-        return view('demandeurs.index')->with('distrikas', $distrikas)->with('kaomininas', $kaomininas);
+        $distrika = Distrika::all();
+        $kaominina = Kaominina::all();
+        return view('demandeurs.index')->with('distrika', $distrika)->with('kaominina', $kaominina);
     }
 
 
@@ -51,11 +51,12 @@ class DemandeurController extends Controller
             'genre' => 'Le champ Genre doit être masculin ou féminin.',
             
             ]);
+            
 
             Demandeur::create($request->all());
             return redirect()->route("demandeurs.liste")->with("success","Demandeur enregister");
 
-        } 
+        }
         catch (Exception $e){
             return redirect()->back()->withErrors(['error' =>$e->getMessage()]);
         }
@@ -131,6 +132,7 @@ class DemandeurController extends Controller
                 ->paginate(20);
 
             $jour = DB::table('demandeur')->get()->where('created_at', '>=', Carbon::today());
+
 
             return view('demandeurs.liste')->with('jour', $jour)->with('demandeurs', $demandeurs);
 
@@ -299,5 +301,11 @@ class DemandeurController extends Controller
     ->with('nombreDemandeursInactif', $nombreDemandeursInactif)
     ->with('nombreDemandeursRefusé', $nombreDemandeursRefusé);
 }
+
+    public function getKaomininas($distrikaId)
+    {
+    $kaomininas = Kaominina::where('distrika_id', $distrikaId)->get();
+    return response()->json($kaomininas);
+    }
 
 }

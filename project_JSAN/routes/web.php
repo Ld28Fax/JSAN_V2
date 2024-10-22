@@ -10,6 +10,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KaomininaController;
 use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Kaominina;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
@@ -41,10 +42,11 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/demandeur', [DemandeurController::class,'index'])->middleware(['auth', 'verified'])->name('demandeurs');
 
-// Route::get('/formulaire', [DemandeurController::class, 'showForm']);
 
-
-// Route::get('/get-kaominina/{distrikaId}', [KaomininaController::class, 'getKaominina']);
+Route::get('/get-kaomininas/{distrika_id}', function($distrika_id) {
+    $kaomininas = Kaominina::where('distrika_id', $distrika_id)->get();
+    return response()->json($kaomininas);
+});
 
 
 Route::post('/demandeur', [DemandeurController::class,'create'])->middleware(['auth', 'verified'])->name('demandeurs.index');

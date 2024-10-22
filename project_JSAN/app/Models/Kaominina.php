@@ -5,6 +5,8 @@
     
     class Kaominina extends Model
     {
+
+        protected $table = 'kaominina';
         public function distrika()
         {
             return $this->belongsTo(Distrika::class);
