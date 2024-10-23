@@ -38,16 +38,12 @@
         width: 50%;
         padding: 20px;
     }
-        
-
-
+    
     .left-section, .right-section {
         width: 50%;
         padding: 20px;
         overflow-y: auto;
     }
-
-
 
     .document-container {
         width: 100%;
@@ -89,15 +85,13 @@
         }
     }
 
-.text-white {
-    color: white !important;
-}
+    .text-white {
+        color: white !important;
+    }
 
     </style>
 </head>
 <body>
-
-    <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-dark">
     <div class="container-fluid">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -181,7 +175,7 @@
                                 </tbody>
                             </table>
                             <div class="clearfix">
-                                {{-- <a href="{{ route('audienceRejected') }}" class="btn btn-warning float-left text-white" style="margin-right: 46%">Demandeurs renvoyer</a> --}}
+                                <a href="{{ route('audienceRejected') }}" class="btn btn-warning float-left text-white" style="margin-right: 46%">Demandeurs renvoyer</a>
                                 <button type="submit" class="btn btn-success float-right">Soumettre</button>
                             </div>
                         </form>

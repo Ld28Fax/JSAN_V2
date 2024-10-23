@@ -34,24 +34,24 @@
 <style>
 
 .modal {
-    display: none; /* Masquer le modal par défaut */
-    position: fixed; /* Rester en place */
-    z-index: 1000; /* Au-dessus du contenu */
+    display: none;
+    position: fixed;
+    z-index: 1000;
     left: 0;
     top: 0;
-    width: 100%; /* Largeur complète */
-    height: 100%; /* Hauteur complète */
-    overflow: auto; /* Activer le défilement si nécessaire */
-    background-color: rgba(0, 0, 0, 0.5); /* Couleur d'arrière-plan semi-transparente */
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal-content {
     background-color: #fff;
-    margin: 15% auto; /* Centrer le modal */
+    margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* Largeur du modal */
-    max-width: 600px; /* Largeur maximale */
+    width: 80%;
+    max-width: 600px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -68,8 +68,6 @@
     text-decoration: none;
     cursor: pointer;
 }
-
-
 
 </style>
 

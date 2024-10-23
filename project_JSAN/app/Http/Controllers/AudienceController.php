@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 class AudienceController extends Controller
 {
     public function index (){
-        return view('audience');
+        return view('audience.index');
     }
     public function create(Request $request){
         try{

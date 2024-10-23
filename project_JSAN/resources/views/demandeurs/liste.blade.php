@@ -30,6 +30,7 @@
     padding: 0.3rem 0.5rem; /* Réduire le rembourrage */
 }
 
+
 </style>
 <body>
     @extends('dashboard')
@@ -196,6 +197,14 @@
 <!-- Page specific script -->
 <script>
  function filterByPeriod(period, page = 1) {
+    // Gestion de l'activation du bouton cliqué
+    document.querySelectorAll('.btn').forEach(function(button) {
+        button.classList.remove('active');
+    });
+    const button = document.querySelector(`button[onclick="filterByPeriod('${period}')"]`);
+    button.classList.add('active');
+
+    // Fonction pour formater la date
     function formatDate(createdAt) {
         const date = new Date(createdAt);
         return new Intl.DateTimeFormat('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' }).format(date);
@@ -232,7 +241,10 @@
                     tbody.appendChild(row);
                 });
             } else {
-                tbody.innerHTML = `<tr><td colspan="7" class="text-center">Aucun élément</td></tr>`;
+                tbody.innerHTML = `<tr><td style="text-align: center" colspan="6">
+                                    <img src="{{ asset('undraw empty.svg')}}" alt="" style="width: 10%">
+                                    <div>Aucun élément</div>
+                                    </td></tr>`;
             }
 
             // Mettre à jour la pagination
