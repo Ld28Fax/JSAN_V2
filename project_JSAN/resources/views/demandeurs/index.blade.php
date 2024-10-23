@@ -108,13 +108,13 @@
 
                               {{-- Input Distrika --}}
                               <div class="form-group" id="interesse-field">
-                                <label>Distrique:</label>
+                                <label>District:</label>
                             
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                                     </div>
-                                    <select name="distrika" class="form-control select2" id="distrika-select">
+                                    <select name="distrika" class="form-control select2" id="distrika-select" onchange="ChangementCommune()">
                                       <option value="" disabled selected>Choisissez un distrique</option>
                                       @foreach ($distrika as $distrika)
                                           <option value="{{ $distrika->id }}">{{ $distrika->nom }}</option>
@@ -359,8 +359,8 @@
   var previewTemplate = previewNode.parentNode.innerHTML
   previewNode.parentNode.removeChild(previewNode)
 
-  var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
-    url: "/target-url", // Set the url
+  var myDropzone = new Dropzone(document.body, {
+    url: "/target-url",
     thumbnailWidth: 80,
     thumbnailHeight: 80,
     parallelUploads: 20,
@@ -429,31 +429,31 @@
     }
 }
 
-$(document).ready(function() {
-    $('#distrika-select').on('change', function() {
-        var distrikaId = $(this).val();
 
+function ChangementCommune(){
+  var distrikaId = $("#distrika-select").val();
         if(distrikaId) {
             $.ajax({
                 url: '/get-kaomininas/' + distrikaId,
                 type: 'GET',
                 dataType: 'json',
                 success: function(data) {
-                    console.log(data); 
                     $('#kaominina-select').empty();
                     $('#kaominina-select').append('<option value="" disabled selected>Choisissez une commune</option>');
 
                     $.each(data, function(key, value) {
                         $('#kaominina-select').append('<option value="'+ value.id +'">'+ value.nom +'</option>');
                     });
-                }
+                },
+                
+                error: function(request, error) {
+                    console.log('error' + error); 
+                    }
             });
         } else {
             $('#kaominina-select').empty();
         }
-    });
-});
-
+}
 
 </script>
 
