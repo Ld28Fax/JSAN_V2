@@ -69,6 +69,9 @@ class AudienceController extends Controller
             ->where('etat', 2)
             ->orderBy('created_at', 'asc')
             ->get();
+            // ->whereHas('audience', function ($query) {
+            //     $query->whereColumn('audience.date', '>', 'demandeur.date');
+            // })
 
         $demandeursAudience  = Demandeur::where('etat_audience', true)
                 ->where('usertpi', '=', Auth::id())
