@@ -80,13 +80,9 @@
       <img src="{{ asset('Justice_logo.png') }}" alt=" Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">CO-JSAN</span>
      </div>
-      
     </a>
 
-    <!-- Sidebar -->
     <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
-      
       <div class="d-flex" style="margin-left: 10%" >
         <div class="info text-center">
           <div>
@@ -94,27 +90,23 @@
               <div class="text-center">
                 <a href="{{ route('profile.edit') }}"><img src="{{ asset('extern/dist/img/user.png') }}" alt="" class="brand-image img-circle elevation-3" style="opacity: .8; width:40%"></a>
               </div>
-
               <a href="{{ route('profile.edit') }}"><h3 class="profile-username text-center">{{ Auth::user()->name }}</h3></a>
-
               <p class="text-muted text-center">{{ Auth::user()->TPI }}</p>
-
               <ul class="list-group mb-3">
                 <li class="list-group-item">
                   <b>{{ Auth::user()->Cour_appel }}</b>
                 </li>
               </ul> 
-            <form method="POST" action="{{ route('logout') }}">
-              @csrf
-              <x-dropdown-link :href="route('logout')"
-                onclick="event.preventDefault();
-                this.closest('form').submit();" class="btn btn-success btn-block text-white">
-                <i class="zmdi zmdi-power"></i>
-                {{ __('Déconnecter') }}
-              </x-dropdown-link>
-            </form>
+              <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <x-dropdown-link :href="route('logout')"
+                  onclick="event.preventDefault();
+                  this.closest('form').submit();" class="btn btn-success btn-block text-white">
+                  <i class="zmdi zmdi-power"></i>
+                  {{ __('Déconnecter') }}
+                </x-dropdown-link>
+              </form>
             </div>
-            <!-- /.card-body -->
           </div>
         </div>
       </div>
@@ -122,8 +114,6 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
           <li class="nav-item">
             <a href="{{ route('dashboard')}}" class="nav-link ">
               <i class="nav-icon fas fa-tachometer-alt"></i>
