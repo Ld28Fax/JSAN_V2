@@ -113,9 +113,4 @@ Route::get('/demandeurs/statistique', [DemandeurController::class, 'filtrerStati
 
 Route::post('/filtrer-statistiques', [DemandeurController::class, 'filtrerStatistiques'])->name('filtrer_statistiques');
 
-// Route::get('/audience/rejected', [AudienceController::class, 'showRejetes'])->name('audienceRejected');
-
-// Route::post('/selectionner_demandeur_rejected', [AudienceController::class,'selectionnerDemandeursRejected' ])->name('selectedRejected');
-
-
 require __DIR__.'/auth.php';

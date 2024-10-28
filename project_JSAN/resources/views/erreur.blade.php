@@ -17,8 +17,6 @@
     <!-- Main content -->
     <section class="content">
       <div class="error-page" style="margin-left: 20%">
-        {{-- <h2 class="headline text-warning"> 403 </h2> --}}
-
         <div class="error-content">
           <h3><i class="fas fa-exclamation-triangle text-warning"></i>Vous n'êtes pas autorisé à accéder à cette page.</h3>
           <p>
@@ -26,13 +24,9 @@
           </p>
 
         </div>
-        <!-- /.error-content -->
       </div>
-      <!-- /.error-page -->
     </section>
-    <!-- /.content -->
   </div>
- 
 
 </div>
 

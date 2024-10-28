@@ -175,7 +175,6 @@
                                 </tbody>
                             </table>
                             <div class="clearfix">
-                                {{-- <a href="{{ route('audienceRejected') }}" class="btn btn-warning float-left text-white" style="margin-right: 46%">Demandeurs renvoyer</a> --}}
                                 <button type="submit" class="btn btn-success float-right">Soumettre</button>
                             </div>
                         </form>

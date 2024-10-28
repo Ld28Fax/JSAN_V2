@@ -64,12 +64,12 @@ class DemandeurController extends Controller
 
     public function edit($id)
     {
-    try{
-        $demandeur = Demandeur::findOrFail($id);
-        return view('demandeurs.edit')->with('demandeur', $demandeur);
-    } catch (Exception $e){
-        return redirect()->back()->withErrors(['error' => 'Une erreur s\'est produite.']);
-    }
+        try{
+            $demandeur = Demandeur::findOrFail($id);
+            return view('demandeurs.edit')->with('demandeur', $demandeur);
+        } catch (Exception $e){
+            return redirect()->back()->withErrors(['error' => 'Une erreur s\'est produite.']);
+        }
     }
 
     public function update(Request $request)

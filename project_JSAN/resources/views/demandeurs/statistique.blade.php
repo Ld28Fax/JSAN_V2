@@ -107,7 +107,7 @@
         <ul class="navbar-nav">
         <li class="nav-item">
             <a class="nav-link active text-white" aria-current="page" href="{{ route('dashboard') }}"><i class="fas fa-arrow-left"></i>
-                retour</a>
+                retour Accueil</a>
         </li>
         </ul>
     </div>

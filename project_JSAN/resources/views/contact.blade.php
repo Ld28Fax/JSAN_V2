@@ -37,7 +37,7 @@
                       <h2 class="lead"><b>{{ $user->name }}</b></h2>
                       <p class="text-muted text-sm">{{ $user->TPI }} </p>
                       <ul class="ml-4 mb-0 fa-ul text-muted">
-                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Telephone:</li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Telephone: {{ $user->telephone }}</li>
                       </ul>
                     </div>
                     <div class="col-5 text-center">
