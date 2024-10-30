@@ -29,7 +29,7 @@
       <span class="info-box-icon bg-success elevation-1"><i class="fas fa-thumbs-up"></i></span>
 
       <div class="info-box-content">
-          <span class="info-box-text">Dossier Accepter</span>
+          <span class="info-box-text">Dossier Accepté</span>
           <span class="info-box-number text-purple " >{{ $nombreDemandeursActif }}
               <small>Personnes</small>
           </span>
@@ -42,7 +42,7 @@
       <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-times"></i></span>
 
       <div class="info-box-content">
-          <span class="info-box-text">Dossier Refusé</span>
+          <span class="info-box-text">Dossier Renvoyé</span>
           <span class="info-box-number text-purple " >{{ $nombreDemandeursRefusé }}
               <small>Personnes</small>
           </span>

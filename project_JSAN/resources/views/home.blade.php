@@ -42,7 +42,7 @@
                     <div class="small-box bg-success">
                         <div class="inner">
                             <h3 class="number-shadow icon" style="margin-top: -13%;">{{ $nombreDemandeursActif }}</h3>
-                            <h4>Dossier Accepter</h4>
+                            <h4>Dossier Accepté</h4>
                         </div>
                         <div class="icon">
                             <i class="fas fa-thumbs-up"></i>
