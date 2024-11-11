@@ -243,17 +243,14 @@ class DemandeurController extends Controller
     
     public function filtrerStatistiques(Request $request)
 {
-    // Récupérer les données du formulaire
     $debut_jour = $request->input('debut_jour');
     $debut_mois = $request->input('debut_mois');
     $fin_jour = $request->input('fin_jour');
     $fin_mois = $request->input('fin_mois');
 
-    // Créer la date de début et de fin à partir des entrées
     $debut = Carbon::create(null, $debut_mois, $debut_jour);
     $fin = Carbon::create(null, $fin_mois, $fin_jour)->endOfDay();
 
-    // Filtrer les demandeurs en fonction de la période
     $nombreDemandeursPeriode = DB::table('demandeur')
         ->where('usertpi', '=', Auth::id())
         ->whereBetween('created_at', [$debut, $fin])
