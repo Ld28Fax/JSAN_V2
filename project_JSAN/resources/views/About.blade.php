@@ -7,7 +7,8 @@
     <title>Documentation</title>
 </head>
 <body>
-    <h1>Documentation</h1>
-    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempora nulla perferendis itaque aliquam ipsam accusamus illo similique rerum temporibus exercitationem commodi illum ipsa, tenetur vero voluptatem alias facere ea. Corrupti.</p>
+    <div>
+        {!! $htmlContent !!}
+    </div>
 </body>
 </html>

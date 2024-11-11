@@ -208,7 +208,6 @@
                                       </div>
                                       </div>
                                     </div>
-                                 
                                 </div>
                                   
                                 </div>
@@ -230,7 +229,7 @@
                 </div>
                 
 @endsection
-                <!-- jQuery -->
+<!-- jQuery -->
 <script src="extern/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="extern/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -271,32 +270,22 @@
 });
   
   $(function () {
-    //Initialize Select2 Elements
     $('.select2').select2()
-
-    //Initialize Select2 Elements
     $('.select2bs4').select2({
       theme: 'bootstrap4'
     })
 
-    //Datemask dd/mm/yyyy
     $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-    //Datemask2 mm/dd/yyyy
     $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
-    //Money Euro
     $('[data-mask]').inputmask()
-
-    //Date picker
     $('#reservationdate').datetimepicker({
         format: 'L'
     });
 
-    //Date and time picker
     $('#reservationdatetime').datetimepicker({ icons: { time: 'far fa-clock' } });
 
-    //Date range picker
     $('#reservation').daterangepicker()
-    //Date range picker with time picker
+
     $('#reservationtime').daterangepicker({
       timePicker: true,
       timePickerIncrement: 30,
@@ -304,7 +293,7 @@
         format: 'MM/DD/YYYY hh:mm A'
       }
     })
-    //Date range as a button
+
     $('#daterange-btn').daterangepicker(
       {
         ranges   : {
@@ -328,14 +317,9 @@
       format: 'LT'
     })
 
-    //Bootstrap Duallistbox
     $('.duallistbox').bootstrapDualListbox()
-
-    //Colorpicker
     $('.my-colorpicker1').colorpicker()
-    //color picker with addon
     $('.my-colorpicker2').colorpicker()
-
     $('.my-colorpicker2').on('colorpickerChange', function(event) {
       $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
     })
@@ -345,15 +329,13 @@
     })
 
   })
-  // BS-Stepper Init
+
   document.addEventListener('DOMContentLoaded', function () {
     window.stepper = new Stepper(document.querySelector('.bs-stepper'))
   })
 
-  // DropzoneJS Demo Code Start
   Dropzone.autoDiscover = false
 
-  // Get the template HTML and remove it from the doumenthe template HTML and remove it from the doument
   var previewNode = document.querySelector("#template")
   previewNode.id = ""
   var previewTemplate = previewNode.parentNode.innerHTML
@@ -365,29 +347,24 @@
     thumbnailHeight: 80,
     parallelUploads: 20,
     previewTemplate: previewTemplate,
-    autoQueue: false, // Make sure the files aren't queued until manually added
-    previewsContainer: "#previews", // Define the container to display the previews
-    clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
+    autoQueue: false,
+    previewsContainer: "#previews",
+    clickable: ".fileinput-button"
   })
 
   myDropzone.on("addedfile", function(file) {
-    // Hookup the start button
     file.previewElement.querySelector(".start").onclick = function() { myDropzone.enqueueFile(file) }
   })
 
-  // Update the total progress bar
   myDropzone.on("totaluploadprogress", function(progress) {
     document.querySelector("#total-progress .progress-bar").style.width = progress + "%"
   })
 
   myDropzone.on("sending", function(file) {
-    // Show the total progress bar when upload starts
     document.querySelector("#total-progress").style.opacity = "1"
-    // And disable the start button
     file.previewElement.querySelector(".start").setAttribute("disabled", "disabled")
   })
 
-  // Hide the total progress bar when nothing's uploading anymore
   myDropzone.on("queuecomplete", function(progress) {
     document.querySelector("#total-progress").style.opacity = "0"
   })
@@ -404,16 +381,13 @@
     const dob = new Date(dobInput);
     const today = new Date();
     
-    // Calculer l'âge
     let age = today.getFullYear() - dob.getFullYear();
     const monthDiff = today.getMonth() - dob.getMonth();
     
-    // Ajuster l'âge si la date de naissance n'est pas encore passée cette année
     if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
         age--;
     }
 
-    // Vérifier l'âge et afficher/masquer les champs
     const interesseMessage = document.getElementById('interesse-message');
     const ageMessage = document.getElementById('age-message');
 

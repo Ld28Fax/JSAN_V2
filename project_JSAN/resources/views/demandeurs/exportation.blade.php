@@ -83,7 +83,6 @@
                     <th>Père</th>
                     <th>Mère</th>
                     <th>Télephone</th>
-                    <th>Imprimer</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -95,11 +94,6 @@
                             <td>{{$demandeur->Pere}}</td>
                             <td>{{$demandeur->Mere}}</td>
                             <td>{{$demandeur->Telephone}}</td>
-                            <td>
-                              <a href="{{ route('export', $demandeur->id) }}">
-                                <i class="fas fa-print"></i>
-                            </a>
-                            </td>
                         </tr>
                         @empty
                             <tr class="w-full">

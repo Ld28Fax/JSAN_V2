@@ -5,6 +5,7 @@ use App\Http\Controllers\AudienceController;
 use App\Http\Controllers\CalendrierController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DemandeurController;
+use App\Http\Controllers\DocumentationController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KaomininaController;
@@ -112,5 +113,8 @@ Route::post('/selectionner-demandeurs', [AudienceController::class, 'selectionne
 Route::get('/demandeurs/statistique', [DemandeurController::class, 'filtrerStatistiques'])->name('demandeurs.statistique');
 
 Route::post('/filtrer-statistiques', [DemandeurController::class, 'filtrerStatistiques'])->name('filtrer_statistiques');
+
+Route::get('/afficher-docx-html/{fileName}', [DocumentationController::class, 'afficherDocxEnHtml']);
+
 
 require __DIR__.'/auth.php';
