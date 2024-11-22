@@ -9,18 +9,18 @@
 
 @php
     $months = [
-    1 => 'Janoary',
-    2 => 'Febroary',
-    3 => 'Martsa',
-    4 => 'Aprily',
-    5 => 'Mey',
-    6 => 'Jona',
-    7 => 'Jolay',
-    8 => 'Aogositra',
-    9 => 'Septambra',
-    10 => 'Oktobra',
-    11 => 'Novambra',
-    12 => 'Desambra'
+    1 => 'Janvier',
+    2 => 'Fevrier',
+    3 => 'Mars',
+    4 => 'Avril',
+    5 => 'Mai',
+    6 => 'Juin',
+    7 => 'Juillet',
+    8 => 'Août',
+    9 => 'Septembre',
+    10 => 'Octobre',
+    11 => 'Novembre',
+    12 => 'Decembre'
     ];
 @endphp
     <style>
@@ -120,8 +120,17 @@
                 <div class="container-fluid">
                     <div class="card header m-2">
                         <h1>Période à saisir :</h1>
-                        <form id="statisticForm" class="text-center row mb-3" style="margin-left: 0.1%" method="POST" action="{{ route('filtrer_statistiques') }}">
+                        <form id="statisticForm" class="text-center row mb-3" style="margin-left: 0.1%; margin-right: 0.1% " method="POST" action="{{ route('filtrer_statistiques') }}">
                             @csrf
+
+                            <label for="year">Sélectionnez l'année:</label>
+                            <select id="year" name="year" class="form-control">
+                                <option value="" selected disabled></option>
+                                @for ($i = 2000; $i <= 2100; $i++)
+                                    <option value="{{ $i }}">{{ $i }}</option>
+                                @endfor
+                            </select>
+
                             <div class="form-group col-md-6">
                                 <label for="debut_jour">Début</label>
                                 <select name="debut_jour" class="form-control">
@@ -160,7 +169,7 @@
             <div class="document-container Periode">
                 <!-- Affichage des résultats -->
                 @if($nombreDemandeursPeriode || $nombreDemandeursActifPeriode || $nombreDemandeursInactifPeriode || $nombreDemandeursRefuséPeriode)
-                    <h4>Période du: {{ $debut_jour }} {{ $months[$debut_mois] }} - {{ $fin_jour }} {{ $months[$fin_mois] }}</h4>
+                    <h4>Période du: {{ $debut_jour }} {{ $months[$debut_mois] }} - {{ $fin_jour }} {{ $months[$fin_mois] }} de l'année {{ $année }}</h4>
                     <button id="printButton1" class="btn btn-success imprimer" style="float: right; margin-bottom: 10px;">
                         <i class="fas fa-print"></i> Imprimer
                     </button>
@@ -183,7 +192,7 @@
                         </tbody>
                     </table>
                 @else
-                    <h4>Période du: {{ $debut_jour }} {{ $months[$debut_mois] }} - {{ $fin_jour }} {{ $months[$fin_mois] }}</h4>
+                    <h4>Période du: {{ $debut_jour }} {{ $months[$debut_mois] }} - {{ $fin_jour }} {{ $months[$fin_mois] }} de l'année {{ $année }}</h4>
                     <p class="alert alert-danger">Aucun demandeur trouvé pour la période sélectionnée.</p>
                 @endif
             </div>

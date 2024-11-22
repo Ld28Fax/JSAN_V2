@@ -247,9 +247,10 @@ class DemandeurController extends Controller
     $debut_mois = $request->input('debut_mois');
     $fin_jour = $request->input('fin_jour');
     $fin_mois = $request->input('fin_mois');
+    $année = $request->input('year');
 
-    $debut = Carbon::create(null, $debut_mois, $debut_jour);
-    $fin = Carbon::create(null, $fin_mois, $fin_jour)->endOfDay();
+    $debut = Carbon::create($année, $debut_mois, $debut_jour);
+    $fin = Carbon::create($année, $fin_mois, $fin_jour)->endOfDay();
 
     $nombreDemandeursPeriode = DB::table('demandeur')
         ->where('usertpi', '=', Auth::id())
@@ -293,6 +294,7 @@ class DemandeurController extends Controller
     ->with('debut_mois', $debut_mois)
     ->with('fin_jour', $fin_jour)
     ->with('fin_mois', $fin_mois)
+    ->with('année', $année)
     ->with('nombreDemandeurs', $nombreDemandeurs)
     ->with('nombreDemandeursActif', $nombreDemandeursActif)
     ->with('nombreDemandeursInactif', $nombreDemandeursInactif)

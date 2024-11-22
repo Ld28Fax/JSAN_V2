@@ -163,6 +163,10 @@
                                     </tr>
                                     @endforeach
                                     @foreach ($demandeurs as $demandeur)
+                                    <?php
+                                    setlocale(LC_TIME, 'mg_MG.UTF-8');
+                                    $date_en_lettres_created_at = strftime('%d %B %Y', strtotime($demandeur->created_at));
+                                    ?>
                                     <tr>
                                         <td>{{ $demandeur->numero }}</td>
                                         <td>{{ $demandeur->Nom }}</td>

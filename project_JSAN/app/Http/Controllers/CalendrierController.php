@@ -11,8 +11,7 @@ class CalendrierController extends Controller
 {
     public function index()
     {
-        $periodes= DB::table('Calendrier')->get();
-        return view('calendrier')->with('Calendrier', $periodes);
+        return view('calendrier');
     }
     public function store(Request $request)
     {
