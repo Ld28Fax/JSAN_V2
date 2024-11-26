@@ -43,12 +43,10 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/demandeur', [DemandeurController::class,'index'])->middleware(['auth', 'verified'])->name('demandeurs');
 
-
 Route::get('/get-kaomininas/{distrika_id}', function($distrika_id) {
     $kaomininas = Kaominina::where('distrika_id', $distrika_id)->get();
     return response()->json($kaomininas);
 });
-
 
 Route::post('/demandeur', [DemandeurController::class,'create'])->middleware(['auth', 'verified'])->name('demandeurs.index');
 
@@ -58,9 +56,7 @@ Route::get('/demandeurs/filter', [DemandeurController::class, 'filter'])->name('
 
 Route::get('/demandeur_exportation', [DemandeurController::class,'exportation'])->middleware(['auth', 'verified'])->name('demandeurs.exportation');
 
-
 Route::get('/calendrier', [CalendrierController::class,'index'])->middleware(['auth','verified'])->name('calendrier');
-
 
 Route::get('/Actif/{id?}', [DemandeurController::class,'actif'])->middleware(['auth','verified'])->name('demandeurActiver');
 
@@ -69,9 +65,6 @@ Route::get('/nonactif/{id}', [DemandeurController::class, 'Inactif'])
     ->name('nonactif');
 
 Route::post('/ajoutMotif/{id}', [DemandeurController::class, 'Motif'])->middleware(['auth', 'verified'])->name('ajoutMotif');
-
-
-Route::get('/About', [AboutController::class,'index'])->name('About');
 
 Route::get('/demandeurs/edit/{id}', [DemandeurController::class, 'edit'])->name('demandeurs.edit');
 
@@ -113,8 +106,5 @@ Route::post('/selectionner-demandeurs', [AudienceController::class, 'selectionne
 Route::get('/demandeurs/statistique', [DemandeurController::class, 'filtrerStatistiques'])->name('demandeurs.statistique');
 
 Route::post('/filtrer-statistiques', [DemandeurController::class, 'filtrerStatistiques'])->name('filtrer_statistiques');
-
-Route::get('/afficher-docx-html/{fileName}', [DocumentationController::class, 'afficherDocxEnHtml']);
-
 
 require __DIR__.'/auth.php';

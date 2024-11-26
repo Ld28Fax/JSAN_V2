@@ -117,7 +117,7 @@
                                     <select name="distrika" class="form-control select2" id="distrika-select" onchange="ChangementCommune()">
                                       <option value="" disabled selected>Choisissez un distrique</option>
                                       @foreach ($distrika as $distrika)
-                                          <option value="{{ $distrika->id }}">{{ $distrika->nom }}</option>
+                                      <option value="{{ $distrika->nom }}" data-id="{{ $distrika->id }}">{{ $distrika->nom }}</option>
                                       @endforeach
                                   </select>
                                 </div>
@@ -155,8 +155,8 @@
                               <input type="text" name="Adresse" class="form-control" placeholder="Adresse du demandeur" data-mask autocomplete="off">
                               </div>
                             </div>
-                               {{-- Père --}}
-                               <div class="form-group">
+                              {{-- Père --}}
+                              <div class="form-group">
                                 <label>Nom du Père:</label>
             
                               <div class="input-group">
@@ -402,7 +402,7 @@
 
 
 function ChangementCommune(){
-  var distrikaId = $("#distrika-select").val();
+  var distrikaId = $("#distrika-select option:selected").data("id");
         if(distrikaId) {
             $.ajax({
                 url: '/get-kaomininas/' + distrikaId,
@@ -413,7 +413,7 @@ function ChangementCommune(){
                     $('#kaominina-select').append('<option value="" disabled selected>Choisissez une commune</option>');
 
                     $.each(data, function(key, value) {
-                        $('#kaominina-select').append('<option value="'+ value.id +'">'+ value.nom +'</option>');
+                        $('#kaominina-select').append('<option value="'+ value.nom +'">'+ value.nom +'</option>');
                     });
                 },
                 

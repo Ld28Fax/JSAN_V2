@@ -66,11 +66,4 @@ class Demandeur extends Model
     {
         return $this->belongsTo(Audience::class, 'audience_id');
     }
-
-    public function audience2()
-    {
-        return $this->belongsTo(Audience::class, 'audience_id2');
-    }
-
-
 }

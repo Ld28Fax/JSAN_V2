@@ -85,20 +85,33 @@
                               </div>
                             </div>
 
-                             {{-- Input caché pour "Intéressé" --}}
+                            @if(!empty($demandeur->interesse))
+                              {{-- Input caché pour "Intéressé" --}}
+                              <div class="form-group" id="interesse-field">
+                                  <label>Nom de l'intéressé:</label>
+                                  <div class="input-group">
+                                      <div class="input-group-prepend">
+                                          <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                      </div>
+                                      <input name="interesse" type="text" value="{{ $demandeur->interesse }}" class="form-control" placeholder="Nom de l'intéressé">
+                                  </div>
+                              </div>
+                            @endif
+
+                              {{-- Input Distrika --}}
                               <div class="form-group" id="interesse-field" >
-                                <label>Nom de l'intéressé:</label>
+                                <label>Distrique:</label>
             
                                 <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                                 </div>
-                                  <input name="interesse" type="text"  value="{{ $demandeur->interesse }} " class="form-control" placeholder="nom de l'intéressé">
+                                    <input type="text" value="{{ $demandeur->distrika }}" name="distrika" class="form-control" placeholder="Distrique de demandeur">
                                 </div>
                               </div>
 
-                               {{-- Input Kaominina --}}
-                               <div class="form-group" id="interesse-field" >
+                              {{-- Input Kaominina --}}
+                              <div class="form-group" id="interesse-field" >
                                 <label>Commune:</label>
             
                                 <div class="input-group">
@@ -109,17 +122,6 @@
                                 </div>
                               </div>
 
-                            {{-- Input Distrika --}}
-                            <div class="form-group" id="interesse-field" >
-                                <label>Distrique:</label>
-            
-                                <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                                </div>
-                                    <input type="text" value="{{ $demandeur->distrika }}" name="distrika" class="form-control" placeholder="Distrique de demandeur">
-                                </div>
-                            </div>
                             
                             {{-- Date de Naissance --}}
                             <div class="form-group">
